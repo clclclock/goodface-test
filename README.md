@@ -8,8 +8,8 @@
 
 | Що | Де |
 |---|---|
-| Файл Figma | [FIGMA_LINK] — дизайн-система; екрани у двох темах, стани блоків, стрілки взаємодій, дошка Logic і стан «у мінусі» — зібрано плагіном з прототипу |
-| Живий прототип | [PROTOTYPE_LINK] — AS-IS: `/` · TO-BE: `/tobe/` |
+| Файл Figma | https://www.figma.com/design/oTmMXyET5wu1Llx2WU9Gsi/VSavchenko-test-task--Goodface-?node-id=5-3422 — дизайн-система; екрани у двох темах, стани блоків, стрілки взаємодій, дошка Logic і стан «у мінусі» — зібрано плагіном з прототипу |
+| Живий прототип | https://vsavchenko-goodface.vercel.app — відкривається TO-BE; AS-IS: `/index.html` · стан «у мінусі»: `/tobe/states.html` |
 | Презентація (PDF) | у листі |
 
 ## Як це виглядає
