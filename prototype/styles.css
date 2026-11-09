@@ -3,12 +3,14 @@ body { margin: 0; background: var(--surface-page); color: var(--text-primary); f
 .ribbon { background: var(--feedback-warning-surface); color: var(--feedback-warning-text); font: var(--type-label); display: flex; align-items: center; gap: var(--scale-4); height: 29px; box-sizing: border-box; padding: 0 var(--scale-4); border-bottom: 1px solid var(--border-subtle); white-space: nowrap; } /* G-179: project navigation; 29 px — the side columns are 100vh − 29 px */
 .ribbon a { color: inherit; }
 .ribbon__nav { display: flex; align-items: center; gap: var(--scale-1); }
-.ribbon__title { font-weight: 600; margin-right: var(--scale-2); }
-.ribbon__link { text-decoration: none; padding: 2px 8px; border-radius: 6px; }
-.ribbon__link:hover { text-decoration: underline; }
-.ribbon__link[aria-current="page"] { background: var(--feedback-warning-text); color: var(--feedback-warning-surface); text-decoration: none; }
-.ribbon__note { flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; opacity: .85; }
-.ribbon__ext { display: flex; gap: var(--scale-3); }
+.ribbon__title { font-weight: 600; margin-right: var(--scale-2); padding-right: var(--scale-3); border-right: 1px solid color-mix(in oklch, currentColor 30%, transparent); }
+/* G-179b: the pages read as buttons — an outline, a hand and a fill on hover; the current page filled */
+.ribbon__link, .ribbon__ext a { text-decoration: none; padding: 1px 9px; border: 1px solid color-mix(in oklch, currentColor 45%, transparent); border-radius: 999px; cursor: pointer; transition: background var(--duration-base) var(--ease-standard); }
+.ribbon__link:hover, .ribbon__ext a:hover { background: color-mix(in oklch, currentColor 14%, transparent); }
+.ribbon__link:focus-visible, .ribbon__ext a:focus-visible { outline: 2px solid currentColor; outline-offset: 1px; }
+.ribbon__link[aria-current="page"] { background: var(--feedback-warning-text); border-color: var(--feedback-warning-text); color: var(--feedback-warning-surface); cursor: default; }
+.ribbon__note { flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; opacity: .8; }
+.ribbon__ext { display: flex; gap: var(--scale-1); }
 .app { display: grid; grid-template-columns: 76px 232px 1fr 48px; min-height: calc(100vh - 29px); background: var(--surface-card); }
 i[data-icon] { display: inline-flex; width: 16px; height: 16px; vertical-align: -3px; flex: none; }
 i[data-icon] svg { width: 100%; height: 100%; stroke-width: 1.75; }
