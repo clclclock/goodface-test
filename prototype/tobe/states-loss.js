@@ -4,7 +4,7 @@
 //   120 trading days, total −$1,440 (avg daily −$12); equity in the header = $50,000 + total
 //   the last 9 trading days = the last 5 weeks of Breakdowns: 14 trades, net −$186, total profit +$189 / total loss −$375;
 //   each tab (session · pairs · week) sums to the same 14 trades, 5 won, +$189 / −$375; a week's winning / losing days fit its trades.
-// Used by the page build → tobe/states.html (the build script is not in this package; the checks above run there). The main page (tobe/index.html) never shows these numbers.
+// Generates tobe/states.html from the TO-BE page; stops with an error if any number above does not hold. The main page (tobe/index.html) never shows these numbers.
 
 const START = 50000, TOTAL = -1440, DAYS = 120, WINNING = 50;
 // the last 9 trading days, by week (Wk 1 … Wk 5) — the Breakdowns weeks below are built on them
@@ -49,8 +49,9 @@ function rows(kind, list) {
   const nets = list.map(r => r[3] - r[4]), neg = Math.max(0, ...nets.map(v => -v)), pos = Math.max(0, ...nets);
   const half = (side, size, v) => {
     const fill = side === 'negative' ? Math.max(0, -v) : Math.max(0, v);
+    const fillEl = fill ? '<i class="diverge-bar__fill" style="flex-grow:' + fill + '"></i>' : '', rest = size - fill ? '<i class="diverge-bar__rest" style="flex-grow:' + (size - fill) + '"></i>' : '';
     return '<span class="diverge-bar__half" data-side="' + side + '" style="flex-grow:' + size + '">'
-      + (fill ? '<i class="diverge-bar__fill" style="flex-grow:' + fill + '"></i>' : '') + (size - fill ? '<i class="diverge-bar__rest" style="flex-grow:' + (size - fill) + '"></i>' : '') + '</span>';
+      + (side === 'negative' ? rest + fillEl : fillEl + rest) + '</span>'; // negative half: the fill touches the zero line on its right
   };
   return list.map(([name, trades, won, p, l], i) => {
     const net = nets[i], rate = Math.round(won / trades * 100);

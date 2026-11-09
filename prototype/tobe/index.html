@@ -285,11 +285,11 @@
 </div>
 <script src="../icons.js"></script>
 <script>/* ?shot — screenshots for the deck: no prototype ribbon */ if (new URLSearchParams(location.search).has('shot')) { const r = document.querySelector('.ribbon'); if (r) r.remove(); }</script>
-<script>/* G-135…G-138 pilot: ?chart=line — the cumulative P&L line (equity curve) on the SAMPLE days of G-134 (0 → exactly +$6,384).
+<script>/* G-135…G-138, main variant since G-143: the cumulative P&L line (equity curve) on the SAMPLE days of G-134 (0 → exactly +$6,384).
    Hover as on Kraken (cursor, point, tip; after the cursor a grey line over dots, bright at the top, fading downwards); expand (G-139) → the whole Total P&L
    card takes the bento area with a period switch 1W · 1M · 3M · All (5 · 21 · 63 · 120 trading days); the other cards move down. */
 document.addEventListener('DOMContentLoaded', () => { const chart = new URLSearchParams(location.search).get('chart'); if (chart === 'bar' || chart === 'daily') return; // G-143: the line is the main variant; ?chart=bar — the split bar of G-60
-  const ALL = [65,-200,148,134,63,-187,131,103,217,226,255,-241,72,-146,154,102,136,237,-150,113,236,145,141,70,-172,92,-354,172,-171,-143,143,-287,135,-321,121,-88,254,313,-198,-139,153,-258,-395,166,303,89,-110,-392,313,162,181,314,88,122,-150,-187,84,93,302,89,-112,138,113,106,143,124,-179,174,-187,189,81,201,-271,75,118,158,178,-246,201,142,224,72,-156,-90,68,233,222,120,168,75,90,-137,131,-258,79,132,67,-95,98,75,137,219,176,-200,208,316,227,147,193,-90,116,-163,-167,88,245,145,-150,132,154,239];
+  const ALL = [67,-200,101,100,142,83,144,-173,108,-269,-394,80,105,164,174,95,199,78,-268,178,94,109,134,-146,229,246,210,-226,-170,300,-127,98,218,-144,216,-107,89,298,-395,-327,99,212,137,-242,182,-262,112,-101,119,241,86,181,205,-238,-171,181,145,167,-238,-200,202,253,102,111,207,76,158,-182,-209,264,-159,94,85,78,181,217,72,-216,133,83,222,139,-190,261,88,230,90,-176,213,89,-222,88,150,41,-173,64,142,173,-52,-43,261,191,-200,199,89,249,206,-90,316,112,79,95,-232,275,-98,179,85,243,163,-150];
   const W = 1000, H = 100;
   const money = v => (v < 0 ? '−' : '+') + '$' + Math.abs(v).toLocaleString('en-US');
   const icon = n => '<i data-icon="' + n + '" aria-hidden="true">' + ((window.ICONS || {})[n] || '') + '</i>';
@@ -318,8 +318,12 @@ document.addEventListener('DOMContentLoaded', () => { const chart = new URLSearc
     + '<g clip-path="url(#' + id + '-right)"><polyline class="line-chart__line" data-tone="muted" points="' + s.pts + '"/></g>'
     + '<line class="line-chart__cursor" x1="0" y1="0" x2="0" y2="' + H + '"/>'
     + '<ellipse class="line-chart__marker" cx="0" cy="0" rx="4" ry="4"/></svg>';
+  // review 2: a y scale, not «Peak / Low» labels that read as points — the top and bottom of the range and $0 at the zero line
+  const yAxis = s => '<div class="line-chart__y">' + (s.lo < 0 && s.hi > 0 && s.Z > H * 0.2 && s.Z < H * 0.8 // $0 only where it does not crowd the top or bottom label
+    ? '<span>' + money(s.hi) + '</span><i style="flex-grow:' + s.Z + '"></i><span>$0</span><i style="flex-grow:' + (H - s.Z) + '"></i><span>' + money(s.lo) + '</span>'
+    : '<span>' + (s.hi > 0 ? money(s.hi) : '$0') + '</span><i style="flex-grow:1"></i><span>' + (s.lo < 0 ? money(s.lo) : '$0') + '</span>') + '</div>';
   const chartHtml = (id, size, s) => '<div class="line-chart" data-size="' + (size || 'sm') + '" role="img" aria-label="Cumulative net P&L over the last ' + s.k + ' trading days — sample data">'
-    + (size === 'lg' ? '<div class="line-chart__plot">' + svg(id, s) + '<div class="line-chart__y"><span>Peak ' + money(s.hi) + '</span><span>' + (s.lo < 0 ? 'Low ' + money(s.lo) : '$0') + '</span></div></div>' : svg(id, s))
+    + (size === 'lg' ? '<div class="line-chart__plot">' + svg(id, s) + yAxis(s) + '</div>' : svg(id, s))
     + '<div class="line-chart__scale"><span>Day ' + (s.first + 1) + '</span><span>Day 120</span></div></div>';
   const bind = (root, s) => {
     const el = root.querySelector('.line-chart__svg');
@@ -409,7 +413,7 @@ document.addEventListener('DOMContentLoaded', () => { const chart = new URLSearc
     if (active) active.leave();
     stop(); stop = () => {};
     const s = series(k), from = geom;
-    const box = hero.querySelector('.kpi-card__chart'); box.innerHTML = chartHtml('lc-lg', 'lg', s); bind(box, s);
+    const box = hero.querySelector('.kpi-card__chart'); box.innerHTML = '<div class="kpi-card__trend-head"><span>Cumulative P&amp;L</span><span class="tag">Sample data</span></div>' + chartHtml('lc-lg', 'lg', s); // review 2: the tag stays with the chart, not with the total bind(box, s);
     actions.querySelector('.kpi-card__period').innerHTML = (k === 120 ? 'All time' : 'Last ' + k + ' days') + ' <b>' + money(s.cum[s.N]) + '</b>';
     const ms = parseFloat(getComputedStyle(box).getPropertyValue('--duration-slow')) || 0;
     if (from && ms) stop = flow(box, from, s, ms); else geom = sample(s);
@@ -425,7 +429,6 @@ document.addEventListener('DOMContentLoaded', () => { const chart = new URLSearc
       trend.hidden = true; // the big chart takes its place
       // G-140: on the full width the bars stand in two columns — Trading days | Average day — so no bar runs ~1,900 px from its number
       cols = document.createElement('div'); cols.className = 'kpi-card__columns'; sb.before(cols); cols.append(sb, hero.querySelector('.pair-bar'));
-      hero.querySelector('.kpi-card__head-main').insertAdjacentHTML('beforeend', '<span class="tag" data-sample-big>Sample data</span>');
       setBtn(true); show(120); btn.focus({ preventScroll: true });
       const seg = actions.querySelector('.segmented');
       seg.addEventListener('click', e => {
@@ -443,7 +446,6 @@ document.addEventListener('DOMContentLoaded', () => { const chart = new URLSearc
       actions.querySelector('.kpi-card__period').remove(); actions.querySelector('.segmented').remove();
       big.remove(); big = null; stop(); geom = null;
       cols.replaceWith(...cols.children); cols = null;
-      hero.querySelector('[data-sample-big]').remove();
       trend.hidden = false;
       setBtn(false); btn.focus({ preventScroll: true });
     });

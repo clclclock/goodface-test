@@ -167,6 +167,8 @@
 .line-chart__plot .line-chart__svg { flex: 1; min-width: 0; }
 .line-chart[data-size="lg"] .line-chart__svg { height: var(--size-chart-lg); }
 .line-chart__y { display: flex; flex-direction: column; justify-content: space-between; font: var(--type-caption); color: var(--text-muted); text-align: right; }
+.line-chart__y span { white-space: nowrap; } /* review 2: a y scale — top, $0 at the zero line, bottom */
+.kpi-card__chart { display: flex; flex-direction: column; gap: var(--space-tight); } /* expanded: «Cumulative P&L · Sample data» over the big chart */
 .pair-bar { display: flex; flex-direction: column; gap: var(--space-inline); }
 .pair-bar__title { font: var(--type-label); color: var(--text-secondary); }
 .pair-bar__row { display: flex; align-items: center; gap: var(--space-stack); }

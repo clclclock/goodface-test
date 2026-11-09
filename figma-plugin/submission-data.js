@@ -49,5 +49,8 @@ function audit(md) {
 module.exports = () => {
   const sub = fs.readFileSync(path.join(ROOT, 'docs', 'submission.md'), 'utf8');
   const aud = fs.readFileSync(path.join(ROOT, 'docs', 'audit.md'), 'utf8');
-  return { frames: [audit(aud)].concat(frames(sub)) };
+  const fr = frames(sub), after = fr.filter(f => f.title.startsWith('Після 08.11'));
+  if (after.length !== 1) throw new Error('submission: expected one «Після 08.11» frame');
+  // review 2: «what is only in the prototype» goes first, so a reviewer sees it before comparing Figma with the prototype
+  return { frames: after.concat([audit(aud)], fr.filter(f => f !== after[0])) };
 };

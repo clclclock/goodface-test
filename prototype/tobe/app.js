@@ -27,7 +27,8 @@
     const [one, many] = NOUN[panel.dataset.panel] || ['row', 'rows'];
     const losing = rows.filter(r => r.net < 0), weak = rows.reduce((a, b) => (b.net < a.net ? b : a));
     const lead = losing.length === 1 ? 'Only losing ' + one + ': ' : losing.length ? 'Weakest ' + one + ': ' : 'All ' + many + ' in profit · smallest: ';
-    const verdict = weak.net >= 0 ? '' : weak.few ? ' — too few trades to act on yet' : ' — the first place to look';
+    // review 2: a gradient, not a cliff at 10 — under 10 trades «few trades» (the row tag), 10–29 still a small sample (research: ~30), 30+ a signal
+    const verdict = weak.net >= 0 ? '' : weak.few ? ' — too few trades to act on yet' : weak.trades < 30 ? ' — worth a look, but the sample is still small' : ' — the first place to look';
     const p = document.createElement('p'); p.className = 'breakdown-table__insight';
     p.innerHTML = '<b>Takeaway</b> ' + lead + weak.name + ' ' + weak.netText + ' over ' + weak.trades + ' trades' + verdict;
     panel.appendChild(p);

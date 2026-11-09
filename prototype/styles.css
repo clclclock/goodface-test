@@ -187,50 +187,6 @@ button.collapse:hover { color: var(--text-primary); background: var(--surface-ca
 .rail-theme { display: inline-flex; padding: 0; border: 0; background: transparent; color: var(--text-secondary); cursor: pointer; margin-bottom: var(--scale-5); transition: color var(--duration-fast) var(--ease-standard); }
 .rail-theme:hover { color: var(--text-primary); }
 .rail-theme i[data-icon] { width: 18px; height: 18px; }
-/* G-110 pilot — level-1 tabs (Overview / Performance / History), two variants for comparison (?nav=v1 | v2) */
-/* v1: title tabs — larger, semibold, no underline; inactive muted. Level 2 keeps the underline, so the two levels differ in kind, not size only */
-[data-look="r3"][data-nav="v1"] .pills { gap: var(--scale-6); }
-[data-look="r3"][data-nav="v1"] .pill { padding: 0; border-bottom: 0; font: 600 22px/30px var(--font-sans); letter-spacing: var(--tracking-heading); color: var(--text-muted); }
-[data-look="r3"][data-nav="v1"] .pill.on { color: var(--text-primary); border-bottom: 0; }
-[data-look="r3"][data-nav="v1"] .pill:not(.on):hover { color: var(--text-secondary); }
-/* v2: the account's sections live in the account card — account → its tabs, like a repository header */
-[data-look="r3"][data-nav="v2"] .topbar { flex-wrap: wrap; row-gap: 0; padding-bottom: 0; }
-[data-look="r3"][data-nav="v2"] .topbar .tabs-row { flex-basis: 100%; margin: var(--scale-3) auto 0; padding-top: var(--scale-1); border-top: 1px solid var(--border-divider); }
-[data-look="r3"][data-nav="v2"] .topbar .pill { padding: var(--scale-3) 0; }
-[data-look="r3"][data-nav="v2"] .subtabs { margin-top: var(--scale-5); }
-/* v3: level 1 back to Segmented Control, size = lg — «segments = views of one object (the account), underline = sub-sections».
-   Same component as the Breakdowns switch, bigger and in the page header; concentric corners (G-111) */
-[data-look="r3"][data-nav="v3"] .pills { gap: var(--space-tight); padding: var(--space-tight); background: var(--surface-track); border-radius: var(--radius-nested); }
-[data-look="r3"][data-nav="v3"] .pill { padding: var(--scale-2) var(--scale-4); border: 1px solid transparent; border-radius: var(--radius-control); font: var(--type-body-medium); color: var(--text-secondary); }
-[data-look="r3"][data-nav="v3"] .pill.on { background: var(--surface-card); border-color: var(--border-subtle); color: var(--brand-text); }
-[data-look="r3"][data-nav="v3"] .pill:not(.on):hover { background: var(--surface-hover); color: var(--text-primary); }
-/* v3 visual options (G-110): the same lg Segmented Control, different surfaces — the header row sits on the PAGE, not on a block */
-/* v3a — raised track: track = block tone + 1px border, active = card */
-[data-look="r3"][data-nav="v3a"] .pills, [data-look="r3"][data-nav="v3b"] .pills, [data-look="r3"][data-nav="v3c"] .pills, [data-look="r3"][data-nav="v3d"] .pills { gap: var(--space-tight); padding: var(--space-tight); border-radius: var(--radius-nested); }
-[data-look="r3"][data-nav^="v3"] .pill { padding: var(--scale-2) var(--scale-4); border: 1px solid transparent; border-radius: var(--radius-control); font: var(--type-body-medium); color: var(--text-secondary); }
-[data-look="r3"][data-nav^="v3"] .pill:not(.on):hover { background: var(--surface-hover); color: var(--text-primary); }
-[data-look="r3"][data-nav="v3a"] .pills { background: var(--surface-container); border: 1px solid var(--border-subtle); }
-[data-look="r3"][data-nav="v3a"] .pill.on { background: var(--surface-raised); border-color: var(--border-strong); color: var(--text-primary); }
-/* v3b — outline: no fill, only a 1px track border; active = card with border */
-[data-look="r3"][data-nav="v3b"] .pills { background: transparent; border: 1px solid var(--border-subtle); }
-[data-look="r3"][data-nav="v3b"] .pill.on { background: var(--surface-card); border-color: var(--border-subtle); color: var(--text-primary); }
-/* v3c — brand: active filled with brand blue, white text */
-[data-look="r3"][data-nav="v3c"] .pills { background: var(--surface-container); border: 1px solid var(--border-subtle); }
-[data-look="r3"][data-nav="v3c"] .pill.on { background: var(--brand-fill); border-color: var(--brand-fill); color: oklch(1 0 0); }
-/* v3d — tinted: no track; active = soft brand tint + brand text */
-[data-look="r3"][data-nav="v3d"] .pills { background: transparent; padding: 0; gap: var(--scale-1); }
-[data-look="r3"][data-nav="v3d"] .pill.on { background: color-mix(in oklch, var(--brand-fill) 16%, transparent); color: var(--brand-text); }
-/* G-126 pilot (?blue): shades of the brand blue for graphics WITHOUT a sign — Winning % fill and its 0–100 % track.
-   Money stays green / red; breakeven stays neutral grey (it means «neither»). Graphics ≥ 3:1 on the card. */
-[data-look="r3"][data-blue][data-theme="light"] { --graphic-neutral-strong: var(--light-blue-9); --graphic-track: var(--light-blue-5); }
-[data-look="r3"][data-blue][data-theme="dark"] { --graphic-neutral-strong: var(--dark-blue-9); --graphic-track: var(--dark-blue-6); }
-/* G-132 pilot (?font=a | b): two type directions on top of the look. Numbers = everything set in --type-numeric / numeric-lg / hero.
-   a — Inter for text, Geist Mono for the numbers; b — Geist for text, Geist Mono for the numbers. Free, Google Fonts (OFL). */
-[data-look="r3"][data-font] { --font-mono: "Geist Mono", ui-monospace, "SF Mono", monospace; --type-hero: 600 44px/52px var(--font-mono); --type-numeric-lg: 600 30px/36px var(--font-mono); --type-numeric: 500 14px/20px var(--font-mono); }
-[data-look="r3"][data-font="b"] { --font-sans: "Geist", system-ui, -apple-system, "Segoe UI", sans-serif; }
-/* G-132 c — Inter for text, JetBrains Mono for the numbers (the pair of G-82…G-85) */
-[data-look="r3"][data-font="c"] { --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", monospace; }
-
 /* G-139: the expanded Total P&L card — the cards morph to their new places (View Transitions), the motion of Costs & activity */
 ::view-transition-group(*) { animation-duration: var(--duration-expand); animation-timing-function: var(--ease-in-out); }
 ::view-transition-old(*), ::view-transition-new(*) { animation-duration: var(--duration-expand); }
