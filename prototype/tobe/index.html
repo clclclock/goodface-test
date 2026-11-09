@@ -413,7 +413,7 @@ document.addEventListener('DOMContentLoaded', () => { const chart = new URLSearc
     if (active) active.leave();
     stop(); stop = () => {};
     const s = series(k), from = geom;
-    const box = hero.querySelector('.kpi-card__chart'); box.innerHTML = '<div class="kpi-card__trend-head"><span>Cumulative P&amp;L</span><span class="tag">Sample data</span></div>' + chartHtml('lc-lg', 'lg', s); // review 2: the tag stays with the chart, not with the total bind(box, s);
+    const box = hero.querySelector('.kpi-card__chart'); box.innerHTML = '<div class="kpi-card__trend-head"><span>Cumulative P&amp;L</span><span class="tag">Sample data</span></div>' + chartHtml('lc-lg', 'lg', s); bind(box, s); // review 2: the tag stays with the chart, not with the total
     actions.querySelector('.kpi-card__period').innerHTML = (k === 120 ? 'All time' : 'Last ' + k + ' days') + ' <b>' + money(s.cum[s.N]) + '</b>';
     const ms = parseFloat(getComputedStyle(box).getPropertyValue('--duration-slow')) || 0;
     if (from && ms) stop = flow(box, from, s, ms); else geom = sample(s);
