@@ -34,7 +34,9 @@ const variantKey = (comp, v) => comp + ' | ' + Object.keys(v).sort().map(k => k 
 
 // the code's boxes, for the plugin's check: name, kind, position and size of every element
 const geometry = n => ({ t: n.t, name: n.name, cls0: (n.cls && n.cls[0]) || '', comp: n.comp || null, x: Math.round(n.x * 10) / 10, y: Math.round(n.y * 10) / 10, w: Math.round(n.w * 10) / 10, h: Math.round(n.h * 10) / 10, chars: n.t === 'text' ? n.text.chars : undefined, kids: (n.kids || []).map(geometry) });
-function build(screen, dark) {
+// extra (G-173): another page (the «in the red» state) drawn with THESE masters, without changing them —
+// for a file whose components were built from `screen`; a part the masters cannot show becomes a plain frame
+function build(screen, dark, extra) {
   const occ = new Map(); // key → { comp, variant, nodes: [] }
   const walk = n => {
     if (n.comp && !HAND.includes(n.comp)) {
@@ -120,7 +122,9 @@ function build(screen, dark) {
       if (m.t === 'inst') {
         const v = propsFor(o.comp, o.variant);
         out.push({ path: p, variant: v });
-        if (!HAND.includes(o.comp)) overrides(o, masterOf(o.comp, o.variant).spec, p, out); else handOverrides(o, p, out);
+        if (HAND.includes(o.comp)) handOverrides(o, p, out);
+        else if (masterOf(o.comp, o.variant)) overrides(o, masterOf(o.comp, o.variant).spec, p, out);
+        else out.lost = (out.lost || 0) + 1; // a variant the masters lack (only in extra)
         if (m.sizeH === 'FIXED' && Math.abs(m.w - o.w) > 0.5) out.push({ path: p, w: o.w });
         continue;
       }
@@ -152,18 +156,21 @@ function build(screen, dark) {
   };
   // screen: containers and plain boxes stay frames; components become instances
   const toScreen = n => {
-    if (n.comp && !HAND.includes(n.comp) && !masterOf(n.comp, n.variant)) n = Object.assign({}, n, { comp: null }); // a variant only the dark capture has → a frame
+    if (n.comp && !HAND.includes(n.comp) && !masterOf(n.comp, n.variant)) { FELL.push(n.comp + ' ' + JSON.stringify(n.variant)); n = Object.assign({}, n, { comp: null }); } // a variant only the dark capture has → a frame
     if (n.comp) {
       const ov = [];
       if (HAND.includes(n.comp)) handOverrides(n, [], ov);
       else overrides(n, masterOf(n.comp, n.variant).spec, [], ov);
+      if (ov.lost) { FELL.push(n.comp + ' ' + JSON.stringify(n.variant)); return toScreen(Object.assign({}, n, { comp: null })); } // structure the master lacks → a frame
       return { t: 'inst', comp: n.comp, props: propsFor(n.comp, n.variant), overrides: ov, name: n.name, sizeH: n.sizeH, sizeV: n.sizeV, w: n.w, h: n.h, wVar: n.wVar, margin: n.margin }; // a component keeps its outer margin (a wrapper in Figma)
     }
     const c = Object.assign({}, n);
     if (c.kids) c.kids = c.kids.map(toScreen);
     return c;
   };
+  const FELL = [];
   const tree = toScreen(screen.tree);
+  FELL.length = 0;
   const treeDark = dark ? toScreen(dark.tree) : null;
   const states = (screen.states || []).map((s, i) => ({ name: s.name, light: toScreen(s.tree), dark: dark && dark.states && dark.states[i] ? toScreen(dark.states[i].tree) : null }));
   // masters' nested instances need their variant props too
@@ -175,6 +182,7 @@ function build(screen, dark) {
   Object.keys(sets).forEach(visit);
   return {
     sets: order.map(c => ({ comp: c, props: sets[c].props, masters: sets[c].masters.map(m => ({ name: m.name, props: m.props, count: m.count, spec: m.spec })) })),
+    extra: extra ? (() => { FELL.length = 0; const t = toScreen(extra.tree); return { tree: t, raw: geometry(extra.tree), width: extra.width, frames: FELL.slice() }; })() : null,
     raw: geometry(screen.tree), rawDark: dark ? geometry(dark.tree) : null, tree, treeDark, states, width: screen.width, theme: screen.theme, source: screen.source,
   };
 }

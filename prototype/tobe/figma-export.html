@@ -2,6 +2,7 @@
 <meta charset="utf-8">
 <title>figma export</title>
 <!-- G-119: loads the TO-BE screen at 1440 px and writes its description (figma-export.js) into #out; read by ../../figma-plugin/extract-screen.js.
+     ?page=states — the illustrative «in the red» page (tobe/states.html) instead of the TO-BE screen (G-173).
      First the whole screen (.app), then the Breakdowns tip opened by a click — its panel becomes the «Info Tip · state=open» variant. -->
 <iframe id="f" style="width:1440px;height:700px;border:0"></iframe>
 <pre id="out"></pre>
@@ -9,7 +10,7 @@
 <script>
   const q = new URLSearchParams(location.search);
   const f = document.getElementById('f');
-  f.src = 'index.html?shot&theme=' + (q.get('theme') || 'light') + '&side=' + (q.get('side') || 'expanded');
+  f.src = (q.get('page') === 'states' ? 'states.html' : 'index.html') + '?shot&theme=' + (q.get('theme') || 'light') + '&side=' + (q.get('side') || 'expanded');
   f.addEventListener('load', async () => {
     const d = f.contentDocument;
     await d.fonts.ready;

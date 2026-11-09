@@ -732,7 +732,7 @@ async function applyDarkSelection() {
   return [`Dark theme applied to ${sel.length} selected layer(s) and everything inside`];
 }
 
-(figma.command === 'dark' ? applyDarkSelection() : figma.command === 'submission' ? addSubmission() : run()).then(
+(figma.command === 'dark' ? applyDarkSelection() : figma.command === 'submission' ? addSubmission() : figma.command === 'loss' ? addLossState() : run()).then(
   lines => { console.log(lines.join('\n')); figma.closePlugin('✓ Goodface DS — ' + lines.filter(l => !l.startsWith('Data')).join(' · ')); },
   err => { console.error(err); figma.closePlugin('✕ ' + (err && err.message ? err.message : String(err))); }
 );
