@@ -102,6 +102,11 @@ global.figma = {
   createPage() { if (PAGELIMIT && pages.length >= 3) throw new Error('Starter plan: 3 pages'); const p = node('PAGE'); p.remove = () => pages.splice(pages.indexOf(p), 1); pages.push(p); return p; },
   async setCurrentPageAsync(p) { if (!pages.includes(p)) throw new Error('not a page'); figma.currentPage = p; },
   createRectangle: () => node('RECTANGLE'),
+  createEllipse: () => node('ELLIPSE'),
+  createVector: () => { const v = node('VECTOR'); v.setVectorNetworkAsync = async net => { // G-174: arrows
+    const CAPS = ['NONE', 'ROUND', 'SQUARE', 'ARROW_LINES', 'ARROW_EQUILATERAL'];
+    if (!net.vertices.length || net.vertices.some(p => !Number.isFinite(p.x) || !Number.isFinite(p.y) || (p.strokeCap && !CAPS.includes(p.strokeCap)))) throw new Error('bad vertices ' + JSON.stringify(net.vertices));
+    if (net.segments.some(g => !net.vertices[g.start] || !net.vertices[g.end])) throw new Error('bad segments'); v.net = net; }; return v; },
   createSection: () => node('SECTION'),
   createComponent: () => node('COMPONENT'),
   createFrame: () => node('FRAME'),
@@ -118,30 +123,6 @@ figma.command = process.argv.includes('--submission') ? 'submission' : undefined
 const first0 = node('PAGE'); first0.name = 'Page 1'; pages.push(first0); figma.currentPage = first0;
 if (PAGELIMIT) { const c = node('PAGE'); c.name = 'Components (generated)'; pages.push(c); c.remove = () => pages.splice(pages.indexOf(c), 1); } // like the hand-arranged file
 let code = fs.readFileSync(path.join(__dirname, 'code.js'), 'utf8');
-if (process.argv.includes('--loss')) { // G-173: a file built on 08.11 (its screen snapshot), then «Add loss state» twice
-  const at = code.indexOf(';\n\n', code.indexOf('const DATA = '));
-  global.__BASE = require('./screen-model').build(require('./screen-light-0811.json'));
-  global.__BASE.instances = 0;
-  code = code.slice(0, at) + ';\nif (globalThis.__BASE) DATA.screen = globalThis.__BASE;' + code.slice(at + 1);
-  const kids = n => n.children.reduce((k, c) => k + 1 + kids(c), 0);
-  const total = () => pages.reduce((k, p) => k + kids(p), 0);
-  new Function(code)();
-  setTimeout(() => {
-    const before = total(); delete global.__BASE; figma.command = 'loss';
-    new Function(code)();
-    setTimeout(() => {
-      const once = total();
-      new Function(code)();
-      setTimeout(() => {
-        const twice = total();
-        const lossFrames = pages.flatMap(p => p.children.filter(c => c.getPluginData('goodface') === 'loss'));
-        console.log('file nodes before:', before, '· after loss:', once, '· after a 2nd run:', twice, '· loss frames:', lossFrames.length);
-        if (once === before || once !== twice || lossFrames.length !== 1) { console.log('✕ loss command'); process.exitCode = 1; }
-      }, 50);
-    }, 50);
-  }, 50);
-  return;
-}
 // run twice: the second run must update, not duplicate
 new Function(code)();
 setTimeout(() => {

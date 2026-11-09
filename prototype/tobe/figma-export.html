@@ -2,69 +2,133 @@
 <meta charset="utf-8">
 <title>figma export</title>
 <!-- G-119: loads the TO-BE screen at 1440 px and writes its description (figma-export.js) into #out; read by ../../figma-plugin/extract-screen.js.
-     ?page=states — the illustrative «in the red» page (tobe/states.html) instead of the TO-BE screen (G-173).
-     First the whole screen (.app), then the Breakdowns tip opened by a click — its panel becomes the «Info Tip · state=open» variant. -->
+     ?page=states — the illustrative «in the red» page (tobe/states.html) instead of the TO-BE screen (G-173): the screen only.
+     The TO-BE page (G-174): the screen as it opens («Collapsed»), the screen with Total P&L expanded and Costs & activity open
+     («Expanded»), and the states of single blocks (hover, tips, tabs, sort, Trading panel collapsed) — each with the places
+     a click starts from and lands on («marks», px from the top-left of the screen or block), for the arrows in Figma. -->
 <iframe id="f" style="width:1440px;height:700px;border:0"></iframe>
 <pre id="out"></pre>
 <script src="figma-export.js"></script>
 <script>
   const q = new URLSearchParams(location.search);
   const f = document.getElementById('f');
-  f.src = (q.get('page') === 'states' ? 'states.html' : 'index.html') + '?shot&theme=' + (q.get('theme') || 'light') + '&side=' + (q.get('side') || 'expanded');
+  const STATES_PAGE = q.get('page') === 'states';
+  f.src = (STATES_PAGE ? 'states.html' : 'index.html') + '?shot&theme=' + (q.get('theme') || 'light') + '&side=' + (q.get('side') || 'expanded');
+  const wait = ms => new Promise(r => setTimeout(r, ms));
   f.addEventListener('load', async () => {
     const d = f.contentDocument;
+    const $ = s => d.querySelector(s);
     await d.fonts.ready;
-    await new Promise(r => setTimeout(r, 300));
-    for (let i = 0; i < 3; i++) { // the viewport = the page: sticky columns as tall as the page, like the Figma frame
-      const h = Math.ceil(d.querySelector('.main') ? d.querySelector('.main').scrollHeight : d.documentElement.scrollHeight);
-      if (Math.abs(f.clientHeight - h - 29) < 2) break; // the side columns are 100vh − 29 px (the prototype ribbon)
-      f.style.height = (h + 29) + 'px';
-      await new Promise(r => setTimeout(r, 300));
-    }
+    await wait(300);
+    const fit = async () => { // the viewport = the page: sticky columns as tall as the page, like the Figma frame
+      for (let i = 0; i < 4; i++) {
+        const h = Math.ceil($('.main') ? $('.main').scrollHeight : d.documentElement.scrollHeight);
+        if (Math.abs(f.clientHeight - h - 29) < 2) break; // the side columns are 100vh − 29 px (the prototype ribbon)
+        f.style.height = (h + 29) + 'px';
+        await wait(300);
+      }
+    };
+    await fit();
+    const rel = (el, root) => { const a = el.getBoundingClientRect(), b = root.getBoundingClientRect(); return { x: Math.round(a.left - b.left), y: Math.round(a.top - b.top), w: Math.round(a.width), h: Math.round(a.height) }; };
+    const markAll = (root, list) => { const m = {}; for (const [k, sel] of list) { const el = typeof sel === 'string' ? $(sel) : sel; if (el) m[k] = rel(el, root); } return m; };
+    // the expanded card is a state of the screen, not a KPI Card variant: a frame built from the same components (Line Chart lg, Segmented Control, Split Bar, Pair Bar, Tag)
+    const plain = n => { if (n.variant && 'expanded' in n.variant) { delete n.comp; delete n.variant; n.frame = 'Total P&L card · expanded'; } (n.kids || []).forEach(plain); return n; };
+
     const r = window.figmaExport(d, q.get('root') || '.app');
-    const trigger = d.querySelector('[aria-controls="tip-bd"]');
-    if (trigger) {
-      trigger.click();
-      await new Promise(r => setTimeout(r, 400));
-      const tip = window.figmaExport(d, '#tip-bd');
-      r.extras = (r.extras || []).concat(tip.tree);
-      trigger.click(); // close it again
-    }
-    // states the screen shows closed: Costs & activity open — its own frame in Figma
+    const app = $('.app');
+    r.extras = [];
     r.states = [];
-    const det = d.querySelector('details.disclosure');
-    if (det) {
-      det.open = true;
-      await new Promise(r => setTimeout(r, 500));
-      r.states.push({ name: 'Costs & activity · open', tree: window.figmaExport(d, 'details.disclosure').tree });
-      det.open = false;
+    if (STATES_PAGE) { document.getElementById('out').textContent = JSON.stringify(r); document.title = 'done'; return; }
+
+    // where the clicks start on the screen as it opens
+    const panel = $('.breakdown-table:not([hidden])') || $('.breakdown-table');
+    r.marks = markAll(app, [
+      ['expand', '[data-chart-toggle]'], ['costs', 'details.disclosure > summary'], ['chart', '.kpi-card[data-size="hero"] .line-chart'],
+      ['tipQuality', '[aria-controls="tip-quality"]'], ['tipBd', '[aria-controls="tip-bd"]'],
+      ['tabPair', '[data-tab="pair"]'], ['tabWeek', '[data-tab="week"]'], ['sort', panel && panel.querySelector('.breakdown-row__rate[data-sort]')],
+      ['side', '.collapse[data-side-toggle]'],
+    ]);
+    r.blocks = [];
+    const block = async (name, sel, overlaySel, at) => {
+      const root = $(sel), tree = window.figmaExport(d, sel).tree;
+      const overlays = [];
+      if (overlaySel && $(overlaySel)) overlays.push(Object.assign({ tree: window.figmaExport(d, overlaySel).tree }, rel($(overlaySel), root)));
+      r.blocks.push({ name, tree, overlays, w: root.getBoundingClientRect().width, at });
+      return tree;
+    };
+
+    // the Breakdowns tip opened by a click — its panel is the «Info Tip · state=open» variant
+    const bdTrigger = $('[aria-controls="tip-bd"]');
+    if (bdTrigger) {
+      bdTrigger.click(); await wait(400);
+      r.extras.push(window.figmaExport(d, '#tip-bd').tree);
+      await block('Info tip · Breakdowns', '.stat-block:has([aria-controls="tip-bd"]) > .stat-block__header', '#tip-bd', 'tipBd');
+      bdTrigger.click(); await wait(300);
     }
-    // G-143: the Total P&L card expanded (G-139…G-141) — the stat block as it then looks, its own frame in Figma; no morph while exporting
-    const grow = d.querySelector('[data-chart-toggle]');
+    const qTrigger = $('[aria-controls="tip-quality"]');
+    if (qTrigger) {
+      qTrigger.click(); await wait(400);
+      await block('Info tip · Per trade', '.stat-group:has([aria-controls="tip-quality"])', '#tip-quality', 'tipQuality');
+      qTrigger.click(); await wait(300);
+    }
+    // the small chart under the cursor: the line to the left in colour, the day and the running total in a tip
+    const svg = $('.kpi-card[data-size="hero"] .line-chart__svg');
+    if (svg) {
+      const b = svg.getBoundingClientRect();
+      svg.dispatchEvent(new PointerEvent('pointermove', { bubbles: true, clientX: b.left + b.width * 0.62, clientY: b.top + b.height / 2, pointerType: 'mouse' }));
+      await wait(500);
+      await block('Chart · hover', '.kpi-card[data-size="hero"]', '.chart-tip:popover-open', 'chart');
+      svg.dispatchEvent(new PointerEvent('pointerleave', { bubbles: false }));
+      await wait(300);
+    }
+    // Breakdowns: the other two tabs, then a sort by another column
+    const bd = '.stat-block:has([aria-controls="tip-bd"])';
+    for (const [tab, name, at] of [['pair', 'Breakdowns · By pairs', 'tabPair'], ['week', 'Breakdowns · By week', 'tabWeek']]) {
+      const t = $('[data-tab="' + tab + '"]'); if (!t) continue;
+      t.click(); await wait(400);
+      await block(name, bd, null, at);
+    }
+    const first = $('[data-tab="session"]'); if (first) { first.click(); await wait(400); }
+    const vis = $('.breakdown-table:not([hidden])');
+    const rate = vis && vis.querySelector('.breakdown-row__rate[data-sort]');
+    if (rate) {
+      rate.click(); await wait(400);
+      await block('Breakdowns · sorted by Winning %', bd, null, 'sort');
+      const net = vis.querySelector('.breakdown-row__net[data-sort]'); if (net) { net.click(); await wait(300); } // back to Net profit, high → low
+    }
+
+    // states the screen shows closed: Costs & activity open — its own frame in Figma
+    const det = $('details.disclosure');
+    if (det) {
+      det.open = true; await wait(500);
+      r.states.push({ name: 'Costs & activity · open', tree: window.figmaExport(d, 'details.disclosure').tree });
+      det.open = false; await wait(300);
+    }
+    // G-143: the Total P&L card expanded (G-139…G-141) — the stat block as it then looks; no morph while exporting
+    const grow = $('[data-chart-toggle]');
     if (grow) {
       d.startViewTransition = undefined;
-      grow.click();
-      await new Promise(r => setTimeout(r, 600));
-      const block = d.querySelector('.kpi-card[data-expanded]');
-      if (block) {
-        const tree = window.figmaExport(d, '.stat-block:has(.kpi-card[data-expanded])').tree;
-        // the expanded card is a state of the screen, not a KPI Card variant: a frame built from the same components (Line Chart lg, Segmented Control, Split Bar, Pair Bar, Tag)
-        const plain = n => { if (n.variant && 'expanded' in n.variant) { delete n.comp; delete n.variant; n.frame = 'Total P&L card · expanded'; } (n.kids || []).forEach(plain); };
-        plain(tree);
-        r.states.push({ name: 'Total P&L · expanded', tree });
-      }
-      grow.click();
-      await new Promise(r => setTimeout(r, 400));
+      grow.click(); await wait(600);
+      if ($('.kpi-card[data-expanded]')) r.states.push({ name: 'Total P&L · expanded', tree: plain(window.figmaExport(d, '.stat-block:has(.kpi-card[data-expanded])').tree) });
+      // G-174: the whole screen with the card expanded and Costs & activity open
+      if (det) { det.open = true; await wait(400); }
+      await fit();
+      const e = window.figmaExport(d, '.app');
+      r.screens = [{ name: 'Expanded', tree: plain(e.tree), height: e.height,
+        marks: markAll($('.app'), [['hero', '.kpi-card[data-expanded]'], ['costs', 'details.disclosure'], ['period', '.kpi-card[data-expanded] .segmented']]) }];
+      if (det) det.open = false;
+      $('[data-chart-toggle]').click(); await wait(400);
+      await fit();
     }
-    // the Trading panel collapsed to its icon strip (G-71…G-73) — the whole screen, as a state
-    r.extras = r.extras || [];
-    const toggle = d.querySelector('.collapse[data-side-toggle]');
+    // the Trading panel collapsed to its icon strip (G-71…G-73) — a variant of the component, and a block
+    const toggle = $('.collapse[data-side-toggle]');
     if (toggle) {
-      toggle.click();
-      await new Promise(r => setTimeout(r, 600));
-      r.extras.push(window.figmaExport(d, '.side').tree); // Trading Panel · state=collapsed — a variant of the component, not a second screen
-      const back = d.querySelector('[data-logo-expand]') || toggle; back.click();
-      await new Promise(r => setTimeout(r, 400));
+      toggle.click(); await wait(600);
+      const side = window.figmaExport(d, '.side').tree;
+      r.extras.push(side);
+      r.blocks.push({ name: 'Trading panel · collapsed', tree: JSON.parse(JSON.stringify(side)), overlays: [], w: $('.side').getBoundingClientRect().width, at: 'side' });
+      const back = $('[data-logo-expand]') || toggle; back.click();
+      await wait(400);
     }
     document.getElementById('out').textContent = JSON.stringify(r);
     document.title = 'done';

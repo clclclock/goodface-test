@@ -36,7 +36,9 @@ const variantKey = (comp, v) => comp + ' | ' + Object.keys(v).sort().map(k => k 
 const geometry = n => ({ t: n.t, name: n.name, cls0: (n.cls && n.cls[0]) || '', comp: n.comp || null, x: Math.round(n.x * 10) / 10, y: Math.round(n.y * 10) / 10, w: Math.round(n.w * 10) / 10, h: Math.round(n.h * 10) / 10, chars: n.t === 'text' ? n.text.chars : undefined, kids: (n.kids || []).map(geometry) });
 // extra (G-173): another page (the «in the red» state) drawn with THESE masters, without changing them —
 // for a file whose components were built from `screen`; a part the masters cannot show becomes a plain frame
-function build(screen, dark, extra) {
+// opts.loss (G-174): { light, dark } — the «in the red» page; its components join the masters (KPI Card hero · negative)
+function build(screen, dark, extra, opts) {
+  opts = opts || {};
   const occ = new Map(); // key → { comp, variant, nodes: [] }
   const walk = n => {
     if (n.comp && !HAND.includes(n.comp)) {
@@ -49,6 +51,9 @@ function build(screen, dark, extra) {
   walk(screen.tree);
   (screen.extras || []).forEach(walk); // states the screen does not show (the open tip) — masters only
   (screen.states || []).forEach(s => walk(s.tree)); // Costs & activity open: its rows are variants the closed screen lacks
+  (screen.screens || []).forEach(s => walk(s.tree)); // G-174: the Expanded screen
+  (screen.blocks || []).forEach(b => { walk(b.tree); (b.overlays || []).forEach(o => walk(o.tree)); }); // G-174: states of single blocks
+  if (opts.loss) walk(opts.loss.light.tree);
 
   // master spec: nested components become instance placeholders (their own master shows inside)
   const asMaster = (n, top) => {
@@ -182,6 +187,11 @@ function build(screen, dark, extra) {
   Object.keys(sets).forEach(visit);
   return {
     sets: order.map(c => ({ comp: c, props: sets[c].props, masters: sets[c].masters.map(m => ({ name: m.name, props: m.props, count: m.count, spec: m.spec })) })),
+    screens: (screen.screens || []).map((x, i) => ({ name: x.name, light: toScreen(x.tree), dark: dark && dark.screens && dark.screens[i] ? toScreen(dark.screens[i].tree) : null, raw: geometry(x.tree), marks: x.marks || {}, height: x.height })),
+    blocks: (screen.blocks || []).map((b, i) => { const db = dark && dark.blocks && dark.blocks[i]; return { name: b.name, at: b.at, w: b.w, light: toScreen(b.tree), dark: db ? toScreen(db.tree) : null,
+      overlays: (b.overlays || []).map((o, j) => ({ x: o.x, y: o.y, w: o.w, h: o.h, light: toScreen(o.tree), dark: db && db.overlays[j] ? toScreen(db.overlays[j].tree) : null })) }; }),
+    marks: screen.marks || {},
+    loss: opts.loss ? { light: toScreen(opts.loss.light.tree), dark: opts.loss.dark ? toScreen(opts.loss.dark.tree) : null, raw: geometry(opts.loss.light.tree), height: opts.loss.light.height } : null,
     extra: extra ? (() => { FELL.length = 0; const t = toScreen(extra.tree); return { tree: t, raw: geometry(extra.tree), width: extra.width, frames: FELL.slice() }; })() : null,
     raw: geometry(screen.tree), rawDark: dark ? geometry(dark.tree) : null, tree, treeDark, states, width: screen.width, theme: screen.theme, source: screen.source,
   };

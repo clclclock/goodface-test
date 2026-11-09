@@ -24,10 +24,6 @@
     {
       "name": "Add submission texts (only adds, changes nothing else)",
       "command": "submission"
-    },
-    {
-      "name": "Add loss state (only adds, changes nothing else)",
-      "command": "loss"
     }
   ]
 }

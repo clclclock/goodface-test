@@ -703,9 +703,8 @@ async function run() {
     const sp = await screenPage();
     const host = sp || A['Components'].page;
     await figma.setCurrentPageAsync(host);
-    const frames = await buildScreen(sp || A['Components'].parent);
+    const frames = await buildBoards(sp || A['Components'].parent); // G-174: boards, arrows, Logic
     figma.viewport.scrollAndZoomIntoView(frames);
-    log.push('TO-BE: light and dark, ' + DATA.screen.instances + ' instances');
     if (CHECK) log.push('Check: ' + CHECK.map(([t, r]) => `${t} ${r.n - r.rows.length}/${r.n} match, layers differ in ${r.rows.filter(x => x.worst === 999).length}`).join('; ') + ' (report above the screens)');
   } else {
     await figma.setCurrentPageAsync(A['Components'].page);
@@ -732,7 +731,7 @@ async function applyDarkSelection() {
   return [`Dark theme applied to ${sel.length} selected layer(s) and everything inside`];
 }
 
-(figma.command === 'dark' ? applyDarkSelection() : figma.command === 'submission' ? addSubmission() : figma.command === 'loss' ? addLossState() : run()).then(
+(figma.command === 'dark' ? applyDarkSelection() : figma.command === 'submission' ? addSubmission() : run()).then(
   lines => { console.log(lines.join('\n')); figma.closePlugin('✓ Goodface DS — ' + lines.filter(l => !l.startsWith('Data')).join(' · ')); },
   err => { console.error(err); figma.closePlugin('✕ ' + (err && err.message ? err.message : String(err))); }
 );
