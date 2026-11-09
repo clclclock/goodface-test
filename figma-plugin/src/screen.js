@@ -69,7 +69,7 @@ function renderSvg(s) {
   if (s.shapes && vectors.length === s.shapes.length) { // shape by shape, in document order: logo = brand blue, icon = its text colour
     vectors.forEach((v, i) => {
       const sh = s.shapes[i];
-      if ('fills' in v) v.fills = sh.fill ? [specPaint(sh.fill)] : [];
+      if ('fills' in v) v.fills = sh.fill ? [Object.assign({}, specPaint(sh.fill), sh.opacity != null ? { opacity: sh.opacity } : {})] : []; // G-176: the pale area right of the hover cursor
       if ('strokes' in v) v.strokes = sh.stroke ? [specPaint(sh.stroke)] : [];
     });
   } else {

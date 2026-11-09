@@ -168,8 +168,16 @@ window.figmaExport = function (doc, rootSel) {
       if ((y0 - Z) * (y1 - Z) < 0) { const t = (Z - y0) / (y1 - y0); pts.push([x0 + (x1 - x0) * t, Z]); }
       pts.push(P[i]);
     }
+    // G-176: the hover state (the «Chart · hover» block) — left of the cursor in colour, right of it grey over a pale fill, the cursor and the point
+    const svgEl = el, cursor = q('.line-chart__cursor'), hovered = svgEl.hasAttribute('data-hover') && cursor;
+    const cx = hovered ? +cursor.getAttribute('x1') * sx : Infinity;
+    const yAt = x => { for (let i = 1; i < pts.length; i++) if (pts[i][0] >= x) { const [x0, y0] = pts[i - 1], [x1, y1] = pts[i], t = x1 === x0 ? 0 : (x - x0) / (x1 - x0); return y0 + (y1 - y0) * t; } return pts[pts.length - 1][1]; };
+    const all = pts.slice();
+    const leftPts = hovered ? all.filter(p => p[0] <= cx).concat([[cx, yAt(cx)]]) : all;
+    const rightPts = hovered ? [[cx, yAt(cx)]].concat(all.filter(p => p[0] > cx)) : [];
+    pts.length = 0; leftPts.forEach(p => pts.push(p)); // the coloured part below works on pts
     const r2 = v => Math.round(v * 100) / 100, ps = a => a.map(([x, y]) => r2(x) + ',' + r2(y)).join(' ');
-    const area = a => ps([[pts[0][0], Z]].concat(a, [[pts[pts.length - 1][0], Z]]));
+    const area = a => ps([[a[0][0], Z]].concat(a, [[a[a.length - 1][0], Z]]));
     const pieces = above => { // runs of segments on one side; a segment lying on zero goes to the green side only
       const out = []; let cur = null;
       for (let i = 1; i < pts.length; i++) {
@@ -189,6 +197,17 @@ window.figmaExport = function (doc, rootSel) {
     parts.push('<line x1="0" y1="' + r2(Z) + '" x2="' + r2(node.w) + '" y2="' + r2(Z) + '" ' + attr(ax, 'stroke') + ' stroke-width="' + aw + '"/>'); shapes.push({ fill: null, stroke: ax.ref });
     for (const [side, pt] of [[true, lp], [false, ln]]) for (const run of pieces(side)) {
       parts.push('<polyline points="' + ps(run) + '" fill="none" ' + attr(pt, 'stroke') + ' stroke-width="' + lw + '" stroke-linejoin="round" stroke-linecap="round"/>'); shapes.push({ fill: null, stroke: pt.ref });
+    }
+    if (hovered && rightPts.length > 1) {
+      const muted = q('.line-chart__line[data-tone="muted"]'), dot = q('.line-chart__dot'), marker = q('.line-chart__marker');
+      const lm = paint(muted, 'stroke'), df = paint(dot, 'fill'), cs = paint(cursor, 'stroke'), mf = paint(marker, 'fill'), msk = paint(marker, 'stroke');
+      // the dotted, fading area of the prototype → a pale fill of the dot colour (Figma's SVG import drops patterns and masks)
+      parts.push('<polygon points="' + area(rightPts) + '" fill="' + hex(df.c) + '" fill-opacity="0.12"/>'); shapes.push({ fill: df.ref, stroke: null, opacity: 0.12 });
+      parts.push('<polyline points="' + ps(rightPts) + '" fill="none" ' + attr(lm, 'stroke') + ' stroke-width="' + lw + '" stroke-linejoin="round" stroke-linecap="round"/>'); shapes.push({ fill: null, stroke: lm.ref });
+      const dash = (win.getComputedStyle(cursor).strokeDasharray || '2 4').replace(/px/g, '').replace(/,/g, ' ');
+      parts.push('<line x1="' + r2(cx) + '" y1="0" x2="' + r2(cx) + '" y2="' + r2(node.h) + '" ' + attr(cs, 'stroke') + ' stroke-width="1" stroke-dasharray="' + dash + '"/>'); shapes.push({ fill: null, stroke: cs.ref });
+      const mw = parseFloat(win.getComputedStyle(marker).strokeWidth) || 2;
+      parts.push('<circle cx="' + r2(cx) + '" cy="' + r2(yAt(cx)) + '" r="4" ' + attr(mf, 'fill') + ' ' + attr(msk, 'stroke') + ' stroke-width="' + mw + '"/>'); shapes.push({ fill: mf.ref, stroke: msk.ref });
     }
     node.svg = '<svg xmlns="http://www.w3.org/2000/svg" width="' + r2(node.w) + '" height="' + r2(node.h) + '" viewBox="0 0 ' + r2(node.w) + ' ' + r2(node.h) + '">' + parts.join('') + '</svg>';
     node.shapes = shapes; node.color = null; node.name = 'Line';
