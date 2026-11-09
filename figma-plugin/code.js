@@ -142477,7 +142477,7 @@ async function buildBoards(parent) {
     const lx = lanes(side, bbx.x + bbx.w + gapL * 0.3, 22);
     for (const l of L) {
       badge(host, l.k, l.S.x, l.S.y);
-      if (l.top) { const yTop = bbx.y + BOARD.pad + 26, gx = bbx.x + bbx.w + gapL * 0.3 + side.length * 22 + 22; await line(host, [{ x: l.S.x - 14, y: l.S.y }, { x: gx, y: l.S.y }, { x: gx, y: yTop }, { x: l.E.x, y: yTop }, { x: l.E.x, y: l.E.y }], l.k); }
+      if (l.top) { const yTop = l.E.y - 32 /* the empty band between the board title and the cards, not through the title */, gx = bbx.x + bbx.w + gapL * 0.3 + side.length * 22 + 22; await line(host, [{ x: l.S.x - 14, y: l.S.y }, { x: gx, y: l.S.y }, { x: gx, y: yTop }, { x: l.E.x, y: yTop }, { x: l.E.x, y: l.E.y }], l.k); }
       else await line(host, [{ x: l.S.x - 14, y: l.S.y }, { x: lx[l.k], y: l.S.y }, { x: lx[l.k], y: l.E.y }, { x: l.E.x, y: l.E.y }], l.k);
       n++;
     }
