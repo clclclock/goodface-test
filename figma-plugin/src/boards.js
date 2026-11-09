@@ -42,7 +42,7 @@ const LOGIC = [
     'Reduce motion → no animation: the card expands and the chart switches period at once.',
   ]],
   ['Boards on this page', [
-    'Collapsed — the screen as it opens. Expanded — Total P&L expanded and Costs & activity open. Blocks — states of single blocks. In the red — the same components on an illustrative account in the red. A green number sits on what is clicked; the line with the same number leads to what it opens.',
+    'Collapsed — the screen as it opens. Expanded — Total P&L expanded and Costs & activity open. Blocks — states of single blocks. In the red — the same components on an illustrative account in the red, only the blocks a minus changes: the total, the curve and Breakdowns; Per trade, Per day & month and Costs look the same as on the main screen. A green number sits on what is clicked; the line with the same number leads to what it opens.',
     'Bars and curves are data: where a row or a card has its own bar lengths or its own curve, it is a frame named after its component — Figma cannot change the size or the shape of a layer inside an instance. The components themselves, with every variant, are on the Components page.',
   ]],
 ];
