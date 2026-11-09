@@ -78,7 +78,7 @@ i[data-icon] svg { width: 100%; height: 100%; stroke-width: 1.75; }
 .split .b { background: var(--surface-sunken); color: var(--text-secondary); }
 .split .l { background: var(--feedback-negative-surface); color: var(--feedback-negative-text); }
 
-.cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-gap); margin: var(--space-gap) 0; align-items: start; }
+.cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-gap); margin-block: var(--space-gap); align-items: start; }
 .row { display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px solid var(--border-subtle); color: var(--text-secondary); font-size: 13px; }
 .row:last-child { border-bottom: 0; }
 .row em { font-style: normal; color: var(--text-muted); font-size: 11px; }
