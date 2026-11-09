@@ -37,8 +37,20 @@ const geometry = n => ({ t: n.t, name: n.name, cls0: (n.cls && n.cls[0]) || '', 
 // extra (G-173): another page (the «in the red» state) drawn with THESE masters, without changing them —
 // for a file whose components were built from `screen`; a part the masters cannot show becomes a plain frame
 // opts.loss (G-174): { light, dark } — the «in the red» page; its components join the masters (KPI Card hero · negative)
+// G-175: a child that fills an axis its parent hugs (CSS stretch inside a column that grows with its content) collapses in Figma
+// (the Expanded screen came out 570 px short) → it hugs too, which is what the browser shows
+const fixFill = n => {
+  for (const k of n.kids || []) {
+    if (n.dir === 'V' && n.sizeV === 'HUG' && k.sizeV === 'FILL') k.sizeV = 'HUG';
+    if (n.dir === 'H' && n.sizeH === 'HUG' && k.sizeH === 'FILL') k.sizeH = 'HUG';
+    fixFill(k);
+  }
+  return n;
+};
+const fixAll = s => { if (!s) return; fixFill(s.tree); (s.screens || []).forEach(x => fixFill(x.tree)); (s.blocks || []).forEach(b => { fixFill(b.tree); (b.overlays || []).forEach(o => fixFill(o.tree)); }); (s.states || []).forEach(x => fixFill(x.tree)); (s.extras || []).forEach(fixFill); };
 function build(screen, dark, extra, opts) {
   opts = opts || {};
+  [screen, dark, extra, opts.loss && opts.loss.light, opts.loss && opts.loss.dark].forEach(fixAll);
   const occ = new Map(); // key → { comp, variant, nodes: [] }
   const walk = n => {
     if (n.comp && !HAND.includes(n.comp)) {
@@ -133,6 +145,11 @@ function build(screen, dark, extra, opts) {
         if (m.sizeH === 'FIXED' && Math.abs(m.w - o.w) > 0.5) out.push({ path: p, w: o.w });
         continue;
       }
+      if (m.t === 'svg') { // a curve is data: another shape cannot be an override (icons: same shape, colour by theme — compared by geometry only)
+        const geo = x => (String(x.svg || '').match(/\s(points|d|x|y|x1|x2|y1|y2|cx|cy|r|rx|ry|width|height)="[^"]*"/g) || []).join('|');
+        if (m.name === 'Line' && geo(m) !== geo(o)) out.lost = (out.lost || 0) + 1;
+        continue;
+      }
       if (m.t === 'text') {
         const e = { path: p, chars: o.text.chars };
         if (o.text.ranges) e.ranges = o.text.ranges;
@@ -166,7 +183,7 @@ function build(screen, dark, extra, opts) {
       const ov = [];
       if (HAND.includes(n.comp)) handOverrides(n, [], ov);
       else overrides(n, masterOf(n.comp, n.variant).spec, [], ov);
-      if (ov.lost) { FELL.push(n.comp + ' ' + JSON.stringify(n.variant)); return toScreen(Object.assign({}, n, { comp: null })); } // structure the master lacks → a frame
+      if (ov.lost || ov.some(o => o.w != null || o.h != null)) { FELL.push(n.comp); return toScreen(Object.assign({}, n, { comp: null, frame: n.comp })); } // structure the master lacks, or bars / a curve that are data → a frame named after the component
       return { t: 'inst', comp: n.comp, props: propsFor(n.comp, n.variant), overrides: ov, name: n.name, sizeH: n.sizeH, sizeV: n.sizeV, w: n.w, h: n.h, wVar: n.wVar, margin: n.margin }; // a component keeps its outer margin (a wrapper in Figma)
     }
     const c = Object.assign({}, n);

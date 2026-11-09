@@ -7030,7 +7030,8 @@
                   "h": 84,
                   "comp": "Line Chart",
                   "variant": {
-                   "size": "sm"
+                   "size": "sm",
+                   "tone": "positive"
                   },
                   "sizeV": "HUG",
                   "sizeH": "FILL",
@@ -22683,7 +22684,8 @@
           "h": 260,
           "comp": "Line Chart",
           "variant": {
-           "size": "lg"
+           "size": "lg",
+           "tone": "positive"
           },
           "sizeV": "HUG",
           "sizeH": "FILL",
@@ -32186,7 +32188,8 @@
         "h": 84,
         "comp": "Line Chart",
         "variant": {
-         "size": "sm"
+         "size": "sm",
+         "tone": "positive"
         },
         "sizeV": "HUG",
         "sizeH": "FILL",
@@ -60352,7 +60355,8 @@
                 "h": 260,
                 "comp": "Line Chart",
                 "variant": {
-                 "size": "lg"
+                 "size": "lg",
+                 "tone": "positive"
                 },
                 "sizeV": "HUG",
                 "sizeH": "FILL",

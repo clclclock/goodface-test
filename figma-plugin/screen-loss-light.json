@@ -7101,7 +7101,8 @@
                   "h": 84,
                   "comp": "Line Chart",
                   "variant": {
-                   "size": "sm"
+                   "size": "sm",
+                   "tone": "negative"
                   },
                   "sizeV": "HUG",
                   "sizeH": "FILL",
