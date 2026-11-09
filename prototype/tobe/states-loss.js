@@ -116,7 +116,7 @@ module.exports = function statesLoss({ html, content, groups, daily, ribbon }) {
   if (page.includes(JSON.stringify(daily))) throw new Error('states-loss: sample days left');
   page = page.split('>Sample data</span>').join('>Illustrative</span>').split('— sample data"').join('— illustrative data"'); // the curve, compact and expanded
   if (/Sample data|sample data/.test(page)) throw new Error('states-loss: a «sample data» label is left');
-  page = page.replace(/<div class="ribbon">[^\n]*<\/div>/, () => ribbon('loss', 'not data from the brief · only the blocks a minus changes: the total, the curve and Breakdowns', '../'));
+  page = page.replace(/<div class="ribbon">[^\n]*<\/div>/, () => ribbon('loss', 'not data from the brief', '../'));
   page = must(page, '<title>Performance · Summary — to-be (Goodface test)</title>', '<title>Illustrative state · in the red — to-be (Goodface test)</title>', 'title');
   const eq = START + TOTAL, ch = (TOTAL / START * 100).toFixed(2);
   page = page.replace(/id="acc-eq">[^<]*</, 'id="acc-eq">$' + eq.toLocaleString('en-US') + '<').replace(/class="pos" id="acc-ch">[^<]*</, 'class="neg" id="acc-ch">−' + Math.abs(ch) + '%<');
