@@ -1,0 +1,71 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>figma export</title>
+<!-- G-119: loads the TO-BE screen at 1440 px and writes its description (figma-export.js) into #out; read by ../../figma-plugin/extract-screen.js.
+     First the whole screen (.app), then the Breakdowns tip opened by a click — its panel becomes the «Info Tip · state=open» variant. -->
+<iframe id="f" style="width:1440px;height:700px;border:0"></iframe>
+<pre id="out"></pre>
+<script src="figma-export.js"></script>
+<script>
+  const q = new URLSearchParams(location.search);
+  const f = document.getElementById('f');
+  f.src = 'index.html?shot&theme=' + (q.get('theme') || 'light') + '&side=' + (q.get('side') || 'expanded');
+  f.addEventListener('load', async () => {
+    const d = f.contentDocument;
+    await d.fonts.ready;
+    await new Promise(r => setTimeout(r, 300));
+    for (let i = 0; i < 3; i++) { // the viewport = the page: sticky columns as tall as the page, like the Figma frame
+      const h = Math.ceil(d.querySelector('.main') ? d.querySelector('.main').scrollHeight : d.documentElement.scrollHeight);
+      if (Math.abs(f.clientHeight - h - 29) < 2) break; // the side columns are 100vh − 29 px (the prototype ribbon)
+      f.style.height = (h + 29) + 'px';
+      await new Promise(r => setTimeout(r, 300));
+    }
+    const r = window.figmaExport(d, q.get('root') || '.app');
+    const trigger = d.querySelector('[aria-controls="tip-bd"]');
+    if (trigger) {
+      trigger.click();
+      await new Promise(r => setTimeout(r, 400));
+      const tip = window.figmaExport(d, '#tip-bd');
+      r.extras = (r.extras || []).concat(tip.tree);
+      trigger.click(); // close it again
+    }
+    // states the screen shows closed: Costs & activity open — its own frame in Figma
+    r.states = [];
+    const det = d.querySelector('details.disclosure');
+    if (det) {
+      det.open = true;
+      await new Promise(r => setTimeout(r, 500));
+      r.states.push({ name: 'Costs & activity · open', tree: window.figmaExport(d, 'details.disclosure').tree });
+      det.open = false;
+    }
+    // G-143: the Total P&L card expanded (G-139…G-141) — the stat block as it then looks, its own frame in Figma; no morph while exporting
+    const grow = d.querySelector('[data-chart-toggle]');
+    if (grow) {
+      d.startViewTransition = undefined;
+      grow.click();
+      await new Promise(r => setTimeout(r, 600));
+      const block = d.querySelector('.kpi-card[data-expanded]');
+      if (block) {
+        const tree = window.figmaExport(d, '.stat-block:has(.kpi-card[data-expanded])').tree;
+        // the expanded card is a state of the screen, not a KPI Card variant: a frame built from the same components (Line Chart lg, Segmented Control, Split Bar, Pair Bar, Tag)
+        const plain = n => { if (n.variant && 'expanded' in n.variant) { delete n.comp; delete n.variant; n.frame = 'Total P&L card · expanded'; } (n.kids || []).forEach(plain); };
+        plain(tree);
+        r.states.push({ name: 'Total P&L · expanded', tree });
+      }
+      grow.click();
+      await new Promise(r => setTimeout(r, 400));
+    }
+    // the Trading panel collapsed to its icon strip (G-71…G-73) — the whole screen, as a state
+    r.extras = r.extras || [];
+    const toggle = d.querySelector('.collapse[data-side-toggle]');
+    if (toggle) {
+      toggle.click();
+      await new Promise(r => setTimeout(r, 600));
+      r.extras.push(window.figmaExport(d, '.side').tree); // Trading Panel · state=collapsed — a variant of the component, not a second screen
+      const back = d.querySelector('[data-logo-expand]') || toggle; back.click();
+      await new Promise(r => setTimeout(r, 400));
+    }
+    document.getElementById('out').textContent = JSON.stringify(r);
+    document.title = 'done';
+  });
+</script>

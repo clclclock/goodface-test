@@ -1,0 +1,247 @@
+/* Goodface test · tokens
+   Two tiers: primitives → semantic roles.
+   Primitives = raw values (OKLCH ramps, step = lightness ×100; scale/N = 4N px).
+   Semantic   = roles. Components use semantic tokens only.
+   Names match Figma Variables: `feedback/positive/text` ↔ --feedback-positive-text */
+
+:root {
+  /* ── Primitives · colour ─────────────────────────────
+     Measured 07.11 from the Goodface wireframe (pixels of the exported frames, G-57).
+     The wireframe uses a pure-grey ramp (hue 0) — the same values as Tailwind neutral.
+     Step = OKLCH lightness × 100. «✎» = not on the screen or changed for contrast, see G-57. */
+  --neutral-14: oklch(0.145 0 0);   /* #0a0a0a  headings, values */
+  --neutral-56: oklch(0.556 0 0);   /* #737373  labels */
+  --neutral-76: oklch(0.757 0 0);   /* #b0b0b0  «i» icons on the screen — kept for reference, not used (icons use text-muted for 3:1) */
+  --neutral-86: oklch(0.86 0 0);    /* ✎ strong border, breakeven — not on the screen */
+  --neutral-92: oklch(0.922 0 0);   /* #e5e5e5  card border */
+  --neutral-96: oklch(0.961 0 0);   /* #f2f2f2  row divider */
+  --neutral-97: oklch(0.970 0 0);   /* #f5f5f5  neutral chip «B 0» */
+  --neutral-99: oklch(0.994 0 0);   /* #fdfdfd  KPI card */
+  --neutral-100: oklch(1 0 0);      /* #ffffff  block card */
+
+  --green-54: oklch(0.54 0.134 160.9);  /* ✎ #008554 text; screen #009966 is 3.6:1 on white, darkened to 4.7:1, same hue */
+  --green-70: oklch(0.705 0.110 154);   /* #64b480  bars (Breakdowns) */
+  --green-96: oklch(0.957 0.022 171.8); /* #e3f6ef  chip «W 85» */
+
+  --red-53: oklch(0.527 0.216 29.2);    /* #ca0000  text, 6:1 */
+  --red-67: oklch(0.673 0.172 20);      /* #ed6269  bars (Breakdowns) */
+  --red-93: oklch(0.932 0.022 17.6);    /* #f7e3e3  chip «L 35» */
+
+  --amber-45: oklch(0.55 0.13 70);      /* ✎ warning — only «Close to daily limit» in the header; not measured */
+  --amber-70: oklch(0.78 0.15 75);
+  --amber-95: oklch(0.97 0.04 85);
+
+  /* ── Primitives · scale (4N) ─────────────────────── */
+  --scale-1: 4px;  --scale-2: 8px;  --scale-3: 12px; --scale-4: 16px;
+  --scale-5: 20px; --scale-6: 24px; --scale-8: 32px; --scale-10: 40px;
+
+  /* ── Primitives · type ───────────────────────────── */
+  --font-sans: "Geist", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "DM Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+
+  /* ── Semantic · surface ──────────────────────────── */
+  --surface-page: var(--neutral-99);
+  --surface-card: var(--neutral-100);
+  --surface-sunken: var(--neutral-97);
+  --surface-inverse: var(--neutral-14);
+
+  /* ── Semantic · text ─────────────────────────────── */
+  --text-primary: var(--neutral-14);
+  --text-secondary: var(--neutral-56);
+  --text-muted: var(--neutral-56);  /* screen: #9d9d9d (2.7:1) — raised to AA */
+  --text-on-inverse: var(--neutral-100);
+
+  /* ── Semantic · border ───────────────────────────── */
+  --border-subtle: var(--neutral-92);
+  --border-divider: var(--neutral-96);
+  --border-strong: var(--neutral-86);
+  --border-focus: var(--neutral-14);
+
+  /* ── Semantic · feedback (same anatomy for every group) ── */
+  --feedback-positive-text: var(--green-54);
+  --feedback-positive-graphic: var(--green-70);
+  --feedback-positive-surface: var(--green-96);
+  --feedback-negative-text: var(--red-53);
+  --feedback-negative-graphic: var(--red-67);
+  --feedback-negative-surface: var(--red-93);
+  --feedback-warning-text: var(--amber-45);
+  --feedback-warning-graphic: var(--amber-70);
+  --feedback-warning-surface: var(--amber-95);
+  --feedback-neutral-graphic: var(--neutral-86);
+
+  /* ── Semantic · layout ───────────────────────────── */
+  --space-inline: var(--scale-2);
+  --space-stack: var(--scale-3);
+  --space-inset: var(--scale-5);
+  --space-gap: var(--scale-4);
+  --space-section: var(--scale-8);
+  --radius-control: var(--scale-2);
+  --radius-container: var(--scale-3);
+  --radius-pill: 999px;
+
+  /* ── Semantic · type roles ───────────────────────── */
+  --type-hero: 500 40px/48px var(--font-mono);
+  --type-heading: 600 18px/28px var(--font-sans);  /* block title, screen: 28px line */
+  --type-title: 600 16px/24px var(--font-sans);
+  --type-body: 400 14px/20px var(--font-sans);
+  --type-label: 500 12px/16px var(--font-sans);
+  --type-caption: 400 12px/16px var(--font-sans);
+  --type-numeric: 500 14px/20px var(--font-mono);
+  --type-numeric-lg: 500 30px/36px var(--font-mono);  /* KPI value, screen: 36px line, width = 30px mono */
+}
+
+/* ── TO-BE additions (06.11) · used by tobe/components.css only ─────────
+   Added for the redesign; the AS-IS page does not use them. */
+:root {
+  /* Primitives */
+  --stroke-1: 1px;
+  --scale-05: 2px;
+
+  /* Semantic · layout */
+  --space-tight: var(--scale-1);
+  --space-inset-sm: var(--scale-4);
+  --space-inset-lg: var(--scale-6);
+  --size-bar: var(--scale-2);
+  --size-bar-sm: var(--scale-1);
+  --size-bar-gap: var(--scale-05);
+  --size-dot: var(--scale-2);
+  --border-width: var(--stroke-1);
+  --radius-bar: var(--scale-1);
+
+  /* Semantic · type roles */
+  --type-overline: 500 11px/16px var(--font-sans);
+  --tracking-overline: 0.06em;
+}
+
+/* TO-BE additions, part 2 (06.11) · breakdown table, stat groups */
+:root {
+  --graphic-neutral-strong: var(--neutral-56);
+  --graphic-track: var(--neutral-96);
+  --opacity-muted: 0.5;
+  --surface-tip: var(--neutral-14);
+}
+
+/* TO-BE additions, part 3 (06.11) · fixed column widths.
+   Figma auto layout has Fill / Hug / Fixed only (no weighted fill), so table columns are Fixed and the name column is Fill. */
+:root {
+  --scale-16: 64px; --scale-18: 72px; --scale-28: 112px; --scale-38: 152px; --scale-44: 176px;
+  --size-col-lg: var(--scale-44);
+  --size-col-md: var(--scale-38);
+  --size-col-sm: var(--scale-28);
+  --size-num: var(--scale-18);
+  --size-num-sm: var(--scale-10);
+}
+
+/* TO-BE additions, part 4 (06.11) · no weighted fill, no raw font-weight */
+:root {
+  --scale-60: 240px; --scale-72: 288px;
+  --size-label: var(--scale-18);
+  --size-col-side: var(--scale-72);
+  --size-col-name: var(--scale-44);  /* 176: names take 75–105 px; the Net bar gets +64 px */
+  --type-body-medium: 500 14px/20px var(--font-sans);
+  --type-body-strong: 600 14px/20px var(--font-sans);
+}
+
+/* TO-BE additions, part 5 (07.11, G-63) · surface roles for the final look.
+   container = Stat Block; raised = cards inside it (KPI Card, Stat Group, Breakdown Table, Disclosure).
+   Defaults reproduce the current look; a visual direction changes only these values. */
+:root {
+  --surface-container: var(--surface-card);
+  --border-container: var(--border-subtle);
+  --elevation-container: none;
+  --surface-raised: var(--surface-card);
+  --border-raised: var(--border-subtle);
+  --elevation-raised: none;
+  --radius-raised: var(--radius-container);
+}
+
+/* TO-BE additions, part 6 (08.11, G-66 → G-69) · one bar weight; the zero line is taller than the bar; Info Tip overlay. */
+:root {
+  --size-axis: var(--scale-4);          /* zero line of a Diverge Bar — taller than the bar, so it reads as an axis */
+  --graphic-axis: var(--neutral-56);
+  --size-tip: var(--scale-72);          /* Info Tip width */
+  --elevation-overlay: 0 8px 24px oklch(0 0 0 / 0.16), 0 1px 3px oklch(0 0 0 / 0.12);
+}
+
+/* TO-BE additions, part 7 (08.11, G-70) · Info Tip tail; secondary text on an inverse surface. */
+:root {
+  --size-tip-arrow: var(--scale-3);
+  --size-tip-arrow-h: 6px;
+  --text-on-inverse-secondary: var(--neutral-76);
+}
+
+/* TO-BE additions, part 8 (08.11, G-75) · motion and interaction states.
+   Figma: durations / easing = the Smart Animate settings of variant transitions; hover / pressed = component variants.
+   «Reduce motion» in the OS sets every duration to 0 — nothing moves, states still change. */
+:root {
+  --duration-fast: 120ms;               /* hover, press, colour */
+  --duration-base: 200ms;               /* tab panel, disclosure, tip, sort */
+  --duration-slow: 480ms;               /* bars growing on first view */
+  --duration-expand: 220ms;             /* expand / collapse: Trading panel and Disclosure — one motion (G-77) */
+  --ease-in-out: cubic-bezier(0.25, 0.1, 0.25, 1);   /* = CSS «ease» */
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);   /* slight overshoot — the toast «pops» */
+  --duration-toast-in: 360ms;
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --motion-offset: var(--scale-1);      /* how far things slide in: 4 px */
+  --surface-hover: oklch(0 0 0 / 0.045);   /* overlay — works on any surface */
+  --surface-pressed: oklch(0 0 0 / 0.08);
+}
+@media (prefers-reduced-motion: reduce) {
+  :root { --duration-fast: 0ms; --duration-base: 0ms; --duration-slow: 0ms; --duration-expand: 0ms; --duration-toast-in: 0ms; --motion-offset: 0px; }
+}
+
+/* TO-BE additions, part 9 (08.11, G-86) · tighter letter-spacing for headings only; body, labels and tables keep Inter's
+   default spacing. Values follow Inter's own size-based tracking, pushed a little tighter. Figma: «Letter spacing» of the text style. */
+:root {
+  --tracking-heading: -0.02em;   /* type/heading — block titles, 18 px */
+  --tracking-title: -0.012em;    /* type/title — group and table titles, 16 px */
+}
+
+/* TO-BE additions, part 10 (08.11, G-102) · a track role for Segmented Control; brand text in the base set too. */
+:root {
+  --surface-track: var(--neutral-92);
+  --brand-text: oklch(0.5 0.17 259);
+}
+
+/* TO-BE additions, part 11 (08.11, G-111) · concentric corners: an outer frame around a rounded item, closer than its radius,
+   takes the item radius + the gap between them. Figma: the outer frame radius = inner radius + padding. */
+:root, [data-look] {   /* re-resolved where a theme changes radius-control */
+  --radius-nested: calc(var(--radius-control) + var(--space-tight));   /* Segmented Control track: 8 + 4 = 12 */
+}
+
+/* TO-BE additions, part 12 (08.11, G-113) · label fill: a translucent overlay, visible on the page, the block tray and a card alike. */
+:root {
+  --surface-tag: oklch(0 0 0 / 0.06);
+}
+
+/* G-127: the Stat Block's own roles — in the wireframe and R3 the block is a tray; R4 drops it (two levels) */
+:root {
+  --surface-block: var(--surface-container);
+  --border-block: var(--border-container);
+  --space-block-inset: var(--space-inset-lg);
+  --space-blocks: var(--space-gap);
+}
+
+/* G-129: Segmented Control edges have their own roles — in the wireframe and R3 they are the usual subtle / strong lines; R4 drops them */
+:root {
+  --border-track: var(--border-subtle);
+  --border-selected: var(--border-strong);
+  --surface-selected: var(--surface-raised);
+  --surface-track-lg: var(--surface-container);
+  --text-selected: var(--text-primary);
+}
+
+/* G-131: density has its own tokens — rows, card insets, gaps between cards. Wireframe / R3 / R4 = the values they had;
+   R5 (Kraken) opens them up and drops the divider lines: air separates, not lines */
+:root {
+  --space-row: var(--space-inline);
+  --space-card: var(--space-inset-sm);
+  --space-card-hero: var(--space-inset);
+  --space-cards: var(--space-gap);
+}
+
+/* G-134: Day Chart height (pilot) */
+:root { --size-chart: var(--scale-16); --size-line: var(--scale-05); --size-chart-lg: var(--scale-60); --size-column: var(--scale-72); /* G-140: the narrowest column before columns stack */ }
+/* G-141: the widest the page content gets — on 2K and wider monitors it stays centred with fields at the sides (1440 = the content of a 1,920 screen) */
+:root { --size-content: 1440px; }

@@ -1,0 +1,293 @@
+/* Final look — theme R5 (R3: G-65…G-68; R4: G-127). Generated from the look tokens.
+   Applies to any element with data-look="r3"; data-theme="light" | "dark" picks the value set. Components never change —
+   only semantic roles get new values (Figma: one collection, two modes; on Starter — two variable sets).
+   Dark greys from the visual reference. Cards on the block are LIGHTER than it;
+   the block is a tinted tray without a border;
+   green / red saturated, not pastel; colour only where it means something: money, and brand blue for the interface.
+   Fonts: Inter on everything — text and numbers — with tabular digits, as most trading products do (rsms.me — the full build), JetBrains Mono for numbers and small labels (Google Fonts). Both OFL.
+   Contrast: every text pair ≥ 4.5:1, every graphic ≥ 3:1 in its theme (0 failures). */
+/* primitives (tier 1, G-117) — <theme>-<family>-<step>: two ramps of 12 steps per family (light, dark), step = job:
+   1–2 backgrounds · 3–5 component fills · 6–8 borders · 9–10 solid · 11–12 text; «anchor» = a colour the screen already used.
+   alpha-<white|black>-<step>: 12 opacity steps for overlays. Themes below only point at them. */
+:root {
+  --light-gray-1: oklch(1.000 0.000 0);     /* #ffffff · anchor */
+  --light-gray-2: oklch(0.970 0.000 0);     /* #f5f5f5 · anchor */
+  --light-gray-3: oklch(0.946 0.000 0);     /* #ededed · anchor */
+  --light-gray-4: oklch(0.925 0.000 0);     /* #e6e6e6 · anchor */
+  --light-gray-5: oklch(0.894 0.000 0);     /* #dcdcdc · anchor */
+  --light-gray-6: oklch(0.833 0.000 0);     /* #c8c8c8 · anchor */
+  --light-gray-7: oklch(0.757 0.000 0);     /* #b0b0b0 · anchor */
+  --light-gray-8: oklch(0.667 0.000 0);     /* #949494 · anchor */
+  --light-gray-9: oklch(0.580 0.000 0);     /* #7a7a7a · anchor */
+  --light-gray-10: oklch(0.510 0.000 0);    /* #666666 · anchor */
+  --light-gray-11: oklch(0.409 0.000 0);    /* #4a4a4a · anchor */
+  --light-gray-12: oklch(0.000 0.000 0);    /* #000000 · anchor */
+  --light-blue-1: oklch(0.990 0.005 258);     /* #fafcff */
+  --light-blue-2: oklch(0.972 0.013 262);     /* #f1f6ff */
+  --light-blue-3: oklch(0.936 0.030 265);     /* #e0eaff */
+  --light-blue-4: oklch(0.900 0.048 266);     /* #cfdeff */
+  --light-blue-5: oklch(0.859 0.069 264);     /* #bad1ff */
+  --light-blue-6: oklch(0.811 0.094 264);     /* #a3c1ff */
+  --light-blue-7: oklch(0.739 0.134 265);     /* #81a8ff */
+  --light-blue-8: oklch(0.643 0.190 265);     /* #5384ff */
+  --light-blue-9: oklch(0.500 0.264 265);     /* #1644f6 · anchor */
+  --light-blue-10: oklch(0.470 0.264 265);    /* #1537eb */
+  --light-blue-11: oklch(0.440 0.229 266);    /* #1938ce · anchor */
+  --light-blue-12: oklch(0.299 0.146 266);    /* #0c2075 */
+  --light-green-1: oklch(0.990 0.015 158);    /* #f4fff8 */
+  --light-green-2: oklch(0.979 0.017 159);    /* #effcf4 · anchor */
+  --light-green-3: oklch(0.953 0.047 159);    /* #d6fae4 */
+  --light-green-4: oklch(0.928 0.065 157);    /* #c5f5d6 */
+  --light-green-5: oklch(0.898 0.081 156);    /* #b2eec7 */
+  --light-green-6: oklch(0.864 0.099 155);    /* #9de6b6 */
+  --light-green-7: oklch(0.812 0.118 154);    /* #81d89e */
+  --light-green-8: oklch(0.744 0.145 153);    /* #58c67f */
+  --light-green-9: oklch(0.641 0.170 152);    /* #00a854 · anchor */
+  --light-green-10: oklch(0.575 0.152 152);   /* #009148 */
+  --light-green-11: oklch(0.508 0.133 152);   /* #007a3d · anchor */
+  --light-green-12: oklch(0.299 0.078 153);   /* #003819 */
+  --light-red-1: oklch(0.989 0.005 17);      /* #fffafa */
+  --light-red-2: oklch(0.968 0.014 17);      /* #fef1f1 · anchor */
+  --light-red-3: oklch(0.941 0.030 20);      /* #ffe4e3 */
+  --light-red-4: oklch(0.911 0.046 18);      /* #ffd6d6 */
+  --light-red-5: oklch(0.879 0.064 21);      /* #ffc7c5 */
+  --light-red-6: oklch(0.840 0.088 21);      /* #ffb4b2 */
+  --light-red-7: oklch(0.784 0.126 23);      /* #ff9793 */
+  --light-red-8: oklch(0.709 0.184 23);      /* #ff6968 */
+  --light-red-9: oklch(0.595 0.209 24);      /* #e0323a · anchor */
+  --light-red-10: oklch(0.558 0.215 25);     /* #d51927 */
+  --light-red-11: oklch(0.522 0.205 27);     /* #c4121b · anchor */
+  --light-red-12: oklch(0.299 0.118 27);     /* #5b0307 */
+  --light-amber-1: oklch(0.993 0.013 97);    /* #fffdf3 */
+  --light-amber-2: oklch(0.987 0.021 95);    /* #fffbeb · anchor */
+  --light-amber-3: oklch(0.960 0.042 89);    /* #fdf1d2 */
+  --light-amber-4: oklch(0.932 0.058 84);    /* #fbe6bd */
+  --light-amber-5: oklch(0.901 0.074 81);    /* #f8daa7 */
+  --light-amber-6: oklch(0.863 0.089 74);    /* #f5ca90 */
+  --light-amber-7: oklch(0.809 0.107 69);    /* #eeb472 */
+  --light-amber-8: oklch(0.737 0.130 65);    /* #e29748 */
+  --light-amber-9: oklch(0.628 0.148 59);    /* #c86e00 */
+  --light-amber-10: oklch(0.592 0.148 54);   /* #bf6000 */
+  --light-amber-11: oklch(0.555 0.146 49);   /* #b45309 · anchor */
+  --light-amber-12: oklch(0.300 0.081 48);   /* #4d1e00 */
+  --dark-gray-1: oklch(0.000 0.000 0);      /* #000000 · anchor */
+  --dark-gray-2: oklch(0.178 0.000 0);      /* #111111 · anchor */
+  --dark-gray-3: oklch(0.218 0.000 0);      /* #1a1a1a · anchor */
+  --dark-gray-4: oklch(0.239 0.000 0);      /* #1f1f1f · anchor */
+  --dark-gray-5: oklch(0.264 0.000 0);      /* #252525 · anchor */
+  --dark-gray-6: oklch(0.301 0.000 0);      /* #2e2e2e · anchor */
+  --dark-gray-7: oklch(0.348 0.000 0);      /* #3a3a3a · anchor */
+  --dark-gray-8: oklch(0.394 0.000 0);      /* #464646 · anchor */
+  --dark-gray-9: oklch(0.535 0.000 0);      /* #6d6d6d · anchor */
+  --dark-gray-10: oklch(0.633 0.000 0);     /* #8a8a8a · anchor */
+  --dark-gray-11: oklch(0.773 0.000 0);     /* #b5b5b5 · anchor */
+  --dark-gray-12: oklch(1.000 0.000 0);     /* #ffffff · anchor */
+  --dark-blue-1: oklch(0.176 0.051 265);      /* #060f27 */
+  --dark-blue-2: oklch(0.202 0.073 265);      /* #061337 */
+  --dark-blue-3: oklch(0.235 0.091 265);      /* #081948 */
+  --dark-blue-4: oklch(0.268 0.109 265);      /* #0a1f5a */
+  --dark-blue-5: oklch(0.299 0.130 265);      /* #0c246d */
+  --dark-blue-6: oklch(0.338 0.150 265);      /* #102c83 */
+  --dark-blue-7: oklch(0.386 0.177 265);      /* #1435a0 */
+  --dark-blue-8: oklch(0.451 0.212 265);      /* #1942c8 */
+  --dark-blue-9: oklch(0.530 0.259 265);      /* #1f51fe · anchor */
+  --dark-blue-10: oklch(0.587 0.225 263);     /* #306eff */
+  --dark-blue-11: oklch(0.701 0.156 262);     /* #679cff · anchor */
+  --dark-blue-12: oklch(0.931 0.033 261);     /* #dce9ff */
+  --dark-green-1: oklch(0.173 0.039 157);     /* #011509 */
+  --dark-green-2: oklch(0.257 0.056 155);     /* #062b17 · anchor */
+  --dark-green-3: oklch(0.305 0.069 155);     /* #08391f */
+  --dark-green-4: oklch(0.355 0.083 154);     /* #094827 */
+  --dark-green-5: oklch(0.402 0.099 154);     /* #06572e */
+  --dark-green-6: oklch(0.461 0.114 153);     /* #0a6a38 */
+  --dark-green-7: oklch(0.533 0.134 153);     /* #0e8245 */
+  --dark-green-8: oklch(0.631 0.161 152);     /* #0fa456 */
+  --dark-green-9: oklch(0.752 0.197 152);     /* #0ad06b · anchor */
+  --dark-green-10: oklch(0.775 0.198 152);    /* #22d872 */
+  --dark-green-11: oklch(0.820 0.178 152);    /* #57e488 */
+  --dark-green-12: oklch(0.930 0.069 151);    /* #c7f6d1 */
+  --dark-red-1: oklch(0.174 0.040 17);       /* #1f080a */
+  --dark-red-2: oklch(0.224 0.044 17);       /* #2d1214 · anchor */
+  --dark-red-3: oklch(0.266 0.070 17);       /* #411419 */
+  --dark-red-4: oklch(0.310 0.085 18);       /* #531a1f */
+  --dark-red-5: oklch(0.351 0.101 19);       /* #651f25 */
+  --dark-red-6: oklch(0.406 0.116 20);       /* #7c282e */
+  --dark-red-7: oklch(0.469 0.136 20);       /* #983239 */
+  --dark-red-8: oklch(0.554 0.165 21);       /* #c03f47 */
+  --dark-red-9: oklch(0.660 0.190 21);       /* #f0555c · anchor */
+  --dark-red-10: oklch(0.678 0.201 21);      /* #fb555f */
+  --dark-red-11: oklch(0.713 0.181 21);      /* #ff6b70 · anchor */
+  --dark-red-12: oklch(0.930 0.036 20);      /* #ffdfde */
+  --dark-amber-1: oklch(0.174 0.036 87);     /* #170f00 */
+  --dark-amber-2: oklch(0.252 0.041 89);     /* #2a2108 · anchor */
+  --dark-amber-3: oklch(0.305 0.062 86);     /* #3d2c00 */
+  --dark-amber-4: oklch(0.356 0.073 84);     /* #4e3800 */
+  --dark-amber-5: oklch(0.406 0.084 80);     /* #614300 */
+  --dark-amber-6: oklch(0.471 0.099 76);     /* #7a5200 */
+  --dark-amber-7: oklch(0.550 0.117 73);     /* #9a6500 */
+  --dark-amber-8: oklch(0.652 0.141 70);     /* #c57e00 */
+  --dark-amber-9: oklch(0.782 0.171 67);     /* #ff9f0a · anchor */
+  --dark-amber-10: oklch(0.816 0.169 81);    /* #fab500 */
+  --dark-amber-11: oklch(0.885 0.181 95);    /* #ffd60a · anchor */
+  --dark-amber-12: oklch(0.929 0.070 95);    /* #f6e8b3 */
+  --alpha-white-1: oklch(1 0 0 / 0.02);       /* #ffffff05 · 2% */
+  --alpha-white-2: oklch(1 0 0 / 0.04);       /* #ffffff0a · 4% */
+  --alpha-white-3: oklch(1 0 0 / 0.06);       /* #ffffff0f · 6% */
+  --alpha-white-4: oklch(1 0 0 / 0.08);       /* #ffffff14 · 8% */
+  --alpha-white-5: oklch(1 0 0 / 0.10);       /* #ffffff1a · 10% */
+  --alpha-white-6: oklch(1 0 0 / 0.12);       /* #ffffff1f · 12% */
+  --alpha-white-7: oklch(1 0 0 / 0.16);       /* #ffffff29 · 16% */
+  --alpha-white-8: oklch(1 0 0 / 0.20);       /* #ffffff33 · 20% */
+  --alpha-white-9: oklch(1 0 0 / 0.32);       /* #ffffff52 · 32% */
+  --alpha-white-10: oklch(1 0 0 / 0.48);      /* #ffffff7a · 48% */
+  --alpha-white-11: oklch(1 0 0 / 0.64);      /* #ffffffa3 · 64% */
+  --alpha-white-12: oklch(1 0 0 / 0.80);      /* #ffffffcc · 80% */
+  --alpha-black-1: oklch(0 0 0 / 0.02);       /* #00000005 · 2% */
+  --alpha-black-2: oklch(0 0 0 / 0.04);       /* #0000000a · 4% */
+  --alpha-black-3: oklch(0 0 0 / 0.06);       /* #0000000f · 6% */
+  --alpha-black-4: oklch(0 0 0 / 0.08);       /* #00000014 · 8% */
+  --alpha-black-5: oklch(0 0 0 / 0.10);       /* #0000001a · 10% */
+  --alpha-black-6: oklch(0 0 0 / 0.12);       /* #0000001f · 12% */
+  --alpha-black-7: oklch(0 0 0 / 0.16);       /* #00000029 · 16% */
+  --alpha-black-8: oklch(0 0 0 / 0.20);       /* #00000033 · 20% */
+  --alpha-black-9: oklch(0 0 0 / 0.32);       /* #00000052 · 32% */
+  --alpha-black-10: oklch(0 0 0 / 0.48);      /* #0000007a · 48% */
+  --alpha-black-11: oklch(0 0 0 / 0.64);      /* #000000a3 · 64% */
+  --alpha-black-12: oklch(0 0 0 / 0.80);      /* #000000cc · 80% */
+}
+[data-look="r3"] {
+  --font-sans: "Inter", "InterVariable", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", monospace;       /* G-133: R5 — numbers in JetBrains Mono (Inter text); R3/R4 — Inter everywhere (G-95) */
+  --type-hero: 600 44px/52px var(--font-mono);          /* G-95: Inter on everything, digits of equal width (tnum below) */
+  --type-heading: 500 18px/28px var(--font-sans);
+  --type-title: 500 16px/24px var(--font-sans);
+  --type-numeric-lg: 600 30px/36px var(--font-mono);
+  --type-numeric: 500 14px/20px var(--font-mono);
+  --type-overline: 500 11px/16px var(--font-sans);
+  --size-bar: 6px;
+  --size-axis: 14px;                     /* zero line taller than the 6 px bar (G-69) */
+  --radius-container: var(--scale-6);   /* 16 — tray; R5: 24 */
+  --radius-raised: var(--scale-5);      /* 12 — card; R5: 20 */
+  --radius-control: var(--radius-pill);   /* 8; R5: pill — buttons, tabs, tags (Kraken) */
+  --space-block-inset: 0px;   /* G-127: r4 — the block has no tray, so no inset */
+  --space-blocks: var(--scale-10);       /* gap between the two blocks */
+  --space-row: var(--scale-3);          /* G-131 R5: more air, no lines — rows 12 / 12 */
+  --space-card: var(--space-inset-lg);  /* card inset 24 */
+  --space-card-hero: var(--space-inset-lg);
+  --space-cards: var(--scale-5);        /* 20 between cards */
+  font-feature-settings: "tnum" 1, "lnum" 1;
+  color: var(--text-primary);
+}
+[data-look="r3"][data-theme="dark"] {
+  color-scheme: dark;
+  --text-selected: var(--dark-gray-1);                      /* #000000 · text on the inverse active item */
+  --surface-track-lg: var(--dark-gray-2);                   /* #111111 */
+  --surface-selected: var(--dark-gray-12);                  /* #ffffff · active item — inverse, the strongest contrast on the screen (Kraken) */
+  --border-track: transparent;                       /* Segmented Control: no lines (G-129) — the fills tell track and item apart */
+  --border-selected: transparent;                    /* none */
+  --surface-block: transparent;                      /* two levels: the block is no surface, its cards sit on the page */
+  --border-block: transparent;                       /* none */
+  --surface-page: var(--dark-gray-1);                       /* #000000 · black page (Kraken) */
+  --surface-container: var(--dark-gray-2);                  /* #111111 · header bar = a card */
+  --border-container: var(--dark-gray-2);                   /* #111111 */
+  --surface-raised: var(--dark-gray-2);                     /* #111111 · cards #111 */
+  --border-raised: var(--dark-gray-2);                      /* #111111 · no card edge */
+  --border-subtle: var(--dark-gray-3);                      /* #1a1a1a */
+  --border-divider: transparent;                     /* no lines: rows are told apart by air (G-131) */
+  --border-strong: var(--dark-gray-6);                      /* #2e2e2e · control border */
+  --surface-card: var(--dark-gray-4);                       /* #1f1f1f · shell: active nav item */
+  --surface-sunken: var(--dark-gray-2);                     /* #111111 */
+  --surface-tip: var(--dark-gray-12);                       /* #ffffff · tip = inverse in both themes */
+  --surface-inverse: var(--dark-gray-12);                   /* #ffffff · inverse: Open MT5 button, count badge, avatar, tip */
+  --text-on-inverse: var(--dark-gray-1);                    /* #000000 */
+  --text-on-inverse-secondary: var(--dark-gray-8);          /* #464646 · tip body text (G-70) */
+  --text-primary: var(--dark-gray-12);                      /* #ffffff · numbers, titles */
+  --text-secondary: var(--dark-gray-11);                    /* #b5b5b5 · labels, body */
+  --text-muted: var(--dark-gray-10);                        /* #8a8a8a · captions */
+  --graphic-track: var(--dark-gray-6);                      /* #2e2e2e */
+  --graphic-axis: var(--dark-gray-10);                      /* #8a8a8a · zero line — visible, quieter than the bars */
+  --graphic-neutral-strong: var(--dark-gray-10);            /* #8a8a8a · Winning % fill — quieter than money bars (G-106) */
+  --feedback-neutral-graphic: var(--dark-gray-9);           /* #6d6d6d · breakeven */
+  --feedback-positive-text: var(--dark-green-9);            /* #0ad06b · money only; dark: the solid green already reads as text */
+  --feedback-positive-graphic: var(--dark-green-9);         /* #0ad06b */
+  --feedback-positive-surface: var(--dark-green-2);         /* #062b17 */
+  --feedback-negative-text: var(--dark-red-11);             /* #ff6b70 */
+  --feedback-negative-graphic: var(--dark-red-9);           /* #f0555c */
+  --feedback-negative-surface: var(--dark-red-2);           /* #2d1214 */
+  --feedback-warning-text: var(--dark-amber-11);            /* #ffd60a */
+  --feedback-warning-surface: var(--dark-amber-2);          /* #2a2108 */
+  --feedback-warning-graphic: var(--dark-amber-9);          /* #ff9f0a · dot «Close to daily limit»; light: solid amber is too pale on white */
+  --brand-fill: var(--dark-blue-9);                         /* #1f51fe · platform blue — interface, never P&L */
+  --brand-text: var(--dark-blue-11);                        /* #679cff · brand on text size: links */
+  --border-focus: var(--dark-blue-11);                      /* #679cff · keyboard focus ring */
+  --surface-hover: var(--alpha-white-3);                    /* alpha-white-3 · overlay on hover */
+  --surface-pressed: var(--alpha-white-5);                  /* alpha-white-5 · overlay while pressed */
+  --surface-tag: var(--alpha-white-5);                      /* alpha-white-5 · label fill on any surface (G-113) */
+  --surface-track: var(--dark-gray-2);                      /* #111111 · Segmented track on the page */
+}
+[data-look="r3"][data-theme="light"] {
+  color-scheme: light;
+  --text-selected: var(--light-gray-1);                     /* #ffffff · text on the inverse active item */
+  --surface-track-lg: var(--light-gray-3);                  /* #ededed */
+  --surface-selected: var(--light-gray-12);                 /* #000000 · active item — inverse, the strongest contrast on the screen (Kraken) */
+  --border-track: transparent;                       /* Segmented Control: no lines (G-129) — the fills tell track and item apart */
+  --border-selected: transparent;                    /* none */
+  --surface-block: transparent;                      /* two levels: the block is no surface, its cards sit on the page */
+  --border-block: transparent;                       /* none */
+  --surface-page: var(--light-gray-2);                      /* #f5f5f5 · black page (Kraken) */
+  --surface-container: var(--light-gray-1);                 /* #ffffff · header bar = a card */
+  --border-container: var(--light-gray-1);                  /* #ffffff */
+  --surface-raised: var(--light-gray-1);                    /* #ffffff · cards #111 */
+  --border-raised: var(--light-gray-1);                     /* #ffffff · no card edge */
+  --border-subtle: var(--light-gray-4);                     /* #e6e6e6 */
+  --border-divider: transparent;                     /* no lines: rows are told apart by air (G-131) */
+  --border-strong: var(--light-gray-6);                     /* #c8c8c8 · control border */
+  --surface-card: var(--light-gray-3);                      /* #ededed · shell: active nav item */
+  --surface-sunken: var(--light-gray-3);                    /* #ededed */
+  --surface-tip: var(--light-gray-12);                      /* #000000 · tip = inverse in both themes */
+  --surface-inverse: var(--light-gray-12);                  /* #000000 · inverse: Open MT5 button, count badge, avatar, tip */
+  --text-on-inverse: var(--light-gray-1);                   /* #ffffff */
+  --text-on-inverse-secondary: var(--light-gray-8);         /* #949494 · tip body text (G-70) */
+  --text-primary: var(--light-gray-12);                     /* #000000 · numbers, titles */
+  --text-secondary: var(--light-gray-11);                   /* #4a4a4a · labels, body */
+  --text-muted: var(--light-gray-10);                       /* #666666 · captions */
+  --graphic-track: var(--light-gray-5);                     /* #dcdcdc */
+  --graphic-axis: var(--light-gray-10);                     /* #666666 · zero line — visible, quieter than the bars */
+  --graphic-neutral-strong: var(--light-gray-10);           /* #666666 · Winning % fill — quieter than money bars (G-106) */
+  --feedback-neutral-graphic: var(--light-gray-9);          /* #7a7a7a · breakeven */
+  --feedback-positive-text: var(--light-green-11);          /* #007a3d · money only; dark: the solid green already reads as text */
+  --feedback-positive-graphic: var(--light-green-9);        /* #00a854 */
+  --feedback-positive-surface: var(--light-green-2);        /* #effcf4 */
+  --feedback-negative-text: var(--light-red-11);            /* #c4121b */
+  --feedback-negative-graphic: var(--light-red-9);          /* #e0323a */
+  --feedback-negative-surface: var(--light-red-2);          /* #fef1f1 */
+  --feedback-warning-text: var(--light-amber-11);           /* #b45309 */
+  --feedback-warning-surface: var(--light-amber-2);         /* #fffbeb */
+  --feedback-warning-graphic: var(--light-amber-11);        /* #b45309 · dot «Close to daily limit»; light: solid amber is too pale on white */
+  --brand-fill: var(--light-blue-9);                        /* #1644f6 · platform blue — interface, never P&L */
+  --brand-text: var(--light-blue-11);                       /* #1938ce · brand on text size: links */
+  --border-focus: var(--light-blue-9);                      /* #1644f6 · keyboard focus ring */
+  --surface-hover: var(--alpha-black-2);                    /* alpha-black-2 · overlay on hover */
+  --surface-pressed: var(--alpha-black-4);                  /* alpha-black-4 · overlay while pressed */
+  --surface-tag: var(--alpha-black-3);                      /* alpha-black-3 · label fill on any surface (G-113) */
+  --surface-track: var(--light-gray-3);                     /* #ededed · Segmented track on the page */
+}
+/* few trades (sample = low): bars stay SOLID like every other bar (G-67); only graphics are dimmed (components.css). */
+
+/* G-95: Inter on numbers — digits of equal width EVERYWHERE. Set on every element, because the font shorthand in components
+   resets the inherited numeric variant; theme.css loads last, so this wins at equal specificity. */
+[data-look="r3"] * { font-variant-numeric: tabular-nums lining-nums !important; } /* important: a global typographic rule, not a component style — every number in the product has equal-width digits */
+
+/* brand blue = interface, not result: active tab, focus, the platform logo (brand colour apart from P&L) */
+[data-look="r3"] :focus-visible { outline: 2px solid var(--border-focus); outline-offset: 2px; }
+
+/* ── page shell (TO-BE only: rails, sidebar, account header — outside the two blocks of the brief) ──
+   The shell uses base roles; here it is mapped onto the R3 surface ladder: page → tray → card. */
+[data-look="r3"] body, [data-look="r3"] .app { background: var(--surface-page); }
+[data-look="r3"] .side { background: var(--surface-raised); }
+[data-look="r3"] .topbar { background: var(--surface-container); border-color: var(--border-container); }
+[data-look="r3"] .area-ico, [data-look="r3"] .logo { background: var(--brand-fill); }
+[data-look="r3"] .area.pts > i[data-icon] { color: var(--brand-text); }
+[data-look="r3"] .sub.on { border-bottom-color: var(--brand-fill); }
+[data-look="r3"] .account-box { background: var(--surface-container); }
+[data-look="r3"] .rail { border-left-color: var(--border-subtle); }

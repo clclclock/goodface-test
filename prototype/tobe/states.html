@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en" data-look="r3" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>Illustrative state · in the red — to-be (Goodface test)</title>
+<link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="../tokens.css">
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="components.css">
+<link rel="stylesheet" href="../theme.css">
+</head>
+<body>
+<div class="ribbon">ILLUSTRATIVE STATE — not data from the brief · the same components for an account in the red with few recent trades · <a href="./">back to TO-BE</a></div>
+<div class="app">
+  <!-- 1 · Areas rail -->
+  <nav class="areas">
+    <span class="brand-mark" data-clear role="img" aria-label="Platform logo"><svg viewBox="6 6.5 24 24" width="28" height="28" aria-hidden="true"><g><rect x="10" y="14" width="6" height="12" rx="1.4" style="fill: var(--logo-fill)"/></g><g style="opacity: .55"><rect x="20" y="11" width="6" height="12" rx="1.4" style="fill: var(--logo-fill)"/></g></svg></span>
+    <a class="area"><i data-icon="house"></i><span>Home</span></a>
+    <a class="area on" data-side-toggle role="button" tabindex="0" title="Show / hide the Trading panel"><span class="area-ico"><i data-icon="arrow-left-right"></i></span><span>Trading</span></a>
+    <a class="area"><i data-icon="users"></i><span>Community</span></a>
+    <a class="area"><i data-icon="graduation-cap"></i><span>Learn</span></a>
+    <a class="area"><i data-icon="sparkles"></i><span>AI Mentor</span></a>
+    <div class="spacer"></div>
+    <button type="button" class="area-theme" data-theme-toggle aria-label="Switch to dark theme" title="Switch to dark theme"><i data-icon="moon"></i></button>
+    <div class="account-box">
+      <a class="area"><i data-icon="wallet"></i><span>Wallet</span><b class="mono">$6,020</b></a>
+      <a class="area pts"><i data-icon="hexagon"></i><span>Points</span><b class="mono">1,240</b></a>
+      <span class="avatar">JD</span>
+    </div>
+  </nav>
+
+  <!-- 2 · Section sidebar -->
+  <aside class="side">
+    <div class="brand"><span class="logo" data-logo-expand tabindex="-1" aria-label="Expand the Trading panel"><i class="logo__mark" data-icon="arrow-left-right"></i><i class="logo__expand" data-icon="panel-left"></i></span> Forex <i class="chev" data-icon="chevron-down"></i><span class="spacer"></span><button type="button" class="collapse" data-side-toggle aria-label="Hide the Trading panel" aria-expanded="true"><i data-icon="panel-left"></i></button></div>
+    <button class="btn-outline"><i data-icon="plus"></i> Open New Account</button>
+    <div class="nav-label">TRADE</div>
+    <a class="nav active"><i data-icon="briefcase"></i> Accounts <span class="count">7</span></a>
+    <a class="nav"><i data-icon="badge-percent"></i> Your Offers <span class="chip-new">New</span></a>
+    <div class="nav-label">LAB</div>
+    <a class="nav"><i data-icon="flask-conical"></i> Backtest Lab</a>
+    <a class="nav"><i data-icon="wrench"></i> Tools</a>
+    <a class="nav"><i data-icon="download"></i> Downloads</a>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <a class="back"><i data-icon="arrow-left"></i> All accounts</a>
+      <span class="acc-badge">50K</span>
+      <div class="acc">
+        <div class="acc-name"><span id="acc-name">$50K Phase 1</span> <i class="chev" data-icon="chevron-down"></i></div>
+        <div class="acc-meta"><span class="dot-warn"></span><span id="acc-status">Close to daily limit</span> · Equity <b id="acc-eq">$48,560</b> <span class="neg" id="acc-ch">−2.88%</span></div>
+      </div>
+      <div class="spacer"></div>
+      <button class="btn-ghost"><i data-icon="key-round"></i> Login details</button>
+      <button class="btn-dark"><i data-icon="external-link"></i> Open MT5</button>
+    </header>
+
+    <div class="tabs-row">
+      <div class="segmented" data-size="lg"><span class="segmented__item" data-state="default">Overview</span><span class="segmented__item" data-state="active">Performance</span><span class="segmented__item" data-state="default">History</span></div>
+      <div class="spacer"></div>
+      <a class="link"><i data-icon="sparkle"></i> Ask AI</a>
+      <a class="link"><i data-icon="shield-check"></i> View your rules</a>
+    </div>
+    <div class="subtabs">
+      <span class="sub on">Summary</span><span class="sub">Wins vs Losses</span><span class="sub">Calendar</span>
+      <span class="sub off">Symbol Analysis <span class="soon">Soon</span></span>
+    </div>
+
+    <!-- ═══ TO-BE · Summary content (Figma frame «Summary») ═══ -->
+    <div class="summary-content">
+
+      <!-- Stat Block · Daily Net P&L Statistics -->
+      <section class="stat-block">
+        <header class="stat-block__header">
+          <span class="stat-block__heading"><span class="stat-block__title">Daily Net P&amp;L Statistics</span></span>
+          <div class="stat-block__meta"><span class="period-tag">All time</span><span class="tag">Illustrative</span></div>
+        </header>
+        <div class="stat-block__body">
+            <div class="stat-block__col">
+              <div class="kpi-card" data-size="hero" data-tone="negative">
+                <div class="kpi-card__section">
+                  <div class="kpi-card__head">
+                    <span class="kpi-card__label">Total P&amp;L</span>
+                    <span class="tag">Net</span>
+                  </div>
+                  <span class="kpi-card__value">−$1,440</span>
+                  <span class="kpi-card__hint">Avg daily P&amp;L <b>−$12</b></span>
+                </div>
+
+                <div class="kpi-card__divider"></div>
+
+                <div class="split-bar">
+                  <div class="split-bar__title"><span>Trading days</span><b>120</b></div>
+                  <div class="split-bar__track">
+                    <span class="split-bar__part" data-tone="positive" style="flex-grow:50"></span>
+                    <span class="split-bar__part" data-tone="negative" style="flex-grow:70"></span>
+                  </div>
+                  <div class="split-bar__legend">
+                    <span class="split-bar__key"><i class="split-bar__dot" data-tone="positive"></i><b>50</b> winning</span>
+                    <span class="split-bar__key"><i class="split-bar__dot" data-tone="negative"></i><b>70</b> losing</span>
+                    <span class="split-bar__key" data-muted="true"><i class="split-bar__dot" data-tone="neutral"></i><b>0</b> breakeven</span>
+                  </div>
+                </div>
+
+                <div class="pair-bar">
+                  <span class="pair-bar__title">Average day</span>
+                  <div class="pair-bar__row" data-tone="positive">
+                    <span class="pair-bar__label">Winning day</span>
+                    <span class="pair-bar__track"><i class="pair-bar__fill" style="flex-grow:96"></i></span>
+                    <span class="pair-bar__value">+$96</span>
+                  </div>
+                  <div class="pair-bar__row" data-tone="negative">
+                    <span class="pair-bar__label">Losing day</span>
+                    <span class="pair-bar__track"><i class="pair-bar__fill" style="flex-grow:89"></i><i class="pair-bar__rest" style="flex-grow:7"></i></span>
+                    <span class="pair-bar__value">−$89</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="stat-block__col">
+              <div class="kpi-card" data-size="md" data-tone="neutral">
+                <span class="kpi-card__label">Profit factor</span>
+                <span class="kpi-card__value">0.77</span>
+                <span class="kpi-card__hint">$0.77 won for every $1 lost</span>
+              </div>
+              <div class="kpi-card" data-size="md" data-tone="neutral">
+                <span class="kpi-card__label">Total trades</span>
+                <span class="kpi-card__value">268</span>
+                <div class="split-bar">
+                  <div class="split-bar__track">
+                    <span class="split-bar__part" data-tone="positive" style="flex-grow:112"></span>
+                    <span class="split-bar__part" data-tone="negative" style="flex-grow:156"></span>
+                  </div>
+                  <div class="split-bar__legend">
+                    <span class="split-bar__key"><i class="split-bar__dot" data-tone="positive"></i><b>112</b> won</span>
+                    <span class="split-bar__key"><i class="split-bar__dot" data-tone="negative"></i><b>156</b> lost</span>
+                    <span class="split-bar__key" data-muted="true"><i class="split-bar__dot" data-tone="neutral"></i><b>0</b> breakeven</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+      </section>
+
+      <!-- Stat Block · Breakdowns -->
+      <section class="stat-block">
+          <header class="stat-block__header">
+            <span class="stat-block__heading"><span class="stat-block__title">Breakdowns</span><button class="info-tip__trigger" aria-expanded="false" aria-controls="tip-bd" aria-label="What these terms mean"><i data-icon="info"></i></button></span>
+            <div class="stat-block__meta"><span class="period-tag">Last 5 weeks · 14 trades</span><span class="stat-block__total" data-tone="negative"><span class="tag">Net</span><b>−$186</b></span><span class="tag">Illustrative</span></div>
+          </header>
+          <div class="info-tip" id="tip-bd" data-state="closed" data-placement="top" hidden><div class="info-tip__panel"><div class="info-tip__item"><b class="info-tip__term">Winning %</b><span class="info-tip__text">Share of trades that closed in profit.</span></div><div class="info-tip__item"><b class="info-tip__term">Session</b><span class="info-tip__text">Asia, London or New York trading hours. Outside sessions — trades opened between them.</span></div></div><div class="info-tip__tail"><i class="info-tip__arrow"></i></div></div>
+          <div class="segmented" role="tablist" aria-label="Breakdown">
+            <button class="segmented__item" role="tab" data-state="active" aria-selected="true" aria-controls="bd-session" data-tab="session">By session</button>
+            <button class="segmented__item" role="tab" data-state="default" aria-selected="false" aria-controls="bd-pair" data-tab="pair">By pairs</button>
+            <button class="segmented__item" role="tab" data-state="default" aria-selected="false" aria-controls="bd-week" data-tab="week">By week</button>
+          </div>
+          <div class="breakdown-table" role="tabpanel" id="bd-session" data-panel="session">
+            <div class="breakdown-row" data-kind="head">
+              <span class="breakdown-row__name" data-sort="none">Session</span>
+              <span class="breakdown-row__net" data-sort="desc">Net profit</span>
+              <span class="breakdown-row__rate" data-sort="none">Winning %</span>
+              <span class="breakdown-row__pl" data-sort="none">Total profit / Total loss</span>
+            </div>
+            <div class="breakdown-row" data-sample="low">
+              <span class="breakdown-row__name"><b>London</b><small>6 trades</small><span class="tag">few trades</span></span>
+              <span class="breakdown-row__net"><span class="diverge-bar"><span class="diverge-bar__half" data-side="negative" style="flex-grow:98"><i class="diverge-bar__fill" style="flex-grow:98"></i></span><span class="diverge-bar__half" data-side="positive" style="flex-grow:12"><i class="diverge-bar__rest" style="flex-grow:12"></i></span></span><span class="breakdown-row__num" data-tone="negative">−$98</span></span>
+              <span class="breakdown-row__rate"><span class="breakdown-row__num">33%</span><span class="rate-bar"><i class="rate-bar__fill" style="flex-grow:33"></i><i class="rate-bar__rest" style="flex-grow:67"></i></span></span>
+              <span class="breakdown-row__pl"><span class="mini-bar" data-tone="positive" data-bar="none"><span class="mini-bar__value">+$71</span></span><span class="mini-bar" data-tone="negative" data-bar="none"><span class="mini-bar__value">−$169</span></span></span>
+            </div>
+            <div class="breakdown-row" data-sample="low">
+              <span class="breakdown-row__name"><b>NY</b><small>5 trades</small><span class="tag">few trades</span></span>
+              <span class="breakdown-row__net"><span class="diverge-bar"><span class="diverge-bar__half" data-side="negative" style="flex-grow:98"><i class="diverge-bar__rest" style="flex-grow:98"></i></span><span class="diverge-bar__half" data-side="positive" style="flex-grow:12"><i class="diverge-bar__fill" style="flex-grow:12"></i></span></span><span class="breakdown-row__num" data-tone="positive">+$12</span></span>
+              <span class="breakdown-row__rate"><span class="breakdown-row__num">60%</span><span class="rate-bar"><i class="rate-bar__fill" style="flex-grow:60"></i><i class="rate-bar__rest" style="flex-grow:40"></i></span></span>
+              <span class="breakdown-row__pl"><span class="mini-bar" data-tone="positive" data-bar="none"><span class="mini-bar__value">+$118</span></span><span class="mini-bar" data-tone="negative" data-bar="none"><span class="mini-bar__value">−$106</span></span></span>
+            </div>
+            <div class="breakdown-row" data-sample="low">
+              <span class="breakdown-row__name"><b>Asia</b><small>2 trades</small><span class="tag">few trades</span></span>
+              <span class="breakdown-row__net"><span class="diverge-bar"><span class="diverge-bar__half" data-side="negative" style="flex-grow:98"><i class="diverge-bar__fill" style="flex-grow:52"></i><i class="diverge-bar__rest" style="flex-grow:46"></i></span><span class="diverge-bar__half" data-side="positive" style="flex-grow:12"><i class="diverge-bar__rest" style="flex-grow:12"></i></span></span><span class="breakdown-row__num" data-tone="negative">−$52</span></span>
+              <span class="breakdown-row__rate"><span class="breakdown-row__num">0%</span><span class="rate-bar"><i class="rate-bar__rest" style="flex-grow:100"></i></span></span>
+              <span class="breakdown-row__pl"><span class="mini-bar" data-tone="positive" data-bar="none"><span class="mini-bar__value">+$0</span></span><span class="mini-bar" data-tone="negative" data-bar="none"><span class="mini-bar__value">−$52</span></span></span>
+            </div>
+            <div class="breakdown-row" data-sample="low">
+              <span class="breakdown-row__name"><b>Outside sessions</b><small>1 trade</small><span class="tag">few trades</span></span>
+              <span class="breakdown-row__net"><span class="diverge-bar"><span class="diverge-bar__half" data-side="negative" style="flex-grow:98"><i class="diverge-bar__fill" style="flex-grow:48"></i><i class="diverge-bar__rest" style="flex-grow:50"></i></span><span class="diverge-bar__half" data-side="positive" style="flex-grow:12"><i class="diverge-bar__rest" style="flex-grow:12"></i></span></span><span class="breakdown-row__num" data-tone="negative">−$48</span></span>
+              <span class="breakdown-row__rate"><span class="breakdown-row__num">0%</span><span class="rate-bar"><i class="rate-bar__rest" style="flex-grow:100"></i></span></span>
+              <span class="breakdown-row__pl"><span class="mini-bar" data-tone="positive" data-bar="none"><span class="mini-bar__value">+$0</span></span><span class="mini-bar" data-tone="negative" data-bar="none"><span class="mini-bar__value">−$48</span></span></span>
+            </div>
+          </div>
+          <div class="breakdown-table" role="tabpanel" id="bd-pair" data-panel="pair" hidden>
+            <div class="breakdown-row" data-kind="head">
+              <span class="breakdown-row__name" data-sort="none">Pair</span>
+              <span class="breakdown-row__net" data-sort="desc">Net profit</span>
+              <span class="breakdown-row__rate" data-sort="none">Winning %</span>
+              <span class="breakdown-row__pl" data-sort="none">Total profit / Total loss</span>
+            </div>
+            <div class="breakdown-row" data-sample="low">
+              <span class="breakdown-row__name"><b>EURUSD</b><small>7 trades</small><span class="tag">few trades</span></span>
+              <span class="breakdown-row__net"><span class="diverge-bar"><span class="diverge-bar__half" data-side="negative" style="flex-grow:71"><i class="diverge-bar__fill" style="flex-grow:64"></i><i class="diverge-bar__rest" style="flex-grow:7"></i></span><span class="diverge-bar__half" data-side="positive" style="flex-grow:0"></span></span><span class="breakdown-row__num" data-tone="negative">−$64</span></span>
+              <span class="breakdown-row__rate"><span class="breakdown-row__num">43%</span><span class="rate-bar"><i class="rate-bar__fill" style="flex-grow:43"></i><i class="rate-bar__rest" style="flex-grow:57"></i></span></span>
+              <span class="breakdown-row__pl"><span class="mini-bar" data-tone="positive" data-bar="none"><span class="mini-bar__value">+$102</span></span><span class="mini-bar" data-tone="negative" data-bar="none"><span class="mini-bar__value">−$166</span></span></span>
+            </div>
+            <div class="breakdown-row" data-sample="low">
+              <span class="breakdown-row__name"><b>GBPUSD</b><small>4 trades</small><span class="tag">few trades</span></span>
+              <span class="breakdown-row__net"><span class="diverge-bar"><span class="diverge-bar__half" data-side="negative" style="flex-grow:71"><i class="diverge-bar__fill" style="flex-grow:71"></i></span><span class="diverge-bar__half" data-side="positive" style="flex-grow:0"></span></span><span class="breakdown-row__num" data-tone="negative">−$71</span></span>
+              <span class="breakdown-row__rate"><span class="breakdown-row__num">25%</span><span class="rate-bar"><i class="rate-bar__fill" style="flex-grow:25"></i><i class="rate-bar__rest" style="flex-grow:75"></i></span></span>
+              <span class="breakdown-row__pl"><span class="mini-bar" data-tone="positive" data-bar="none"><span class="mini-bar__value">+$41</span></span><span class="mini-bar" data-tone="negative" data-bar="none"><span class="mini-bar__value">−$112</span></span></span>
+            </div>
+            <div class="breakdown-row" data-sample="low">
+              <span class="breakdown-row__name"><b>XAUUSD</b><small>3 trades</small><span class="tag">few trades</span></span>
+              <span class="breakdown-row__net"><span class="diverge-bar"><span class="diverge-bar__half" data-side="negative" style="flex-grow:71"><i class="diverge-bar__fill" style="flex-grow:51"></i><i class="diverge-bar__rest" style="flex-grow:20"></i></span><span class="diverge-bar__half" data-side="positive" style="flex-grow:0"></span></span><span class="breakdown-row__num" data-tone="negative">−$51</span></span>
+              <span class="breakdown-row__rate"><span class="breakdown-row__num">33%</span><span class="rate-bar"><i class="rate-bar__fill" style="flex-grow:33"></i><i class="rate-bar__rest" style="flex-grow:67"></i></span></span>
+              <span class="breakdown-row__pl"><span class="mini-bar" data-tone="positive" data-bar="none"><span class="mini-bar__value">+$46</span></span><span class="mini-bar" data-tone="negative" data-bar="none"><span class="mini-bar__value">−$97</span></span></span>
+            </div>
+          </div>
+          <div class="breakdown-table" role="tabpanel" id="bd-week" data-panel="week" hidden>
+            <div class="breakdown-row" data-kind="head">
+              <span class="breakdown-row__name" data-sort="none">Week</span>
+              <span class="breakdown-row__net" data-sort="none">Net profit</span>
+              <span class="breakdown-row__rate" data-sort="none">Winning %</span>
+              <span class="breakdown-row__pl" data-sort="none">Total profit / Total loss</span>
+            </div>
+            <div class="breakdown-row" data-sample="low">
+              <span class="breakdown-row__name"><b>Wk 1</b><small>3 trades</small><span class="tag">few trades</span></span>
+              <span class="breakdown-row__net"><span class="diverge-bar"><span class="diverge-bar__half" data-side="negative" style="flex-grow:59"><i class="diverge-bar__fill" style="flex-grow:7"></i><i class="diverge-bar__rest" style="flex-grow:52"></i></span><span class="diverge-bar__half" data-side="positive" style="flex-grow:0"></span></span><span class="breakdown-row__num" data-tone="negative">−$7</span></span>
+              <span class="breakdown-row__rate"><span class="breakdown-row__num">33%</span><span class="rate-bar"><i class="rate-bar__fill" style="flex-grow:33"></i><i class="rate-bar__rest" style="flex-grow:67"></i></span></span>
+              <span class="breakdown-row__pl"><span class="mini-bar" data-tone="positive" data-bar="none"><span class="mini-bar__value">+$52</span></span><span class="mini-bar" data-tone="negative" data-bar="none"><span class="mini-bar__value">−$59</span></span></span>
+            </div>
+            <div class="breakdown-row" data-sample="low">
+              <span class="breakdown-row__name"><b>Wk 2</b><small>4 trades</small><span class="tag">few trades</span></span>
+              <span class="breakdown-row__net"><span class="diverge-bar"><span class="diverge-bar__half" data-side="negative" style="flex-grow:59"><i class="diverge-bar__fill" style="flex-grow:39"></i><i class="diverge-bar__rest" style="flex-grow:20"></i></span><span class="diverge-bar__half" data-side="positive" style="flex-grow:0"></span></span><span class="breakdown-row__num" data-tone="negative">−$39</span></span>
+              <span class="breakdown-row__rate"><span class="breakdown-row__num">50%</span><span class="rate-bar"><i class="rate-bar__fill" style="flex-grow:50"></i><i class="rate-bar__rest" style="flex-grow:50"></i></span></span>
+              <span class="breakdown-row__pl"><span class="mini-bar" data-tone="positive" data-bar="none"><span class="mini-bar__value">+$66</span></span><span class="mini-bar" data-tone="negative" data-bar="none"><span class="mini-bar__value">−$105</span></span></span>
+            </div>
+            <div class="breakdown-row" data-sample="low">
+              <span class="breakdown-row__name"><b>Wk 3</b><small>3 trades</small><span class="tag">few trades</span></span>
+              <span class="breakdown-row__net"><span class="diverge-bar"><span class="diverge-bar__half" data-side="negative" style="flex-grow:59"><i class="diverge-bar__fill" style="flex-grow:59"></i></span><span class="diverge-bar__half" data-side="positive" style="flex-grow:0"></span></span><span class="breakdown-row__num" data-tone="negative">−$59</span></span>
+              <span class="breakdown-row__rate"><span class="breakdown-row__num">33%</span><span class="rate-bar"><i class="rate-bar__fill" style="flex-grow:33"></i><i class="rate-bar__rest" style="flex-grow:67"></i></span></span>
+              <span class="breakdown-row__pl"><span class="mini-bar" data-tone="positive" data-bar="none"><span class="mini-bar__value">+$41</span></span><span class="mini-bar" data-tone="negative" data-bar="none"><span class="mini-bar__value">−$100</span></span></span>
+            </div>
+            <div class="breakdown-row" data-sample="low">
+              <span class="breakdown-row__name"><b>Wk 4</b><small>2 trades</small><span class="tag">few trades</span></span>
+              <span class="breakdown-row__net"><span class="diverge-bar"><span class="diverge-bar__half" data-side="negative" style="flex-grow:59"><i class="diverge-bar__fill" style="flex-grow:55"></i><i class="diverge-bar__rest" style="flex-grow:4"></i></span><span class="diverge-bar__half" data-side="positive" style="flex-grow:0"></span></span><span class="breakdown-row__num" data-tone="negative">−$55</span></span>
+              <span class="breakdown-row__rate"><span class="breakdown-row__num">0%</span><span class="rate-bar"><i class="rate-bar__rest" style="flex-grow:100"></i></span></span>
+              <span class="breakdown-row__pl"><span class="mini-bar" data-tone="positive" data-bar="none"><span class="mini-bar__value">+$0</span></span><span class="mini-bar" data-tone="negative" data-bar="none"><span class="mini-bar__value">−$55</span></span></span>
+            </div>
+            <div class="breakdown-row" data-sample="low">
+              <span class="breakdown-row__name"><b>Wk 5</b><small>2 trades</small><span class="tag">few trades</span></span>
+              <span class="breakdown-row__net"><span class="diverge-bar"><span class="diverge-bar__half" data-side="negative" style="flex-grow:59"><i class="diverge-bar__fill" style="flex-grow:26"></i><i class="diverge-bar__rest" style="flex-grow:33"></i></span><span class="diverge-bar__half" data-side="positive" style="flex-grow:0"></span></span><span class="breakdown-row__num" data-tone="negative">−$26</span></span>
+              <span class="breakdown-row__rate"><span class="breakdown-row__num">50%</span><span class="rate-bar"><i class="rate-bar__fill" style="flex-grow:50"></i><i class="rate-bar__rest" style="flex-grow:50"></i></span></span>
+              <span class="breakdown-row__pl"><span class="mini-bar" data-tone="positive" data-bar="none"><span class="mini-bar__value">+$30</span></span><span class="mini-bar" data-tone="negative" data-bar="none"><span class="mini-bar__value">−$56</span></span></span>
+            </div>
+          </div>
+        </section>
+
+    </div>
+  </main>
+
+  <!-- 3 · Tools rail -->
+  <aside class="rail">
+    <a title="Forex Clock"><i data-icon="clock-3"></i></a>
+    <a title="Economic Calendar"><i data-icon="calendar-days"></i></a>
+    <a title="Price"><i data-icon="dollar-sign"></i></a>
+    <a title="Headlines"><i data-icon="newspaper"></i></a>
+    <span class="sep"></span>
+    <a title="Notifications" class="bell"><i data-icon="bell"></i></a>
+    <a title="Help &amp; Support"><i data-icon="circle-help"></i></a>
+  </aside>
+</div>
+<script src="../icons.js"></script>
+<script>/* ?shot — screenshots for the deck: no prototype ribbon */ if (new URLSearchParams(location.search).has('shot')) { const r = document.querySelector('.ribbon'); if (r) r.remove(); }</script>
+<script>/* G-135…G-138 pilot: ?chart=line — the cumulative P&L line (equity curve) on the SAMPLE days of G-134 (0 → exactly +$6,384).
+   Hover as on Kraken (cursor, point, tip; after the cursor a grey line over dots, bright at the top, fading downwards); expand (G-139) → the whole Total P&L
+   card takes the bento area with a period switch 1W · 1M · 3M · All (5 · 21 · 63 · 120 trading days); the other cards move down. */
+document.addEventListener('DOMContentLoaded', () => { const chart = new URLSearchParams(location.search).get('chart'); if (chart === 'bar' || chart === 'daily') return; // G-143: the line is the main variant; ?chart=bar — the split bar of G-60
+  const ALL = [68,79,80,51,138,163,178,-171,-109,90,-124,-94,-15,-15,-143,-133,117,-142,120,46,-25,-55,68,-55,-31,-15,154,21,-15,-19,167,-76,84,-15,87,-104,-167,-140,-103,-172,48,-17,158,-125,-61,-81,-139,161,-167,162,55,49,-128,-116,189,-154,-172,77,-151,48,37,-21,-138,-30,-101,-77,-180,53,63,96,-83,-28,-15,25,181,-56,-48,-55,-114,-71,-99,-69,172,81,100,54,39,98,120,-121,-169,95,-37,-78,-148,-112,-109,120,-99,-104,125,-60,167,-164,142,-47,150,-128,29,-159,110,-42,35,-61,-28,50,-77,18,-55,-26];
+  const W = 1000, H = 100;
+  const money = v => (v < 0 ? '−' : '+') + '$' + Math.abs(v).toLocaleString('en-US');
+  const icon = n => '<i data-icon="' + n + '" aria-hidden="true">' + ((window.ICONS || {})[n] || '') + '</i>';
+  // a period = the last k trading days, P&L summed from 0 at its start
+  const series = k => {
+    const D = ALL.slice(ALL.length - k), first = ALL.length - k; let c = 0; const cum = [0].concat(D.map(v => c += v));
+    const lo = Math.min(0, ...cum), hi = Math.max(0, ...cum), N = cum.length - 1, span = (hi - lo) || 1;
+    const X = i => Math.round(i / N * W * 10) / 10, Y = v => Math.round((hi - v) / span * H * 100) / 100, Z = Y(0);
+    const pts = cum.map((v, i) => X(i) + ',' + Y(v)).join(' ');
+    return { k, D, first, cum, lo, hi, N, X, Y, Z, pts, area: '0,' + Z + ' ' + pts + ' ' + W + ',' + Z };
+  };
+  const tip = document.createElement('div'); tip.className = 'chart-tip'; tip.setAttribute('popover', 'manual'); document.body.appendChild(tip);
+  let active = null; // the chart under the cursor: { el, leave }
+  const svg = (id, s) => '<svg class="line-chart__svg" viewBox="0 0 ' + W + ' ' + H + '" preserveAspectRatio="none" aria-hidden="true"><defs>'
+    + '<clipPath id="' + id + '-up"><rect x="0" y="-10" width="' + W + '" height="' + (s.Z + 10) + '"/></clipPath><clipPath id="' + id + '-dn"><rect x="0" y="' + s.Z + '" width="' + W + '" height="' + (H - s.Z + 10) + '"/></clipPath>'
+    + '<clipPath id="' + id + '-left"><rect class="lc-left" x="-10" y="-10" width="' + (W + 20) + '" height="' + (H + 20) + '"/></clipPath><clipPath id="' + id + '-right"><rect class="lc-right" x="' + (W + 10) + '" y="-10" width="0" height="' + (H + 20) + '"/></clipPath>'
+    + '<pattern id="' + id + '-dots" class="lc-pattern" patternUnits="userSpaceOnUse" width="6" height="6"><ellipse class="line-chart__dot" cx="3" cy="3" rx="0.8" ry="0.8"/></pattern>'
+    + '<linearGradient id="' + id + '-fade" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity="1"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>'
+    + '<mask id="' + id + '-mask" maskContentUnits="objectBoundingBox"><rect width="1" height="1" fill="url(#' + id + '-fade)"/></mask></defs>'
+    + '<g clip-path="url(#' + id + '-left)"><polygon class="line-chart__area" data-tone="positive" clip-path="url(#' + id + '-up)" points="' + s.area + '"/>'
+    + '<polygon class="line-chart__area" data-tone="negative" clip-path="url(#' + id + '-dn)" points="' + s.area + '"/></g>'
+    + '<g clip-path="url(#' + id + '-right)"><polygon class="line-chart__area" style="fill:url(#' + id + '-dots)" mask="url(#' + id + '-mask)" points="' + s.area + '"/></g>'
+    + '<line class="line-chart__axis" x1="0" y1="' + s.Z + '" x2="' + W + '" y2="' + s.Z + '"/>'
+    + '<g clip-path="url(#' + id + '-left)"><polyline class="line-chart__line" data-tone="positive" clip-path="url(#' + id + '-up)" points="' + s.pts + '"/>'
+    + '<polyline class="line-chart__line" data-tone="negative" clip-path="url(#' + id + '-dn)" points="' + s.pts + '"/></g>'
+    + '<g clip-path="url(#' + id + '-right)"><polyline class="line-chart__line" data-tone="muted" points="' + s.pts + '"/></g>'
+    + '<line class="line-chart__cursor" x1="0" y1="0" x2="0" y2="' + H + '"/>'
+    + '<ellipse class="line-chart__marker" cx="0" cy="0" rx="4" ry="4"/></svg>';
+  const chartHtml = (id, size, s) => '<div class="line-chart" data-size="' + (size || 'sm') + '" role="img" aria-label="Cumulative net P&L over the last ' + s.k + ' trading days — illustrative data">'
+    + (size === 'lg' ? '<div class="line-chart__plot">' + svg(id, s) + '<div class="line-chart__y"><span>Peak ' + money(s.hi) + '</span><span>' + (s.lo < 0 ? 'Low ' + money(s.lo) : '$0') + '</span></div></div>' : svg(id, s))
+    + '<div class="line-chart__scale"><span>Day ' + (s.first + 1) + '</span><span>Day 120</span></div></div>';
+  const bind = (root, s) => {
+    const el = root.querySelector('.line-chart__svg');
+    const L = el.querySelector('.lc-left'), Rr = el.querySelector('.lc-right'), cur = el.querySelector('.line-chart__cursor'), mk = el.querySelector('.line-chart__marker'), pat = el.querySelector('.lc-pattern');
+    const fitDots = () => { const r = el.getBoundingClientRect(); if (!r.width) return; const STEP = 9; /* px between dots (G-136: sparser) */ pat.setAttribute('width', STEP * W / r.width); pat.setAttribute('height', STEP * H / r.height); const e = pat.firstChild; e.setAttribute('cx', STEP / 2 * W / r.width); e.setAttribute('cy', STEP / 2 * H / r.height); e.setAttribute('rx', 0.8 * W / r.width); e.setAttribute('ry', 0.8 * H / r.height); };
+    fitDots();
+    const leave = () => {
+      L.setAttribute('width', W + 20); Rr.setAttribute('x', W + 10); Rr.setAttribute('width', 0);
+      delete el.dataset.hover; // the cursor and the point fade out where they were (G-142)
+      if (tip.matches(':popover-open')) tip.hidePopover();
+      if (active && active.el === el) active = null;
+    };
+    const move = e => {
+      const r = el.getBoundingClientRect();
+      const i = Math.max(0, Math.min(s.N, Math.round((e.clientX - r.left) / r.width * s.N)));
+      const x = s.X(i), y = s.Y(s.cum[i]);
+      L.setAttribute('width', x + 10); Rr.setAttribute('x', x); Rr.setAttribute('width', W - x + 10);
+      cur.setAttribute('x1', x); cur.setAttribute('x2', x); el.dataset.hover = '';
+      mk.setAttribute('cx', x); mk.setAttribute('cy', y); mk.setAttribute('rx', 4 * W / r.width); mk.setAttribute('ry', 4 * H / r.height);
+      tip.innerHTML = '<b>' + money(s.cum[i]) + '</b><span>' + (i === 0 ? 'Start' : 'Day ' + (s.first + i) + ' · day ' + money(s.D[i - 1])) + '</span>';
+      if (!tip.matches(':popover-open')) tip.showPopover();
+      const t = tip.getBoundingClientRect(), px = r.left + x / W * r.width;
+      tip.style.left = Math.max(r.left, Math.min(r.right - t.width, px - t.width / 2)) + 'px';
+      tip.style.top = (r.top - t.height - 6) + 'px';
+      active = { el, leave };
+    };
+    el.addEventListener('pointermove', move); el.addEventListener('pointerleave', leave);
+  };
+  // the cursor left the chart without a pointerleave (a fast move, a scroll) → hide everything
+  const outside = e => { if (active && !active.el.contains(e.target)) active.leave(); };
+  document.addEventListener('pointermove', outside, true); document.addEventListener('pointerdown', outside, true);
+  window.addEventListener('scroll', () => active && active.leave(), true);
+
+  const sb = document.querySelector('.kpi-card[data-size="hero"] .split-bar'); if (!sb) return;
+  const block = sb.closest('.stat-block'), track = sb.querySelector('.split-bar__track');
+  const title = sb.querySelector('.split-bar__title');
+  // the expand / collapse button lives in the card's top row (TOTAL P&L · Net … ⤢), not on the chart
+  const head = sb.closest('.kpi-card').querySelector('.kpi-card__head');
+  const main = document.createElement('span'); main.className = 'kpi-card__head-main';
+  while (head.firstChild) main.appendChild(head.firstChild);
+  head.appendChild(main); head.dataset.action = '';
+  head.insertAdjacentHTML('beforeend', '<span class="kpi-card__actions"><button type="button" class="icon-btn" data-chart-toggle aria-label="Expand the chart" title="Expand the chart">' + icon('maximize-2') + '</button></span>');
+  const btn = head.querySelector('[data-chart-toggle]');
+  const setBtn = open => { btn.innerHTML = icon(open ? 'minimize-2' : 'maximize-2'); const l = open ? 'Collapse the chart' : 'Expand the chart'; btn.setAttribute('aria-label', l); btn.title = l; btn.setAttribute('aria-expanded', open); };
+  const all = series(120);
+  const compact = document.createElement('div'); compact.innerHTML = chartHtml('lc-sm', '', all); const small = compact.firstChild;
+  const trend = document.createElement('div'); trend.className = 'kpi-card__trend';
+  trend.innerHTML = '<div class="kpi-card__trend-head"><span>Cumulative P&amp;L</span><span class="tag">Illustrative</span></div>';
+  trend.appendChild(small); sb.before(trend); bind(small, all);
+  const RANGES = [['1W', 5], ['1M', 21], ['3M', 63], ['All', 120]];
+  // G-139: expand = the whole Total P&L card takes the bento area (Kraken's portfolio page): its numbers stay top left, the period
+  // switch and the period sum sit top right, the big chart under them; Profit Factor and Total Trades become a row below.
+  const hero = sb.closest('.kpi-card'), col1 = hero.parentElement, body = col1.parentElement, col2 = [...body.children].find(x => x !== col1);
+  const actions = head.querySelector('.kpi-card__actions');
+  const names = () => { // named parts morph from their old place to the new one (View Transitions)
+    hero.style.viewTransitionName = 'tobe-hero';
+    [...col2.children].forEach((c, i) => { c.style.viewTransitionName = 'tobe-kpi-' + i; });
+    const next = body.nextElementSibling; if (next) next.style.viewTransitionName = 'tobe-rest';
+  };
+  const morph = change => {
+    const ms = parseFloat(getComputedStyle(hero).getPropertyValue('--duration-expand')) || 0;
+    if (!ms || !document.startViewTransition) { change(); return; }
+    names(); document.startViewTransition(change).finished.then(() => { if (!btn.contains(document.activeElement)) btn.focus({ preventScroll: true }); });
+  };
+  let big = null, cols = null; // the expanded chart; the two columns of bars under it (G-140)
+  // G-140: a new period → the line flows from the old shape to the new one instead of jumping. Both shapes are resampled to the
+  // same 121 points across the width, the points and the zero line move together (duration/slow, in-out); the scale labels fade in.
+  // Reduce motion → duration/slow is 0 → no motion.
+  let geom = null, stop = () => {};
+  const sample = s => { const M = 120, ys = []; for (let j = 0; j <= M; j++) { const f = j / M * s.N, i = Math.floor(f), t = f - i, a = s.cum[i], b = s.cum[Math.min(s.N, i + 1)]; ys.push(s.Y(a + (b - a) * t)); } return { ys, Z: s.Z }; };
+  const flow = (box, A, s, ms) => {
+    const el = box.querySelector('.line-chart__svg'), B = sample(s), M = B.ys.length - 1;
+    const lines = el.querySelectorAll('.line-chart__line'), areas = el.querySelectorAll('.line-chart__area'), axis = el.querySelector('.line-chart__axis');
+    const up = el.querySelector('clipPath[id$="-up"] rect'), dn = el.querySelector('clipPath[id$="-dn"] rect');
+    const set = (pts, Z) => { lines.forEach(l => l.setAttribute('points', pts)); areas.forEach(p => p.setAttribute('points', '0,' + Z + ' ' + pts + ' ' + W + ',' + Z));
+      axis.setAttribute('y1', Z); axis.setAttribute('y2', Z); up.setAttribute('height', Z + 10); dn.setAttribute('y', Z); dn.setAttribute('height', H - Z + 10); };
+    const ease = t => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+    const frame = t => { const e = ease(t), Z = A.Z + (B.Z - A.Z) * e, ys = A.ys.map((y, j) => y + (B.ys[j] - y) * e);
+      geom = { ys, Z }; set(ys.map((y, j) => Math.round(j / M * W * 10) / 10 + ',' + Math.round(y * 100) / 100).join(' '), Z); };
+    let id = 0, t0 = performance.now();
+    const tick = now => { const t = Math.min(1, (now - t0) / ms); if (t < 1) { frame(t); id = requestAnimationFrame(tick); } else { geom = B; set(s.pts, s.Z); } };
+    frame(0); id = requestAnimationFrame(tick);
+    box.querySelectorAll('.line-chart__y span, .line-chart__scale span').forEach(x => x.animate([{ opacity: 0 }, { opacity: 1 }], { duration: ms, easing: 'ease-out' }));
+    return () => cancelAnimationFrame(id);
+  };
+  const show = k => {
+    if (active) active.leave();
+    stop(); stop = () => {};
+    const s = series(k), from = geom;
+    const box = hero.querySelector('.kpi-card__chart'); box.innerHTML = chartHtml('lc-lg', 'lg', s); bind(box, s);
+    actions.querySelector('.kpi-card__period').innerHTML = (k === 120 ? 'All time' : 'Last ' + k + ' days') + ' <b>' + money(s.cum[s.N]) + '</b>';
+    const ms = parseFloat(getComputedStyle(box).getPropertyValue('--duration-slow')) || 0;
+    if (from && ms) stop = flow(box, from, s, ms); else geom = sample(s);
+  };
+  const expand = () => {
+    if (active) active.leave();
+    morph(() => {
+      body.before(hero); col1.style.display = 'none'; col2.dataset.direction = 'row'; hero.dataset.expanded = '';
+      actions.insertAdjacentHTML('afterbegin', '<span class="kpi-card__period"></span><div class="segmented" role="tablist" aria-label="Period">'
+        + RANGES.map(([l, k]) => '<span class="segmented__item" role="tab" tabindex="0" data-range="' + k + '" data-state="' + (k === 120 ? 'active' : 'default') + '" aria-selected="' + (k === 120) + '">' + l + '</span>').join('') + '</div>');
+      big = document.createElement('div'); big.className = 'kpi-card__chart';
+      hero.querySelector('.kpi-card__section').after(big);
+      trend.hidden = true; // the big chart takes its place
+      // G-140: on the full width the bars stand in two columns — Trading days | Average day — so no bar runs ~1,900 px from its number
+      cols = document.createElement('div'); cols.className = 'kpi-card__columns'; sb.before(cols); cols.append(sb, hero.querySelector('.pair-bar'));
+      hero.querySelector('.kpi-card__head-main').insertAdjacentHTML('beforeend', '<span class="tag" data-sample-big>Illustrative</span>');
+      setBtn(true); show(120); btn.focus({ preventScroll: true });
+      const seg = actions.querySelector('.segmented');
+      seg.addEventListener('click', e => {
+        const it = e.target.closest('.segmented__item'); if (!it) return;
+        seg.querySelectorAll('.segmented__item').forEach(x => { const on = x === it; x.dataset.state = on ? 'active' : 'default'; x.setAttribute('aria-selected', on); });
+        show(+it.dataset.range);
+      });
+      seg.addEventListener('keydown', e => { if ((e.key === 'Enter' || e.key === ' ') && e.target.matches('.segmented__item')) { e.preventDefault(); e.target.click(); } });
+    });
+  };
+  const collapse = () => {
+    if (active) active.leave();
+    morph(() => {
+      col1.prepend(hero); col1.style.display = ''; delete col2.dataset.direction; delete hero.dataset.expanded;
+      actions.querySelector('.kpi-card__period').remove(); actions.querySelector('.segmented').remove();
+      big.remove(); big = null; stop(); geom = null;
+      cols.replaceWith(...cols.children); cols = null;
+      hero.querySelector('[data-sample-big]').remove();
+      trend.hidden = false;
+      setBtn(false); btn.focus({ preventScroll: true });
+    });
+  };
+  btn.addEventListener('click', () => (hero.hasAttribute('data-expanded') ? collapse() : expand()));
+});</script>
+<script>/* theme switch (G-68): changes only data-theme on <html> — every component reads the same roles */
+(() => { const root = document.documentElement; const set = t => { root.dataset.theme = t; document.querySelectorAll('[data-theme-toggle]').forEach(b => { const next = t === 'dark' ? 'light' : 'dark'; const l = 'Switch to ' + next + ' theme'; b.setAttribute('aria-label', l); b.title = l; const i = b.querySelector('i'); const n = t === 'dark' ? 'sun' : 'moon'; i.dataset.icon = n; i.innerHTML = (window.ICONS || {})[n] || ''; }); if (ready) { try { localStorage.setItem('tobe-theme', t); } catch (e) {} } }; let ready = false; /* only a click is remembered: ?theme= is for one visit */
+  let t = new URLSearchParams(location.search).get('theme'); /* ?theme=dark — for screenshots */ if (!t) { try { t = localStorage.getItem('tobe-theme'); } catch (e) {} } if (t === 'dark' || t === 'light') set(t);
+  set(root.dataset.theme || 'light'); ready = true; document.querySelectorAll('[data-theme-toggle]').forEach(b => b.addEventListener('click', () => set(root.dataset.theme === 'dark' ? 'light' : 'dark'))); })();</script>
+<script>/* G-71: Trading panel — collapsed / expanded, remembered */
+(() => { const app = document.querySelector('.app'); const set = open => { app.dataset.side = open ? 'expanded' : 'collapsed'; document.querySelectorAll('.collapse[data-side-toggle]').forEach(b => { b.setAttribute('aria-expanded', String(open)); b.setAttribute('aria-label', open ? 'Collapse the Trading panel to icons' : 'Expand the Trading panel'); b.title = b.getAttribute('aria-label'); }); if (ready) { try { localStorage.setItem('tobe-side', open ? 'expanded' : 'collapsed'); } catch (e) {} } }; let ready = false; /* only a click is remembered: ?side= is for one visit */
+  /* icon strip: every item keeps its name as a tooltip */ document.querySelectorAll('.side .nav, .side .btn-outline').forEach(el => { const n = [...el.childNodes].filter(x => x.nodeType === 3).map(x => x.textContent).join(' ').trim(); el.title = n; el.setAttribute('aria-label', n); });
+  let v = new URLSearchParams(location.search).get('side'); /* ?side=collapsed — for screenshots */ if (!v) { try { v = localStorage.getItem('tobe-side'); } catch (e) {} } set(v !== 'collapsed'); ready = true;
+  /* G-73: in the strip the logo is the expand button — it shows «panel-left» on hover */
+  const logo = document.querySelector('[data-logo-expand]');
+  const syncLogo = () => { const c = app.dataset.side === 'collapsed'; logo.setAttribute('role', c ? 'button' : 'img'); logo.tabIndex = c ? 0 : -1; logo.title = c ? 'Expand the Trading panel' : ''; };
+  logo.addEventListener('click', () => { if (app.dataset.side === 'collapsed') { set(true); syncLogo(); logo.blur(); } });
+  logo.addEventListener('keydown', e => { if ((e.key === 'Enter' || e.key === ' ') && app.dataset.side === 'collapsed') { e.preventDefault(); set(true); syncLogo(); } });
+  new MutationObserver(syncLogo).observe(app, { attributes: true, attributeFilter: ['data-side'] }); syncLogo();
+  document.querySelectorAll('[data-side-toggle]').forEach(el => { el.addEventListener('click', () => set(app.dataset.side === 'collapsed')); el.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); set(app.dataset.side === 'collapsed'); } }); }); })();</script>
+<script>/* G-76: clicks the prototype does not cover → a toast at the bottom centre, gone after ~2 s */
+(() => {
+  const DEAD = '.segmented[data-size="lg"] .segmented__item[data-state="default"], .sub:not(.on), .side .nav, .side .btn-outline, .btn-ghost, .btn-dark, .link, .back, .acc-name, .area:not([data-side-toggle]), .rail a, .brand .chev, .avatar';
+  const hint = document.createElement('div'); hint.className = 'proto-hint'; hint.setAttribute('role', 'status'); hint.setAttribute('aria-live', 'polite');
+  document.body.appendChild(hint); let timer = 0;
+  const name = el => [...el.childNodes].filter(n => n.nodeType === 3).map(n => n.textContent).join(' ').split(' ').filter(Boolean).join(' ').trim();
+  const say = el => {
+    if (el.matches('.sub.off')) return '<b>' + name(el) + '</b> is coming soon.';
+    if (el.matches('.segmented__item, .sub')) return '<b>' + name(el) + '</b> isn’t part of this test.';
+    return (name(el) ? '<b>' + name(el) + '</b> isn’t part of this test.' : 'Not part of this test.');
+  };
+  document.addEventListener('click', e => {
+    const el = e.target.closest(DEAD); if (!el) return;
+    e.preventDefault(); hint.innerHTML = '<i class="proto-hint__icon" data-icon="frown" aria-hidden="true">' + ((window.ICONS || {}).frown || '') + '</i><span>' + say(el) + '</span>';
+    // replay the pop-in even if the toast is already visible
+    hint.dataset.state = 'closed'; void hint.offsetWidth; hint.dataset.state = 'open';
+    clearTimeout(timer); timer = setTimeout(() => { hint.dataset.state = 'closed'; }, 2200);
+  });
+})();</script>
+<script src="app.js"></script>
+</body>
+</html>

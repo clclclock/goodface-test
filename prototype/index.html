@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>Performance · Summary — as-is (Goodface test)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="ribbon">AS-IS · rebuilt from the Goodface wireframe · no changes · icons: Lucide</div>
+<div class="app">
+  <!-- 1 · Areas rail -->
+  <nav class="areas">
+    <a class="area"><i data-icon="house"></i><span>Home</span></a>
+    <a class="area on"><span class="area-ico"><i data-icon="arrow-left-right"></i></span><span>Trading</span></a>
+    <a class="area"><i data-icon="users"></i><span>Community</span></a>
+    <a class="area"><i data-icon="graduation-cap"></i><span>Learn</span></a>
+    <a class="area"><i data-icon="sparkles"></i><span>AI Mentor</span></a>
+    <div class="spacer"></div>
+    <div class="account-box">
+      <a class="area"><i data-icon="wallet"></i><span>Wallet</span><b class="mono">$6,020</b></a>
+      <a class="area pts"><i data-icon="hexagon"></i><span>Points</span><b class="mono">1,240</b></a>
+      <span class="avatar">JD</span>
+    </div>
+  </nav>
+
+  <!-- 2 · Section sidebar -->
+  <aside class="side">
+    <div class="brand"><span class="logo"><i data-icon="arrow-left-right"></i></span> Forex <i class="chev" data-icon="chevron-down"></i><span class="spacer"></span><i class="collapse" data-icon="panel-left"></i></div>
+    <button class="btn-outline"><i data-icon="plus"></i> Open New Account</button>
+    <div class="nav-label">TRADE</div>
+    <a class="nav active"><i data-icon="briefcase"></i> Accounts <span class="count">7</span></a>
+    <a class="nav"><i data-icon="badge-percent"></i> Your Offers <span class="chip-new">New</span></a>
+    <div class="nav-label">LAB</div>
+    <a class="nav"><i data-icon="flask-conical"></i> Backtest Lab</a>
+    <a class="nav"><i data-icon="wrench"></i> Tools</a>
+    <a class="nav"><i data-icon="download"></i> Downloads</a>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <a class="back"><i data-icon="arrow-left"></i> All accounts</a>
+      <span class="acc-badge">50K</span>
+      <div class="acc">
+        <div class="acc-name"><span id="acc-name"></span> <i class="chev" data-icon="chevron-down"></i></div>
+        <div class="acc-meta"><span class="dot-warn"></span><span id="acc-status"></span> · Equity <b id="acc-eq"></b> <span class="pos" id="acc-ch"></span></div>
+      </div>
+      <div class="spacer"></div>
+      <button class="btn-ghost"><i data-icon="key-round"></i> Login details</button>
+      <button class="btn-dark"><i data-icon="external-link"></i> Open MT5</button>
+    </header>
+
+    <div class="tabs-row">
+      <div class="pills">
+        <span class="pill">Overview</span>
+        <span class="pill on">Performance <span class="chip-new">New</span></span>
+        <span class="pill">History</span>
+      </div>
+      <div class="spacer"></div>
+      <a class="link"><i data-icon="sparkle"></i> Ask AI</a>
+      <a class="link"><i data-icon="shield-check"></i> View your rules</a>
+    </div>
+    <div class="subtabs">
+      <span class="sub on">Summary</span><span class="sub">Wins vs Losses</span><span class="sub">Calendar</span>
+      <span class="sub off">Symbol Analysis <span class="soon">Soon</span></span>
+    </div>
+
+    <section class="panel">
+      <h3 class="h3">Daily Net P&amp;L Statistics <i class="i" data-icon="info"></i></h3>
+      <div class="kpi-row three" id="kpis"></div>
+      <div class="kpi-row two" id="kpis2"></div>
+    </section>
+
+    <div class="cards" id="cards"></div>
+
+    <div class="bd-head">
+      <div class="eyebrow">BREAKDOWNS</div>
+      <p class="caption">The same results sliced three ways — by day of the week, by pair, and by session. Click any column heading to sort. Your strongest and weakest rows are tagged.</p>
+    </div>
+    <div id="breakdowns"></div>
+  </main>
+
+  <!-- 3 · Tools rail -->
+  <aside class="rail">
+    <a title="Forex Clock"><i data-icon="clock-3"></i></a>
+    <a title="Economic Calendar"><i data-icon="calendar-days"></i></a>
+    <a title="Price"><i data-icon="dollar-sign"></i></a>
+    <a title="Headlines"><i data-icon="newspaper"></i></a>
+    <span class="sep"></span>
+    <a title="Notifications" class="bell"><i data-icon="bell"></i></a>
+    <a title="Help &amp; Support"><i data-icon="circle-help"></i></a>
+  </aside>
+</div>
+<script src="icons.js"></script>
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+{
+  "name": "Goodface DS (local)",
+  "id": "goodface-ds-local",
+  "api": "1.0.0",
+  "main": "code.js",
+  "editorType": [
+    "figma"
+  ],
+  "documentAccess": "dynamic-page",
+  "networkAccess": {
+    "allowedDomains": [
+      "none"
+    ]
+  },
+  "menu": [
+    {
+      "name": "Build everything",
+      "command": "build"
+    },
+    {
+      "name": "Apply dark theme to selection",
+      "command": "dark"
+    },
+    {
+      "name": "Add submission texts (only adds, changes nothing else)",
+      "command": "submission"
+    }
+  ]
+}

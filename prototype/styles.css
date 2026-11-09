@@ -1,0 +1,236 @@
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--surface-page); color: var(--text-primary); font: var(--type-body); }
+.ribbon { background: var(--feedback-warning-surface); color: var(--feedback-warning-text); font: var(--type-label); text-align: center; padding: 6px; border-bottom: 1px solid var(--border-subtle); }
+.app { display: grid; grid-template-columns: 76px 232px 1fr 48px; min-height: calc(100vh - 29px); background: var(--surface-card); }
+i[data-icon] { display: inline-flex; width: 16px; height: 16px; vertical-align: -3px; flex: none; }
+i[data-icon] svg { width: 100%; height: 100%; stroke-width: 1.75; }
+.mono { font-family: var(--font-mono); font-weight: 500; }
+
+/* areas rail */
+.areas { display: flex; flex-direction: column; align-items: center; gap: var(--scale-4); padding: var(--scale-4) 0; position: sticky; top: 0; height: calc(100vh - 29px); }
+.area { display: flex; flex-direction: column; align-items: center; gap: 4px; font: var(--type-caption); font-size: 11px; color: var(--text-secondary); cursor: pointer; text-align: center; }
+.area > i[data-icon] { width: 20px; height: 20px; }
+.area-ico { width: 32px; height: 32px; border-radius: var(--radius-control); background: oklch(0.55 0.18 255); color: #fff; display: grid; place-items: center; }
+.area-ico i[data-icon] { width: 18px; height: 18px; }
+.area.on { color: var(--text-primary); }
+.area b { font-size: 10px; color: var(--text-muted); margin-top: -3px; }
+.area.pts > i[data-icon] { color: oklch(0.55 0.18 255); }
+.account-box { display: flex; flex-direction: column; align-items: center; gap: var(--scale-4); background: var(--surface-page); border-radius: var(--radius-container); padding: var(--scale-3) var(--scale-2); }
+.avatar { width: 30px; height: 30px; border-radius: 50%; background: var(--surface-inverse); color: var(--text-on-inverse); display: grid; place-items: center; font: var(--type-label); font-size: 11px; }
+.spacer { flex: 1; }
+.pos { color: var(--feedback-positive-text); }
+.neg { color: var(--feedback-negative-text); }
+.num { font: var(--type-numeric); font-variant-numeric: tabular-nums; }
+
+/* sidebar */
+.side { background: var(--surface-sunken); border-radius: var(--radius-container); margin: var(--scale-3) 0; padding: var(--scale-4) var(--scale-3); position: sticky; top: var(--scale-3); height: calc(100vh - 29px - 24px); }
+.brand { display: flex; align-items: center; gap: var(--space-inline); font-weight: 600; margin-bottom: var(--scale-4); }
+.logo { width: 22px; height: 22px; border-radius: 6px; background: oklch(0.55 0.18 255); color: #fff; display: grid; place-items: center; }
+.logo i[data-icon] { width: 14px; height: 14px; }
+.collapse { color: var(--text-muted); }
+.chev { color: var(--text-muted); }
+.btn-outline { display: flex; align-items: center; justify-content: center; gap: 6px; width: 100%; padding: 8px; border: 1px solid var(--border-strong); background: var(--surface-card); border-radius: var(--radius-control); font: var(--type-label); margin-bottom: var(--scale-4); cursor: pointer; }
+.nav-label { font: var(--type-label); font-size: 11px; color: var(--text-muted); margin: var(--scale-3) var(--scale-2) var(--scale-1); letter-spacing: .04em; }
+.nav { display: flex; align-items: center; gap: var(--space-inline); padding: 7px var(--scale-2); border-radius: var(--radius-control); color: var(--text-secondary); cursor: pointer; }
+.nav.active { background: var(--surface-card); color: var(--text-primary); }
+.count { margin-left: auto; background: var(--surface-inverse); color: var(--text-on-inverse); border-radius: var(--radius-pill); font-size: 11px; padding: 0 7px; }
+.chip-new { margin-left: auto; background: var(--feedback-positive-surface); color: var(--feedback-positive-text); border-radius: var(--radius-pill); font: var(--type-label); font-size: 11px; padding: 0 7px; }
+
+/* main */
+.main { padding: var(--scale-4) var(--scale-6) var(--space-section); width: 100%; min-width: 0; }
+.main > * { max-width: var(--size-content); margin-inline: auto; } /* G-141: wide monitors — the content stops growing and stays centred; the panels stay at the edges */
+.topbar { display: flex; align-items: center; gap: var(--scale-3); background: var(--surface-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-container); padding: var(--scale-3) var(--scale-4); }
+.back { color: var(--text-secondary); font: var(--type-label); cursor: pointer; }
+.acc-badge { background: var(--surface-inverse); color: var(--text-on-inverse); font: var(--type-label); font-size: 10px; border-radius: 6px; padding: 6px 5px; }
+.acc-name { font-weight: 600; }
+.acc-meta { font: var(--type-caption); color: var(--text-secondary); display: flex; align-items: center; gap: 4px; }
+.dot-warn { width: 6px; height: 6px; border-radius: 50%; background: var(--feedback-warning-graphic); }
+.btn-ghost, .btn-dark { display: inline-flex; align-items: center; gap: 6px; }
+.back, .link { display: inline-flex; align-items: center; gap: 4px; }
+.btn-ghost { border: 1px solid var(--border-strong); background: var(--surface-card); border-radius: var(--radius-control); padding: 6px 10px; font: var(--type-label); cursor: pointer; }
+.btn-dark { border: 0; background: var(--surface-inverse); color: var(--text-on-inverse); border-radius: var(--radius-control); padding: 7px 12px; font: var(--type-label); cursor: pointer; }
+
+.tabs-row { display: flex; align-items: center; gap: var(--scale-4); margin: var(--scale-5) auto var(--scale-3); } /* auto: centred with the rest on wide monitors (G-141) */
+.pills { display: flex; gap: 4px; background: var(--surface-sunken); padding: 3px; border-radius: var(--radius-control); }
+.pill { padding: 4px 10px; border-radius: 6px; color: var(--text-secondary); display: flex; gap: 6px; align-items: center; }
+.pill.on { background: var(--surface-card); color: var(--text-primary); box-shadow: 0 1px 2px oklch(0 0 0 / .08); }
+.link { color: var(--text-secondary); font: var(--type-label); cursor: pointer; }
+.subtabs { display: flex; gap: var(--scale-5); border-bottom: 1px solid var(--border-subtle); margin-bottom: var(--scale-4); }
+.sub { padding: 8px 0; color: var(--text-secondary); font: var(--type-label); cursor: pointer; }
+.sub.on { color: var(--text-primary); border-bottom: 2px solid var(--border-focus); }
+.sub.off { color: var(--text-muted); cursor: default; }
+.soon { background: var(--surface-sunken); border-radius: var(--radius-pill); padding: 0 6px; font-size: 10px; }
+
+.panel, .card { background: var(--surface-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-container); padding: var(--space-inset); }
+.h3 { font: var(--type-title); margin: 0 0 var(--space-gap); }
+.h4 { font: var(--type-title); font-size: 14px; margin: 0 0 var(--scale-3); }
+.h3 i.i, .h4 i.i { color: var(--text-muted); width: 13px; height: 13px; vertical-align: -1px; }
+.kpi-row { display: grid; gap: var(--space-gap); margin-bottom: var(--space-gap); }
+.kpi-row.three { grid-template-columns: repeat(3, 1fr); }
+.kpi-row.two { grid-template-columns: repeat(2, 1fr); margin-bottom: 0; }
+.kpi { border: 1px solid var(--border-subtle); border-radius: var(--radius-control); padding: var(--scale-4); }
+.kpi-label { font: var(--type-label); font-size: 10px; letter-spacing: .06em; color: var(--text-muted); margin-bottom: var(--scale-2); }
+.kpi-value { font: var(--type-numeric-lg); }
+.kpi-line { display: flex; align-items: center; justify-content: space-between; }
+.split { display: flex; gap: 4px; font: var(--type-label); font-size: 10px; }
+.split span { padding: 1px 5px; border-radius: 4px; }
+.split .w { background: var(--feedback-positive-surface); color: var(--feedback-positive-text); }
+.split .b { background: var(--surface-sunken); color: var(--text-secondary); }
+.split .l { background: var(--feedback-negative-surface); color: var(--feedback-negative-text); }
+
+.cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-gap); margin: var(--space-gap) 0; align-items: start; }
+.row { display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px solid var(--border-subtle); color: var(--text-secondary); font-size: 13px; }
+.row:last-child { border-bottom: 0; }
+.row em { font-style: normal; color: var(--text-muted); font-size: 11px; }
+
+.bd-head { border-top: 1px solid var(--border-subtle); padding-top: var(--scale-3); margin-top: var(--scale-6); }
+.eyebrow { font: var(--type-label); font-size: 10px; letter-spacing: .08em; color: var(--text-muted); }
+.caption { font: var(--type-caption); color: var(--text-secondary); margin: 4px 0 var(--space-gap); }
+.bd { margin-bottom: var(--space-gap); }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th { font: var(--type-label); color: var(--text-secondary); padding: 8px 6px; border-bottom: 1px solid var(--border-subtle); cursor: pointer; user-select: none; white-space: nowrap; }
+th:hover { color: var(--text-primary); }
+th i.sort { color: var(--text-muted); width: 11px; height: 11px; vertical-align: -1px; }
+td { padding: 8px 6px; border-bottom: 1px solid var(--border-subtle); }
+tr:last-child td { border-bottom: 0; }
+tbody tr:hover { background: var(--surface-page); }
+.left { text-align: left; } .right { text-align: right; } .center { text-align: center; }
+.tag { font: var(--type-label); font-size: 9px; border-radius: var(--radius-pill); padding: 1px 6px; margin-left: 4px; }
+.tag.best { background: var(--feedback-positive-surface); color: var(--feedback-positive-text); }
+.tag.worst { background: var(--feedback-negative-surface); color: var(--feedback-negative-text); }
+.wbar { position: relative; display: inline-flex; width: 64px; height: 4px; border-radius: 2px; overflow: visible; vertical-align: middle; }
+.wbar .red { background: var(--feedback-negative-graphic); height: 4px; border-radius: 2px 0 0 2px; }
+.wbar .green { background: var(--feedback-positive-graphic); height: 4px; flex: 1; border-radius: 0 2px 2px 0; }
+.wbar .knob { position: absolute; top: -2px; width: 8px; height: 8px; margin-left: -4px; border-radius: 50%; background: var(--text-primary); }
+
+.rail { border-left: 1px solid var(--border-subtle); display: flex; flex-direction: column; align-items: center; gap: var(--scale-5); padding-top: var(--scale-5); color: var(--text-secondary); position: sticky; top: 0; height: calc(100vh - 29px); }
+.rail a { cursor: pointer; position: relative; }
+.rail i[data-icon] { width: 18px; height: 18px; }
+.bell::after { content: ""; position: absolute; top: 0; right: 0; width: 6px; height: 6px; border-radius: 50%; background: var(--feedback-negative-graphic); }
+.rail .sep { width: 18px; height: 1px; background: var(--border-subtle); }
+.theme-switch { font: var(--type-label); margin-left: 4px; padding: 0 8px; border: 1px solid var(--border-strong); border-radius: var(--radius-pill); background: transparent; color: inherit; cursor: pointer; }
+.theme-switch[aria-pressed="true"] { background: var(--feedback-warning-text); color: var(--feedback-warning-surface); border-color: var(--feedback-warning-text); }
+/* G-71 → G-72: the Trading panel collapses to an ICON STRIP (not to nothing): sections stay one click away,
+   the expand button stays where it was, names come back as tooltips. Motion respects «reduce motion». */
+.app { transition: grid-template-columns var(--duration-expand) var(--ease-in-out); } /* same motion as Disclosure (G-77) */
+.app[data-side="collapsed"] { grid-template-columns: 76px 56px 1fr 48px; }
+.side { min-width: 0; overflow: hidden; }
+button.collapse { display: inline-flex; padding: 2px; border: 0; border-radius: var(--radius-control); background: transparent; color: var(--text-muted); cursor: pointer; }
+button.collapse:hover { color: var(--text-primary); background: var(--surface-card); }
+.area[data-side-toggle] { cursor: pointer; }
+.app[data-side="collapsed"] .side { display: flex; flex-direction: column; align-items: center; gap: var(--scale-1); padding: var(--scale-4) var(--scale-2); }
+/* G-73: text nodes are hidden with font-size 0, so every flex gap is switched off — otherwise the gap pushes the icon off-centre */
+.app[data-side="collapsed"] .brand { gap: 0; font-size: 0; margin-bottom: var(--scale-3); }
+.app[data-side="collapsed"] .brand .chev, .app[data-side="collapsed"] .brand .spacer, .app[data-side="collapsed"] button.collapse { display: none; }
+.app[data-side="collapsed"] .btn-outline { width: 36px; height: 36px; padding: 0; gap: 0; font-size: 0; margin-bottom: var(--scale-2); }
+.app[data-side="collapsed"] .nav { width: 36px; height: 36px; padding: 0; gap: 0; font-size: 0; justify-content: center; }
+.app[data-side="collapsed"] .count, .app[data-side="collapsed"] .chip-new { display: none; }
+.app[data-side="collapsed"] .nav-label { font-size: 0; width: 20px; height: 1px; margin: var(--scale-2) 0; background: var(--border-subtle); }
+/* logo: brand mark. In the strip its place is taken by the grey «expand» button — the same look as the collapse
+   button of the open panel, so the control looks the same in both states */
+.logo i.logo__expand { display: none; } /* beats the generic i[data-icon] { display: inline-flex } */
+.logo:focus:not(:focus-visible) { outline: none; }
+.app[data-side="collapsed"] .logo { width: 32px; height: 32px; border-radius: var(--radius-control); background: transparent; color: var(--text-muted); cursor: pointer; }
+.app[data-side="collapsed"] .logo i.logo__mark { display: none; }
+.app[data-side="collapsed"] .logo i.logo__expand { display: inline-flex; width: 18px; height: 18px; }
+.app[data-side="collapsed"] .logo:hover, .app[data-side="collapsed"] .logo:focus-visible { background: var(--surface-card); color: var(--text-primary); }
+@media (prefers-reduced-motion: reduce) { .app { transition: none; } }
+/* G-75 shell states: hover / press on everything clickable in the rails, sidebar and header */
+.nav, .btn-outline, .btn-ghost, .pill, .sub, .area, .rail a, .link, .back, .theme-switch, .btn-dark { transition: background-color var(--duration-fast) var(--ease-standard), color var(--duration-fast) var(--ease-standard), filter var(--duration-fast) var(--ease-standard); }
+.nav:not(.active):hover, .btn-outline:hover, .btn-ghost:hover { background: var(--surface-hover); color: var(--text-primary); }
+.nav:active, .btn-outline:active, .btn-ghost:active { background: var(--surface-pressed); }
+.btn-dark:hover { filter: brightness(1.15); }
+.btn-dark:active { filter: brightness(0.92); }
+.pill { cursor: pointer; }
+.pill:not(.on):hover, .sub:not(.on):not(.off):hover, .area:not(.on):hover, .rail a:hover, .link:hover, .back:hover { color: var(--text-primary); }
+.area:not(.on):hover > i[data-icon] { color: var(--text-primary); }
+/* G-76: prototype toast — a click on a tab, button or menu item outside the test shows a toast at the bottom centre
+   (like a mobile toast): it rises in with a slight spring, stays ~2 s, sinks out. Prototype chrome, not a product component. */
+.proto-hint { position: fixed; z-index: 1000; left: 50%; bottom: var(--scale-8); max-width: calc(100vw - var(--scale-8)); pointer-events: none;
+  padding: var(--space-stack) var(--space-inset); background: var(--surface-tip); color: var(--text-on-inverse); border-radius: var(--radius-pill); box-shadow: var(--elevation-overlay); font: var(--type-body); text-align: center;
+  opacity: 0; translate: -50% var(--scale-4); scale: 0.96;
+  transition: opacity var(--duration-base) var(--ease-standard), translate var(--duration-base) var(--ease-standard), scale var(--duration-base) var(--ease-standard); }
+.proto-hint[data-state="open"] { opacity: 1; translate: -50% 0; scale: 1;
+  transition: opacity var(--duration-base) var(--ease-standard), translate var(--duration-toast-in) var(--ease-spring), scale var(--duration-toast-in) var(--ease-spring); }
+.proto-hint b { font: var(--type-body-strong); }
+.proto-hint { display: flex; align-items: center; gap: var(--space-inline); text-align: left; }
+.proto-hint__icon { width: 18px; height: 18px; color: var(--text-on-inverse-secondary); } /* a small sad face — a human «sorry, nothing here» */
+/* G-80: Forex is a market, not a brand — the blue mark only repeated the Trading icon. Open panel: «Forex ▾» without it;
+   the strip keeps the same element as the grey «expand» button (G-73, G-74). */
+.app:not([data-side="collapsed"]) .brand .logo { display: none; }
+/* G-87: platform mark in the logo slot — a fixed brand asset: the same in both themes (brand blue + near-black, white candles);
+   a hairline keeps its edge visible on the dark rail */
+[data-look="r3"] { --logo-ink: var(--zinc-14); --logo-candle: var(--zinc-100); --logo-fill: var(--brand-fill); }
+[data-look="r3"][data-theme="dark"] { --logo-fill: var(--brand-text); } /* G-100: a lighter blue for the mark on the dark rail */
+.brand-mark { display: inline-flex; width: 36px; height: 36px; border-radius: 9px; box-shadow: 0 0 0 1px var(--border-subtle); margin-bottom: var(--scale-2); }
+.brand-mark svg { display: block; }
+.brand-mark[data-clear] { box-shadow: none; }
+/* G-99: the transparent mark has no square to hold it — no extra margin, the empty area around the rectangles is cropped
+   (viewBox), so the gap to Home is the rail's own gap */
+.brand-mark[data-clear] { width: 28px; height: 28px; margin-bottom: 0; }
+.brand-mark[data-clear] svg { width: 28px; height: 28px; }
+
+/* G-88 navigation tabs (TO-BE only): one look per role.
+   Tabs = navigation → underline. Level 1 (Overview / Performance / History) = primary: larger text, only the active underline;
+   level 2 (Summary / Wins vs Losses / Calendar / Symbol Analysis) = secondary: smaller text, a full-width rule under the row.
+   The in-block view switch (By session / By pairs / By week) is a different component — Segmented Control. */
+[data-look="r3"] .pills { background: transparent; padding: 0; gap: var(--scale-5); border-radius: 0; }
+[data-look="r3"] .pill { padding: var(--scale-2) 0; border-radius: 0; font: var(--type-body-medium); color: var(--text-secondary); border-bottom: 2px solid transparent; }
+[data-look="r3"] .pill.on { background: transparent; box-shadow: none; color: var(--text-primary); border-bottom-color: var(--brand-fill); }
+[data-look="r3"] .sub { font: var(--type-label); }
+/* G-101: theme switch in the right rail — same look as the rail icons, hover like them */
+.rail .spacer { flex: 1; }
+/* G-123: theme switch in the Areas column (platform-wide), above the account box; */
+.area-theme { display: inline-flex; align-items: center; justify-content: center; width: var(--scale-8); height: var(--scale-8); padding: 0; border: 0; border-radius: var(--radius-control); background: transparent; color: var(--text-secondary); cursor: pointer; transition: color var(--duration-fast) var(--ease-standard), background-color var(--duration-fast) var(--ease-standard); }
+.area-theme:hover { color: var(--text-primary); background: var(--surface-hover); }
+.area-theme i[data-icon] { width: 20px; height: 20px; }
+.rail-theme { display: inline-flex; padding: 0; border: 0; background: transparent; color: var(--text-secondary); cursor: pointer; margin-bottom: var(--scale-5); transition: color var(--duration-fast) var(--ease-standard); }
+.rail-theme:hover { color: var(--text-primary); }
+.rail-theme i[data-icon] { width: 18px; height: 18px; }
+/* G-110 pilot — level-1 tabs (Overview / Performance / History), two variants for comparison (?nav=v1 | v2) */
+/* v1: title tabs — larger, semibold, no underline; inactive muted. Level 2 keeps the underline, so the two levels differ in kind, not size only */
+[data-look="r3"][data-nav="v1"] .pills { gap: var(--scale-6); }
+[data-look="r3"][data-nav="v1"] .pill { padding: 0; border-bottom: 0; font: 600 22px/30px var(--font-sans); letter-spacing: var(--tracking-heading); color: var(--text-muted); }
+[data-look="r3"][data-nav="v1"] .pill.on { color: var(--text-primary); border-bottom: 0; }
+[data-look="r3"][data-nav="v1"] .pill:not(.on):hover { color: var(--text-secondary); }
+/* v2: the account's sections live in the account card — account → its tabs, like a repository header */
+[data-look="r3"][data-nav="v2"] .topbar { flex-wrap: wrap; row-gap: 0; padding-bottom: 0; }
+[data-look="r3"][data-nav="v2"] .topbar .tabs-row { flex-basis: 100%; margin: var(--scale-3) auto 0; padding-top: var(--scale-1); border-top: 1px solid var(--border-divider); }
+[data-look="r3"][data-nav="v2"] .topbar .pill { padding: var(--scale-3) 0; }
+[data-look="r3"][data-nav="v2"] .subtabs { margin-top: var(--scale-5); }
+/* v3: level 1 back to Segmented Control, size = lg — «segments = views of one object (the account), underline = sub-sections».
+   Same component as the Breakdowns switch, bigger and in the page header; concentric corners (G-111) */
+[data-look="r3"][data-nav="v3"] .pills { gap: var(--space-tight); padding: var(--space-tight); background: var(--surface-track); border-radius: var(--radius-nested); }
+[data-look="r3"][data-nav="v3"] .pill { padding: var(--scale-2) var(--scale-4); border: 1px solid transparent; border-radius: var(--radius-control); font: var(--type-body-medium); color: var(--text-secondary); }
+[data-look="r3"][data-nav="v3"] .pill.on { background: var(--surface-card); border-color: var(--border-subtle); color: var(--brand-text); }
+[data-look="r3"][data-nav="v3"] .pill:not(.on):hover { background: var(--surface-hover); color: var(--text-primary); }
+/* v3 visual options (G-110): the same lg Segmented Control, different surfaces — the header row sits on the PAGE, not on a block */
+/* v3a — raised track: track = block tone + 1px border, active = card */
+[data-look="r3"][data-nav="v3a"] .pills, [data-look="r3"][data-nav="v3b"] .pills, [data-look="r3"][data-nav="v3c"] .pills, [data-look="r3"][data-nav="v3d"] .pills { gap: var(--space-tight); padding: var(--space-tight); border-radius: var(--radius-nested); }
+[data-look="r3"][data-nav^="v3"] .pill { padding: var(--scale-2) var(--scale-4); border: 1px solid transparent; border-radius: var(--radius-control); font: var(--type-body-medium); color: var(--text-secondary); }
+[data-look="r3"][data-nav^="v3"] .pill:not(.on):hover { background: var(--surface-hover); color: var(--text-primary); }
+[data-look="r3"][data-nav="v3a"] .pills { background: var(--surface-container); border: 1px solid var(--border-subtle); }
+[data-look="r3"][data-nav="v3a"] .pill.on { background: var(--surface-raised); border-color: var(--border-strong); color: var(--text-primary); }
+/* v3b — outline: no fill, only a 1px track border; active = card with border */
+[data-look="r3"][data-nav="v3b"] .pills { background: transparent; border: 1px solid var(--border-subtle); }
+[data-look="r3"][data-nav="v3b"] .pill.on { background: var(--surface-card); border-color: var(--border-subtle); color: var(--text-primary); }
+/* v3c — brand: active filled with brand blue, white text */
+[data-look="r3"][data-nav="v3c"] .pills { background: var(--surface-container); border: 1px solid var(--border-subtle); }
+[data-look="r3"][data-nav="v3c"] .pill.on { background: var(--brand-fill); border-color: var(--brand-fill); color: oklch(1 0 0); }
+/* v3d — tinted: no track; active = soft brand tint + brand text */
+[data-look="r3"][data-nav="v3d"] .pills { background: transparent; padding: 0; gap: var(--scale-1); }
+[data-look="r3"][data-nav="v3d"] .pill.on { background: color-mix(in oklch, var(--brand-fill) 16%, transparent); color: var(--brand-text); }
+/* G-126 pilot (?blue): shades of the brand blue for graphics WITHOUT a sign — Winning % fill and its 0–100 % track.
+   Money stays green / red; breakeven stays neutral grey (it means «neither»). Graphics ≥ 3:1 on the card. */
+[data-look="r3"][data-blue][data-theme="light"] { --graphic-neutral-strong: var(--light-blue-9); --graphic-track: var(--light-blue-5); }
+[data-look="r3"][data-blue][data-theme="dark"] { --graphic-neutral-strong: var(--dark-blue-9); --graphic-track: var(--dark-blue-6); }
+/* G-132 pilot (?font=a | b): two type directions on top of the look. Numbers = everything set in --type-numeric / numeric-lg / hero.
+   a — Inter for text, Geist Mono for the numbers; b — Geist for text, Geist Mono for the numbers. Free, Google Fonts (OFL). */
+[data-look="r3"][data-font] { --font-mono: "Geist Mono", ui-monospace, "SF Mono", monospace; --type-hero: 600 44px/52px var(--font-mono); --type-numeric-lg: 600 30px/36px var(--font-mono); --type-numeric: 500 14px/20px var(--font-mono); }
+[data-look="r3"][data-font="b"] { --font-sans: "Geist", system-ui, -apple-system, "Segoe UI", sans-serif; }
+/* G-132 c — Inter for text, JetBrains Mono for the numbers (the pair of G-82…G-85) */
+[data-look="r3"][data-font="c"] { --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", monospace; }
+
+/* G-139: the expanded Total P&L card — the cards morph to their new places (View Transitions), the motion of Costs & activity */
+::view-transition-group(*) { animation-duration: var(--duration-expand); animation-timing-function: var(--ease-in-out); }
+::view-transition-old(*), ::view-transition-new(*) { animation-duration: var(--duration-expand); }

@@ -1,0 +1,374 @@
+/* Goodface test · TO-BE components
+   Rules (code = Figma):
+   · class name = Figma component name; data-* attribute = Figma variant property
+   · layout = flex + gap + padding only (auto layout); no margin, no absolute positioning
+   · semantic tokens only; no raw colours, no raw px
+   · sizing is one of: fill (flex: 1), hug (default), fixed (token) */
+
+/* ── Stat Block ─ Figma: «Stat Block» · section container ───────────── */
+.stat-block {
+  display: flex; flex-direction: column; gap: var(--space-gap);
+  padding: var(--space-block-inset); /* G-127: 0 in R4 — no tray */
+  background: var(--surface-block);
+  border: var(--border-width) solid var(--border-block);
+  border-radius: var(--radius-container);
+  box-shadow: var(--elevation-container);
+  font: var(--type-body); color: var(--text-primary);
+}
+.stat-block__header { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-inline); } /* heading row over the optional __meta summary line (G-115) */
+.stat-block__title { font: var(--type-heading); letter-spacing: var(--tracking-heading); }
+.stat-block__heading { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-inline); }
+.stat-block__total { display: flex; align-items: baseline; gap: var(--space-tight); font: var(--type-title); font-variant-numeric: tabular-nums; } /* 16 px, not bold: noticeable, still under the heading (G-69 → G-114) */
+.stat-block__total small { font: var(--type-caption); color: var(--text-secondary); }
+.stat-block__total b { font: inherit; } /* the sum keeps the title weight (500), not the browser bold */
+.stat-block__total[data-tone="positive"] b { color: var(--feedback-positive-text); }
+.stat-block__total[data-tone="negative"] b { color: var(--feedback-negative-text); }
+.stat-block__desc { font: var(--type-caption); color: var(--text-secondary); }
+/* __meta (G-115): the summary line under the heading — period + total; heading → summary → content */
+.stat-block__meta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-inline); }
+
+/* ── Segmented Control ─ Figma: «Segmented Control» · switches the VIEW of the same data in place (not navigation, G-88) · item: state = active | default ──────────────
+   One slice of the same data at a time; no new data, only which part is visible. */
+.segmented { display: flex; align-self: flex-start; gap: var(--space-tight); padding: var(--space-tight); background: var(--surface-track); border: var(--border-width) solid var(--border-track); border-radius: var(--radius-nested); } /* a control → it has a border (G-112) */
+.segmented[data-size="lg"] { background: var(--surface-track-lg); } /* lg: page-level views of the account (Overview / Performance / History) — sits on the page, so the block tone (G-110 v3a) */
+.segmented[data-size="lg"] .segmented__item { padding: var(--scale-2) var(--scale-4); font: var(--type-body-medium); } /* concentric corners: track = item radius + the gap between them (G-111) */ /* own track role: visible against the block in both themes */
+.segmented__item { display: inline-flex; align-items: center; padding: var(--space-tight) var(--space-stack); border: var(--border-width) solid transparent; border-radius: var(--radius-control); background: transparent; font: var(--type-label); color: var(--text-secondary); cursor: pointer; }
+.segmented__item[data-state="active"] { background: var(--surface-selected); border-color: var(--border-selected); color: var(--text-selected); } /* brand = interface: the active view (G-65); Figma — brand/text in the variant itself */
+.breakdown-table[hidden] { display: none; }
+.breakdown-table__insight { padding: var(--space-stack) 0 0 0; border-top: var(--border-width) solid var(--border-divider); font: var(--type-body); color: var(--text-primary); } /* the one-line answer to «where do I lose?», built from the rows */
+.breakdown-table__insight b { font: var(--type-label); color: var(--text-secondary); text-transform: uppercase; letter-spacing: var(--tracking-overline); }
+.stat-group__note { font: var(--type-caption); color: var(--text-secondary); } /* per trade vs per day — why the two answers differ */
+.stat-block__body { display: flex; gap: var(--space-cards); align-items: stretch; }
+.stat-block__body[data-direction="column"] { flex-direction: column; }
+.stat-block__col { display: flex; flex-direction: column; gap: var(--space-cards); flex: 1; }
+.stat-block__col[data-width="side"] { flex: none; width: var(--size-col-side); }
+
+/* ── Period Tag ─ Figma: «Period Tag» ──────────────────────────────── */
+.period-tag {
+  display: inline-flex; align-items: center; gap: var(--space-inline);
+  padding: var(--space-tight) var(--space-inline);
+  background: var(--surface-tag); border-radius: var(--radius-control); /* G-113 */
+  font: var(--type-label); color: var(--text-secondary);
+}
+
+/* ── Tag ─ Figma: «Tag» · tone = neutral ────────────────────────────── */
+.tag {
+  display: inline-flex; align-items: center; white-space: nowrap;
+  padding: 0 var(--space-inline);
+  background: var(--surface-tag); border: var(--border-width) solid transparent; border-radius: var(--radius-pill); /* a label, not a control → filled, no border (G-112); translucent fill shows on any surface (G-113) */
+  font: var(--type-label); color: var(--text-secondary);
+}
+
+/* ── KPI Card ─ Figma: «KPI Card» · size = hero | md · tone = positive | negative | neutral */
+.kpi-card {
+  display: flex; flex-direction: column; gap: var(--space-stack);
+  padding: var(--space-card); /* G-131 */
+  background: var(--surface-raised); border: var(--border-width) solid var(--border-raised); border-radius: var(--radius-raised); box-shadow: var(--elevation-raised);
+  flex: 1;
+}
+.kpi-card[data-size="hero"] { padding: var(--space-card-hero); gap: var(--space-gap); }
+.kpi-card__head { display: flex; align-items: center; gap: var(--space-inline); }
+.kpi-card__label { font: var(--type-label); letter-spacing: var(--tracking-overline); text-transform: uppercase; color: var(--text-secondary); }
+.kpi-card__value { font: var(--type-numeric-lg); font-variant-numeric: tabular-nums; }
+.kpi-card[data-size="hero"] .kpi-card__value { font: var(--type-hero); }
+.kpi-card[data-tone="positive"] .kpi-card__value { color: var(--feedback-positive-text); }
+.kpi-card[data-tone="negative"] .kpi-card__value { color: var(--feedback-negative-text); }
+.kpi-card__hint { font: var(--type-caption); color: var(--text-secondary); }
+.kpi-card__hint b { font: var(--type-numeric); color: var(--text-primary); }
+.kpi-card__section { display: flex; flex-direction: column; gap: var(--space-inline); }
+.kpi-card__divider { border-top: var(--border-width) solid var(--border-divider); } /* a divider like the rows' (G-131) */
+
+/* ── Split Bar ─ Figma: «Split Bar» · one bar cut into parts of a whole ── */
+.split-bar { display: flex; flex-direction: column; gap: var(--space-inline); }
+.split-bar__title { display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-inline); font: var(--type-label); color: var(--text-secondary); }
+.split-bar__title b { font: var(--type-numeric); color: var(--text-primary); }
+/* Bar corners (G-66): rounded only where a scale or a value ENDS; square where a bar starts from zero / a baseline
+   or meets the next part. Split Bar = one scale cut into parts → the track is rounded and clips, parts are square.
+   Figma: track = frame with corner radius + Clip content; parts without radius. */
+.split-bar__track { display: flex; gap: var(--size-bar-gap); height: var(--size-bar); border-radius: var(--radius-bar); overflow: hidden; }
+.split-bar__part { flex-basis: 0; }
+.split-bar__part[data-tone="positive"] { background: var(--feedback-positive-graphic); }
+.split-bar__part[data-tone="negative"] { background: var(--feedback-negative-graphic); }
+.split-bar__part[data-tone="neutral"] { background: var(--feedback-neutral-graphic); }
+.split-bar__legend { display: flex; flex-wrap: wrap; gap: var(--space-tight) var(--space-gap); font: var(--type-caption); color: var(--text-secondary); }
+.split-bar__key { display: inline-flex; align-items: center; gap: var(--space-tight); }
+.split-bar__key b { font: var(--type-numeric); color: var(--text-primary); }
+.split-bar__key[data-muted="true"], .split-bar__key[data-muted="true"] b { color: var(--text-muted); }
+.split-bar__dot { width: var(--size-dot); height: var(--size-dot); border-radius: var(--radius-pill); }
+.split-bar__dot[data-tone="positive"] { background: var(--feedback-positive-graphic); }
+.split-bar__dot[data-tone="negative"] { background: var(--feedback-negative-graphic); }
+.split-bar__dot[data-tone="neutral"] { background: var(--feedback-neutral-graphic); }
+
+/* ── Pair Bar ─ Figma: «Pair Bar» · two values on one shared scale ────── */
+/* ── Day Chart (pilot G-134) ─ Figma: «Day Chart» · bar: tone = positive · negative
+   Daily net P&L as bars from one zero line: profit up (green), loss down (red). The two halves are split as the best day :
+   the worst day (flex-grow from the data, like the Diverge Bar halves), each bar's height = its share of that half.
+   Corners: rounded only where the value ends (G-66) — up bars on top, down bars at the bottom, square at zero. */
+.day-chart { display: flex; flex-direction: column; gap: var(--space-tight); }
+.day-chart__plot { display: flex; flex-direction: column; height: var(--size-chart); }
+.day-chart__row { display: flex; gap: var(--stroke-1); flex-basis: 0; min-height: 0; }
+.day-chart__row[data-side="up"] { align-items: flex-end; }
+.day-chart__row[data-side="down"] { align-items: flex-start; }
+.day-chart__bar { flex: 1; }
+.day-chart__bar[data-tone="positive"] { background: var(--feedback-positive-graphic); border-radius: var(--radius-bar) var(--radius-bar) 0 0; }
+.day-chart__bar[data-tone="negative"] { background: var(--feedback-negative-graphic); border-radius: 0 0 var(--radius-bar) var(--radius-bar); }
+.day-chart__axis { height: var(--stroke-1); background: var(--graphic-axis); }
+/* ── Line Chart (pilot G-135) ─ Figma: «Line Chart» · the cumulative net P&L (equity curve), day by day from zero.
+   Colour by the sign of money: above zero green, below zero red (two clip areas at the zero line); a quiet fill under the line. */
+.line-chart { display: flex; flex-direction: column; gap: var(--space-tight); }
+.line-chart__svg { display: block; width: 100%; height: var(--size-chart); overflow: visible; }
+.line-chart__line { fill: none; stroke-width: var(--size-line); stroke-linejoin: round; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+.line-chart__line[data-tone="positive"] { stroke: var(--feedback-positive-graphic); }
+.line-chart__line[data-tone="negative"] { stroke: var(--feedback-negative-graphic); }
+.line-chart__area { stroke: none; }
+.line-chart__area[data-tone="positive"] { fill: var(--feedback-positive-surface); }
+.line-chart__area[data-tone="negative"] { fill: var(--feedback-negative-surface); }
+.line-chart__axis { stroke: var(--graphic-axis); stroke-width: var(--stroke-1); vector-effect: non-scaling-stroke; }
+.line-chart__scale { display: flex; justify-content: space-between; font: var(--type-caption); color: var(--text-muted); }
+/* hover (G-136, like Kraken): a dotted cursor, a point on the line; to the RIGHT of the cursor the line goes grey and the area
+   under it fills with fine dots — «up to this day» vs «after»; the value sits in a tip above the chart (top layer, no layout shift) */
+.line-chart__svg { cursor: crosshair; }
+.line-chart__line[data-tone="muted"] { stroke: var(--text-muted); }
+.line-chart__area[data-tone="dots"] { fill: url(#lc-dots); }
+.line-chart__dot { fill: var(--text-muted); }
+.line-chart__cursor { stroke: var(--text-muted); stroke-width: var(--stroke-1); stroke-dasharray: var(--scale-05) var(--scale-1); vector-effect: non-scaling-stroke; }
+.line-chart__marker { fill: var(--surface-raised); stroke: var(--text-primary); stroke-width: var(--size-line); vector-effect: non-scaling-stroke; }
+.line-chart__cursor, .line-chart__marker { opacity: 0; transition: opacity var(--duration-base) var(--ease-standard); } /* G-142: hover in and out by opacity, with the tip */
+.line-chart__svg[data-hover] .line-chart__cursor, .line-chart__svg[data-hover] .line-chart__marker { opacity: 1; }
+.chart-tip { inset: auto; padding: var(--space-tight) var(--space-inline); border: 0; border-radius: var(--radius-bar); background: var(--surface-inverse); color: var(--text-on-inverse-secondary); align-items: baseline; gap: var(--space-inline); font: var(--type-caption); pointer-events: none; white-space: nowrap; }
+.chart-tip { opacity: 0; transition: opacity var(--duration-base) var(--ease-standard), display var(--duration-base) allow-discrete, overlay var(--duration-base) allow-discrete; } /* fades in and out (G-136; G-142: duration/base — fast read as a jump) */
+.chart-tip:popover-open { display: flex; opacity: 1; }
+@starting-style { .chart-tip:popover-open { opacity: 0; } } /* only when open: a display on the base rule would beat the browser hiding a closed popover */
+.chart-tip b { font: var(--type-numeric); color: var(--text-on-inverse); }
+/* expand / collapse (G-137): the chart grows into a full-width card in place of the bento cards, which move down */
+.kpi-card__head[data-action] { justify-content: space-between; } /* a card action at the end of the top row (G-137) */
+.kpi-card__head-main { display: flex; align-items: center; gap: var(--space-inline); }
+.kpi-card__actions { display: flex; align-items: center; gap: var(--space-gap); }
+.kpi-card__period { display: flex; align-items: baseline; gap: var(--space-inline); font: var(--type-caption); color: var(--text-secondary); }
+.kpi-card__period b { font: var(--type-numeric); color: var(--text-primary); }
+.kpi-card[data-expanded] .kpi-card__head { align-items: flex-start; } /* G-139: the whole card expanded — the actions stay on the first line */
+.kpi-card__columns { display: flex; flex-wrap: wrap; column-gap: var(--space-section); row-gap: var(--space-gap); } /* G-140: the bars of the expanded card in two columns */
+.kpi-card__columns > * { flex: 1 1 var(--size-column); min-width: 0; }
+.kpi-card__trend { display: flex; flex-direction: column; gap: var(--space-inline); } /* the sample-data curve, its own block above the real days bar */
+.kpi-card__trend[hidden] { display: none; }
+.kpi-card__trend-head { display: flex; align-items: center; gap: var(--space-inline); font: var(--type-label); color: var(--text-secondary); } /* narrower than two columns → one under the other */
+.stat-block__col[data-direction="row"] { flex-direction: row; } /* the other KPI cards as a row under the expanded card */
+.icon-btn { display: inline-flex; align-items: center; justify-content: center; width: var(--scale-6); height: var(--scale-6); padding: 0; border: 0; border-radius: var(--radius-control); background: transparent; color: var(--text-secondary); font-size: var(--scale-4); cursor: pointer; transition: color var(--duration-fast) var(--ease-standard), background-color var(--duration-fast) var(--ease-standard); }
+.icon-btn:hover { background: var(--surface-hover); color: var(--text-primary); }
+.icon-btn i[data-icon] { display: inline-flex; }
+.chart-panel { display: flex; flex-direction: column; gap: var(--space-stack); padding: var(--space-card-hero); background: var(--surface-raised); border: var(--border-width) solid var(--border-raised); border-radius: var(--radius-raised); } /* grows open and closes (G-137) — the motion of Costs & activity and the side panel, in the page script */
+.chart-panel__head { display: flex; align-items: center; justify-content: space-between; gap: var(--space-gap); }
+.chart-panel__title { display: flex; align-items: center; gap: var(--space-inline); font: var(--type-title); letter-spacing: var(--tracking-title); color: var(--text-primary); }
+.chart-panel__meta { display: flex; align-items: center; gap: var(--space-inline); font: var(--type-caption); color: var(--text-secondary); }
+.chart-panel__meta b { font: var(--type-numeric); color: var(--text-primary); }
+.chart-panel__meta { gap: var(--space-gap); }
+.chart-panel__sum { display: flex; align-items: baseline; gap: var(--space-inline); }
+.line-chart__plot { display: flex; gap: var(--space-stack); align-items: stretch; }
+.line-chart__plot .line-chart__svg { flex: 1; min-width: 0; }
+.line-chart[data-size="lg"] .line-chart__svg { height: var(--size-chart-lg); }
+.line-chart__y { display: flex; flex-direction: column; justify-content: space-between; font: var(--type-caption); color: var(--text-muted); text-align: right; }
+.pair-bar { display: flex; flex-direction: column; gap: var(--space-inline); }
+.pair-bar__title { font: var(--type-label); color: var(--text-secondary); }
+.pair-bar__row { display: flex; align-items: center; gap: var(--space-stack); }
+.pair-bar__label { flex: none; width: var(--size-label); font: var(--type-caption); color: var(--text-secondary); }
+.pair-bar__track { flex: 1; display: flex; height: var(--size-bar); }
+.pair-bar__fill { border-radius: 0 var(--radius-bar) var(--radius-bar) 0; flex-basis: 0; } /* starts at the baseline → square start, rounded value end (G-66) */
+.pair-bar__rest { flex-basis: 0; }
+.pair-bar__row[data-tone="positive"] .pair-bar__fill { background: var(--feedback-positive-graphic); }
+.pair-bar__row[data-tone="negative"] .pair-bar__fill { background: var(--feedback-negative-graphic); }
+.pair-bar__value { flex: none; width: var(--size-num); text-align: right; font: var(--type-numeric); font-variant-numeric: tabular-nums; }
+.pair-bar__row[data-tone="positive"] .pair-bar__value { color: var(--feedback-positive-text); }
+.pair-bar__row[data-tone="negative"] .pair-bar__value { color: var(--feedback-negative-text); }
+
+/* ── Stat Group ─ Figma: «Stat Group» · titled list of rows ──────────── */
+.stat-group { display: flex; flex-direction: column; gap: var(--space-stack); padding: var(--space-card); background: var(--surface-raised); border: var(--border-width) solid var(--border-raised); border-radius: var(--radius-raised); box-shadow: var(--elevation-raised); flex: 1; }
+.stat-group__head { display: flex; flex-direction: column; gap: var(--space-tight); }
+.stat-group__title { font: var(--type-title); letter-spacing: var(--tracking-title); }
+.stat-group__question { font: var(--type-caption); color: var(--text-secondary); }
+.stat-group__rows { display: flex; flex-direction: column; }
+
+/* ── Stat Row ─ Figma: «Stat Row» · tone = positive | negative | neutral · muted = true | false */
+.stat-row { display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-gap); padding: var(--space-row) 0; border-top: var(--border-width) solid var(--border-divider); }
+.stat-row__label { font: var(--type-body); color: var(--text-secondary); }
+.stat-row__label small { font: var(--type-caption); color: var(--text-muted); }
+.stat-row__value { font: var(--type-numeric); font-variant-numeric: tabular-nums; }
+.stat-row__value small { font: var(--type-caption); color: var(--text-muted); }
+.stat-row[data-tone="positive"] .stat-row__value { color: var(--feedback-positive-text); }
+.stat-row[data-tone="negative"] .stat-row__value { color: var(--feedback-negative-text); }
+.stat-row[data-muted="true"] .stat-row__label, .stat-row[data-muted="true"] .stat-row__value { color: var(--text-muted); }
+.stat-group__slot { padding: var(--space-row) 0; border-top: var(--border-width) solid var(--border-divider); }
+
+/* ── Breakdown Table ─ Figma: «Breakdown Table» · a column of Breakdown Rows ── */
+.breakdown-table { display: flex; flex-direction: column; padding: var(--space-card); background: var(--surface-raised); border: var(--border-width) solid var(--border-raised); border-radius: var(--radius-raised); box-shadow: var(--elevation-raised); }
+.breakdown-table__title { display: flex; align-items: center; justify-content: space-between; gap: var(--space-gap); padding: 0 0 var(--space-stack) 0; font: var(--type-title); letter-spacing: var(--tracking-title); }
+/* ── Breakdown Row ─ Figma: «Breakdown Row» · kind = head | row | total · sample = ok | low
+   Columns: name = Fill; net, rate, profit/loss = Fixed (Figma has no weighted fill). */
+.breakdown-row { display: flex; align-items: center; gap: var(--space-gap); padding: var(--space-row) 0; border-top: var(--border-width) solid var(--border-divider); }
+.breakdown-row[data-kind="head"] { border-top: 0; font: var(--type-label); color: var(--text-secondary); }
+.breakdown-row[data-kind="total"] { font: var(--type-body-medium); border-top-color: var(--border-strong); }
+.breakdown-row__name { flex: none; width: var(--size-col-name); display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--space-tight) var(--space-inline); min-width: 0; }
+.breakdown-row__name b { font: var(--type-body-medium); }
+.breakdown-row__name small { font: var(--type-caption); color: var(--text-muted); }
+.breakdown-row__net { flex: 1; display: flex; align-items: center; gap: var(--space-stack); }
+.breakdown-row__rate { flex: none; width: var(--size-col-sm); display: flex; align-items: center; gap: var(--space-stack); }
+.breakdown-row__pl { flex: none; width: var(--size-col-md); display: flex; flex-direction: column; gap: var(--space-tight); }
+.breakdown-row__num { flex: none; width: var(--size-num); text-align: right; font: var(--type-numeric); font-variant-numeric: tabular-nums; }
+.breakdown-row__num[data-tone="positive"] { color: var(--feedback-positive-text); }
+.breakdown-row__num[data-tone="negative"] { color: var(--feedback-negative-text); }
+/* few trades: numbers and bars at full contrast; the tag carries «less certain» */
+/* few trades: bars at full strength like every row (G-103) — fading dropped the only loss bar below 3:1;
+   «less certain» is said by the «few trades» tag next to the name */
+
+/* ── Diverge Bar ─ Figma: «Diverge Bar» · grows left (loss) or right (profit) from zero ── */
+.diverge-bar { flex: 1; display: flex; height: var(--size-axis); } /* bar of the usual weight, centred; the zero line spans the full axis height so it is visible (G-69) */
+.diverge-bar__half { flex-basis: 0; display: flex; align-items: center; } /* width share = largest loss : largest profit of all three tables, set from the data (G-59) */
+.diverge-bar__half[data-side="positive"] { border-left: var(--border-width) solid var(--graphic-axis); }
+.diverge-bar__fill { flex-basis: 0; height: var(--size-bar); }
+/* both halves start at the zero line → square there, rounded at the value end (G-66) */
+.diverge-bar__half[data-side="positive"] .diverge-bar__fill { border-radius: 0 var(--radius-bar) var(--radius-bar) 0; }
+.diverge-bar__half[data-side="negative"] .diverge-bar__fill { border-radius: var(--radius-bar) 0 0 var(--radius-bar); }
+.diverge-bar__rest { flex-basis: 0; }
+.diverge-bar__half[data-side="positive"] .diverge-bar__fill { background: var(--feedback-positive-graphic); }
+.diverge-bar__half[data-side="negative"] .diverge-bar__fill { background: var(--feedback-negative-graphic); }
+
+/* ── Rate Bar ─ Figma: «Rate Bar» · share of 100% ─────────────────────── */
+.rate-bar { flex: 1; display: flex; height: var(--size-bar); background: var(--graphic-track); border-radius: var(--radius-bar); overflow: hidden; } /* scale 0–100 % → rounded and clips */
+.rate-bar__fill { background: var(--graphic-neutral-strong); border-radius: 0 var(--radius-bar) var(--radius-bar) 0; flex-basis: 0; } /* start = the scale's start (clipped), rounded value end (G-66) */
+.rate-bar__rest { flex-basis: 0; }
+
+/* ── Mini Bar ─ Figma: «Mini Bar» · tone = positive | negative · one thin bar + value.
+   Two Mini Bars stacked in a cell (profit over loss) share one scale. */
+.mini-bar { display: flex; align-items: center; gap: var(--space-stack); }
+.mini-bar__track { flex: 1; display: flex; height: var(--size-bar); } /* one bar weight everywhere (G-69) */
+.mini-bar__fill { border-radius: 0 var(--radius-bar) var(--radius-bar) 0; flex-basis: 0; } /* starts at the baseline → square start (G-66) */
+.mini-bar__rest { flex-basis: 0; }
+/* bar = none (G-104): just the signed number — Breakdowns «Total profit / Total loss»; the Net bar already answers «where» */
+.mini-bar[data-bar="none"] { justify-content: flex-end; }
+.mini-bar[data-tone="positive"] .mini-bar__fill { background: var(--feedback-positive-graphic); }
+.mini-bar[data-tone="negative"] .mini-bar__fill { background: var(--feedback-negative-graphic); }
+.mini-bar__value { flex: none; width: var(--size-num); text-align: right; font: var(--type-numeric); font-variant-numeric: tabular-nums; }
+.mini-bar[data-tone="positive"] .mini-bar__value { color: var(--feedback-positive-text); }
+.mini-bar[data-tone="negative"] .mini-bar__value { color: var(--feedback-negative-text); }
+
+/* ── Info Tip ─ Figma: «Info Tip» · state = closed | open ─────────────────
+   closed = only the «i» trigger; open = the panel below the title (in the flow, no overlay). */
+/* Info Tip is an OVERLAY (G-69): it opens above its «i» on top of the page and never moves the layout.
+   Hover or focus shows it, click pins it, Esc or a click outside closes it. Uses the browser's popover layer;
+   the position next to the trigger is set by app.js. Figma: a separate component shown with «Open overlay», not in auto layout. */
+/* G-70: panel + tail. Items are separated more than term and text inside an item (stack > tight), so each term reads as one unit;
+   term = primary, bolder; text = secondary. The tail points at the «i» the tip belongs to (placement = top → tail below, bottom → above). */
+.info-tip { flex-direction: column; width: var(--size-tip); padding: 0; border: 0; background: transparent; overflow: visible; color: var(--text-on-inverse); }
+.info-tip:popover-open { display: flex; }
+.info-tip[hidden] { display: none; }
+.info-tip__panel { display: flex; flex-direction: column; gap: var(--space-stack); padding: var(--space-inset-sm); background: var(--surface-tip); border-radius: var(--radius-raised); box-shadow: var(--elevation-overlay); }
+.info-tip__item { display: flex; flex-direction: column; gap: 0; } /* term and text touch: the line-height leaves ≈ 4 px between them */
+.info-tip__term { font: var(--type-body-strong); color: var(--text-on-inverse); }
+.info-tip__text { font: var(--type-body); color: var(--text-on-inverse-secondary); }
+.info-tip__tail { display: flex; }   /* left padding = where the «i» is, set by app.js */
+.info-tip__arrow { width: var(--size-tip-arrow); height: var(--size-tip-arrow-h); background: var(--surface-tip); clip-path: polygon(0 0, 100% 0, 50% 100%); }
+.info-tip[data-placement="bottom"] .info-tip__tail { order: -1; }
+.info-tip[data-placement="bottom"] .info-tip__arrow { clip-path: polygon(50% 0, 100% 100%, 0 100%); }
+.info-tip__trigger { display: inline-flex; align-items: center; padding: 0; border: 0; background: transparent; color: var(--text-muted); cursor: pointer; }
+.info-tip__trigger:hover, .info-tip__trigger[aria-expanded="true"] { color: var(--text-primary); }
+
+/* ── Stat Group · frame = card | plain; rows direction = column | row ───
+   plain = no own border (lives inside a Stat Panel); row = items side by side (reference strip). */
+.stat-group[data-frame="plain"] { border: 0; border-radius: 0; }
+.stat-group__rows[data-direction="row"] { flex-direction: row; gap: var(--space-gap); }
+/* ── Stat Row · layout = inline | stacked ── stacked = label over value, for a strip */
+.stat-row[data-layout="stacked"] { flex: 1; flex-direction: column; align-items: flex-start; justify-content: flex-start; gap: var(--space-tight); }
+
+/* ── Stat Panel ─ Figma: «Stat Panel» · one frame, columns split by dividers ── */
+.stat-panel { display: flex; align-items: stretch; border: var(--border-width) solid var(--border-subtle); border-radius: var(--radius-container); }
+.stat-panel > * { flex: 1; }
+.stat-panel > * + * { border-left: var(--border-width) solid var(--border-subtle); }
+.stat-panel__col { display: flex; flex-direction: column; }
+.stat-panel__col > * + * { border-top: var(--border-width) solid var(--border-subtle); }
+
+/* ── Stat Row · layout = pair; kind = head ────────────────────────────
+   pair = label + two values (win | loss, best | worst) in fixed columns, no bars.
+   head = column captions above pair rows. */
+.stat-row[data-layout="pair"] .stat-row__label, .stat-row[data-kind="head"] .stat-row__label { flex: 1; }
+.stat-row[data-layout="pair"] .stat-row__value, .stat-row[data-kind="head"] .stat-row__value { flex: none; width: var(--size-num); text-align: right; }
+.stat-row__value[data-tone="positive"] { color: var(--feedback-positive-text); }
+.stat-row__value[data-tone="negative"] { color: var(--feedback-negative-text); }
+.stat-row[data-kind="head"] { border-top: 0; padding-bottom: 0; }
+.stat-row[data-kind="head"] .stat-row__label, .stat-row[data-kind="head"] .stat-row__value { font: var(--type-caption); color: var(--text-muted); }
+
+/* ── Stat Group · summary = true | false ── one key number at the right of the head */
+.stat-group__top { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--space-gap); }
+.stat-group__summary { flex: none; display: flex; flex-direction: column; align-items: flex-end; gap: var(--space-tight); }
+.stat-group__summary-value { font: var(--type-numeric); font-variant-numeric: tabular-nums; }
+.stat-group__summary-value[data-tone="positive"] { color: var(--feedback-positive-text); }
+.stat-group__summary-label { font: var(--type-caption); color: var(--text-muted); }
+
+/* ── Disclosure ─ Figma: «Disclosure» · state = closed | open · frame = card | plain ──
+   Native <details>: closed = only the trigger row; open = trigger + body in the flow. */
+.disclosure { display: flex; flex-direction: column; background: var(--surface-raised); border: var(--border-width) solid var(--border-raised); border-radius: var(--radius-raised); box-shadow: var(--elevation-raised); }
+.disclosure[data-frame="plain"] { border: 0; border-radius: 0; border-top: var(--border-width) solid var(--border-subtle); }
+.disclosure__trigger { display: flex; align-items: center; gap: var(--space-stack); padding: var(--space-card); cursor: pointer; list-style: none; font: var(--type-body-medium); }
+.disclosure__trigger::-webkit-details-marker { display: none; }
+.disclosure[data-frame="plain"] .disclosure__trigger { padding: var(--space-inline) 0; font: var(--type-caption); color: var(--text-secondary); }
+.disclosure__note { flex: 1; font: var(--type-caption); color: var(--text-muted); }
+.disclosure__chevron { flex: none; display: inline-flex; color: var(--text-muted); }
+.disclosure[open] .disclosure__chevron { rotate: 180deg; }
+.disclosure__body { display: flex; flex-direction: column; gap: var(--space-gap); padding: 0 var(--space-card) var(--space-card); }
+.disclosure[data-frame="plain"] .disclosure__body { gap: 0; padding: 0; }
+
+/* ── Summary content ─ Figma: frame «Summary» · the two Stat Blocks, stacked ── */
+.summary-content { display: flex; flex-direction: column; gap: var(--space-blocks); } /* G-127 */
+
+/* ── Breakdown Row · head cell: sort = none | asc | desc ──────────────── */
+.breakdown-row[data-kind="head"] [data-sort] { cursor: pointer; }
+/* Sort icon (G-78): a Lucide icon in a slot that is ALWAYS there, so hover or sorting never changes the width or wraps
+   the label. none → arrow-up-down, shown only on hover; desc → arrow-down; asc → arrow-up. Figma: an icon instance in the
+   head cell, swapped by the variant sort = none | asc | desc. */
+.breakdown-row[data-kind="head"] [data-sort] { display: inline-flex; flex-direction: row; align-items: center; gap: var(--space-tight); white-space: nowrap; }
+.breakdown-row__sort { flex: none; display: inline-flex; width: 1em; height: 1em; opacity: 0; color: var(--text-muted); transition: opacity var(--duration-fast) var(--ease-standard); }
+.breakdown-row__sort svg { width: 100%; height: 100%; }
+.breakdown-row[data-kind="head"] [data-sort="none"]:hover .breakdown-row__sort, .breakdown-row[data-kind="head"] [data-sort="none"]:focus-visible .breakdown-row__sort { opacity: 1; }
+.breakdown-row[data-kind="head"] [data-sort="desc"] .breakdown-row__sort, .breakdown-row[data-kind="head"] [data-sort="asc"] .breakdown-row__sort { opacity: 1; color: var(--text-primary); }
+.breakdown-row__rate .breakdown-row__num { width: var(--size-num-sm); }
+
+/* ── Motion & states (G-75) ──────────────────────────────────────────────
+   Rule: a hover state only on what can be clicked (otherwise a card looks clickable). One exception — a Breakdown Row
+   is highlighted to guide the eye along a wide row; it keeps the default cursor. Every duration / easing is a token;
+   «reduce motion» turns them to 0. Figma: hover / pressed = variants, transitions = Smart Animate with these values. */
+@keyframes reveal { from { opacity: 0; translate: 0 var(--motion-offset); } }
+@keyframes bar-grow { from { scale: 0 1; } }
+@keyframes bar-wipe { from { clip-path: inset(0 100% 0 0); } }
+
+/* Segmented Control: hover tint, press, active stays calm */
+.segmented__item { cursor: pointer; transition: background-color var(--duration-fast) var(--ease-standard), color var(--duration-fast) var(--ease-standard), border-color var(--duration-fast) var(--ease-standard); }
+.segmented__item[data-state="default"]:hover { background: var(--surface-hover); color: var(--text-primary); }
+.segmented__item:active { background: var(--surface-pressed); }
+/* tab panel: the new table fades in from just below, bars grow again */
+.stat-block [data-panel]:not([hidden]) { animation: reveal var(--duration-base) var(--ease-out); }
+
+/* Sort: head cells darken on hover; an unsorted column shows a quiet ↕ hint */
+.breakdown-row[data-kind="head"] [data-sort] { transition: color var(--duration-fast) var(--ease-standard); }
+.breakdown-row[data-kind="head"] [data-sort]:hover { color: var(--text-primary); }
+/* Breakdown Row: reading aid, not a button */
+.breakdown-row:not([data-kind]) { transition: background-color var(--duration-fast) var(--ease-standard); }
+.breakdown-row:not([data-kind]):hover { background: var(--surface-hover); }
+
+/* Disclosure: trigger text and chevron darken; chevron turns; the body fades in */
+.disclosure__trigger .disclosure__note, .disclosure__chevron { transition: color var(--duration-fast) var(--ease-standard); }
+.disclosure__trigger:hover, .disclosure__trigger:hover .disclosure__chevron { color: var(--text-primary); }
+.disclosure__chevron { transition: rotate var(--duration-expand) var(--ease-in-out), color var(--duration-fast) var(--ease-standard); }
+/* height: animated by app.js with the same token pair as the Trading panel (G-77) — one movement, height and opacity together */
+.disclosure[data-anim] { overflow: clip; }
+
+/* Info Tip: fades in rising from the «i»; leaves the same way (popover only — on the DS page it is shown in the flow) */
+.info-tip__trigger { transition: color var(--duration-fast) var(--ease-standard); }
+.info-tip[popover] { opacity: 0; translate: 0 var(--motion-offset); transition: opacity var(--duration-fast) var(--ease-standard), translate var(--duration-fast) var(--ease-standard), display var(--duration-fast) allow-discrete, overlay var(--duration-fast) allow-discrete; }
+.info-tip[popover]:popover-open { opacity: 1; translate: 0 0; }
+@starting-style { .info-tip[popover]:popover-open { opacity: 0; translate: 0 var(--motion-offset); } }
+
+/* Bars grow from their start (zero line / baseline) on first view and when a tab opens */
+.diverge-bar__fill, .rate-bar__fill, .mini-bar__fill, .pair-bar__fill { animation: bar-grow var(--duration-slow) var(--ease-out) both; transform-origin: left center; }
+.diverge-bar__half[data-side="negative"] .diverge-bar__fill { transform-origin: right center; }
+.split-bar__track { animation: bar-wipe var(--duration-slow) var(--ease-out) both; }
+
+/* headings: a numeric column's head sits over its numbers (right edge) */
+.breakdown-row[data-kind="head"] .breakdown-row__pl { align-items: flex-end; }
